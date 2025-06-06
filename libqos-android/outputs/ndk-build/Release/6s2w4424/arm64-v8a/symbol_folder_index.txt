@@ -1,0 +1,1 @@
+/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj/local/arm64-v8a

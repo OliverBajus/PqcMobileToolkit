@@ -1,0 +1,1 @@
+/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk
