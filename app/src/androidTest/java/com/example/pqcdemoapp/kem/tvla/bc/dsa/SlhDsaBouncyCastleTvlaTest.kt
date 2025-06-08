@@ -2,6 +2,7 @@ package com.example.pqcdemoapp.kem.tvla.bc.dsa
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.pqcdemoapp.saveTimingsToCsv
+import com.google.common.truth.Truth.assertThat
 import org.bouncycastle.crypto.params.ParametersWithRandom
 import org.bouncycastle.pqc.crypto.slhdsa.SLHDSAKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.slhdsa.SLHDSAKeyPairGenerator
@@ -34,8 +35,11 @@ class SlhDsaBouncyCastleTvlaTest {
 
         signer.init(true, ParametersWithRandom(keyPair.private, random))
         val signature = signer.generateSignature(message)
-        val a = signer.verifySignature(message, signature)
-        println(a)
+
+        signer.init(false, keyPair.public)
+        val shouldVerify = signer.verifySignature(message, signature)
+        assertThat(shouldVerify).isTrue()
+        println(shouldVerify)
     }
 
     @Test

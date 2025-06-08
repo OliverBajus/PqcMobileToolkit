@@ -1,6 +1,8 @@
 package com.example.pqcdemoapp.kem.tvla.bc.kem
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.pqcdemoapp.saveTimingsToCsv
+import com.google.common.truth.Truth.assertThat
 import org.bouncycastle.pqc.crypto.hqc.HQCKEMExtractor
 import org.bouncycastle.pqc.crypto.hqc.HQCKEMGenerator
 import org.bouncycastle.pqc.crypto.hqc.HQCKeyGenerationParameters
@@ -35,12 +37,11 @@ class HqcBouncyCastleTvlaTest {
         val kemExtractor = HQCKEMExtractor(keyPair.private as HQCPrivateKeyParameters)
         val decapsulatedKey = kemExtractor.extractSecret(fixedEncaps.encapsulation)
 
-        println(fixedEncaps.secret)
-        println(decapsulatedKey)
+        assertThat(fixedEncaps.secret).isEqualTo(decapsulatedKey)
     }
 
     @Test
-    fun test_ML_KEM_3_message_TVLA() {
+    fun test_HQC_3_message_TVLA() {
         val keyPair = keyGenerator.generateKeyPair()
         val generator = HQCKEMGenerator(random)
 
@@ -65,5 +66,7 @@ class HqcBouncyCastleTvlaTest {
                 randomTimings.add(time)
             }
         }
+        saveTimingsToCsv(randomTimings, randomTimings, hqcParameters.name, "BC_KEM_TVLA_ciphertext")
+        saveTimingsToCsv(fixedTimings, randomTimings, hqcParameters.name, "BC_KEM_TVLA_ciphertext")
     }
 }

@@ -5,19 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_FALCON_5()">
+      <SelectionState runConfigName="validate()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="verify()">
+      <SelectionState runConfigName="test_ML_KEM_3_message_TVLA()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_FALCON_5() (1)">
+      <SelectionState runConfigName="validate() (1)">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_SPHINCS_SMALL_SHAKE_3()">
+      <SelectionState runConfigName="test_HQC_3_message_TVLA()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="LibOqsTvlaDsaTest">
+      <SelectionState runConfigName="test_ML_KEM_3()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

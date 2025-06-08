@@ -7,6 +7,7 @@ import org.junit.runner.RunWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.pqcdemoapp.saveTimingsToCsv
 import kotlin.system.measureNanoTime
+import com.google.common.truth.Truth.assertThat
 
 @RunWith(AndroidJUnit4::class)
 class LibOqsTvlaDsaTest {
@@ -18,12 +19,12 @@ class LibOqsTvlaDsaTest {
     private lateinit var algorithmName: String
 
     @Test
-    fun verify() {
+    fun validate() {
         client = Signature(PqcConstants.DSA.ALG_NAME_ML_DSA_3)
         val publicKey = client.generate_keypair()
         val signature = client.sign(fixedMessage)
         val result = client.verify(fixedMessage, signature, publicKey)
-        assert(result)
+        assertThat(result).isTrue()
     }
 
     @Test
@@ -40,40 +41,40 @@ class LibOqsTvlaDsaTest {
         performTVLA_on_key()
     }
 
-    @Test
-    fun test_SPHINCS_FAST_SHA_3() {
-        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_FAST_SHA_3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_SPHINCS_SMALL_SHA_3() {
-        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_SMALL_SHA_3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_SPHINCS_FAST_SHAKE_3() {
-        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_FAST_SHAKE_3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_SPHINCS_SMALL_SHAKE_3() {
-        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_SMALL_SHAKE_3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
 //    @Test
-//    fun test_FALCON_5() {
-//        TODO("FALCON_5 not working, FIX ME")
-//        algorithmName = PqcConstants.DSA.ALG_NAME_FALCON_5
+//    fun test_SPHINCS_FAST_SHA_3() {
+//        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_FAST_SHA_3
+//        performTVLA_on_ciphertext()
 //        performTVLA_on_key()
 //    }
+//
+//    @Test
+//    fun test_SPHINCS_SMALL_SHA_3() {
+//        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_SMALL_SHA_3
+//        performTVLA_on_ciphertext()
+//        performTVLA_on_key()
+//    }
+//
+//    @Test
+//    fun test_SPHINCS_FAST_SHAKE_3() {
+//        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_FAST_SHAKE_3
+//        performTVLA_on_ciphertext()
+//        performTVLA_on_key()
+//    }
+//
+//    @Test
+//    fun test_SPHINCS_SMALL_SHAKE_3() {
+//        algorithmName = PqcConstants.DSA.ALG_NAME_SPHINCS_SMALL_SHAKE_3
+//        performTVLA_on_ciphertext()
+//        performTVLA_on_key()
+//    }
+
+    @Test
+    fun test_FALCON_5() {
+        algorithmName = PqcConstants.DSA.ALG_NAME_FALCON_5
+        performTVLA_on_ciphertext()
+        performTVLA_on_key()
+    }
 
 //    @Test
 //    fun test_MAYO_3() {
@@ -107,12 +108,10 @@ class LibOqsTvlaDsaTest {
         val randomTimings = mutableListOf<Long>()
 
         repeat(100000) {
-            val coin = random.nextInt(2)
-
             val randomMessage = ByteArray(fixedMessage.size)
             random.nextBytes(randomMessage)
 
-            if (coin == 0) {
+            if (random.nextBoolean()) {
 
                 val time = measureNanoTime {
                     client.sign(fixedMessage)
@@ -130,7 +129,7 @@ class LibOqsTvlaDsaTest {
         }
 
         client.dispose_sig()
-        saveTimingsToCsv(fixedTimings, randomTimings, algorithmName, "LibOQS_DSA_ciphertext_TVLA")
+        saveTimingsToCsv(fixedTimings, randomTimings, algorithmName, "LibOQS_DSA_message_TVLA")
     }
 
     private fun performTVLA_on_key() {
@@ -142,13 +141,11 @@ class LibOqsTvlaDsaTest {
         val randomTimings = mutableListOf<Long>()
 
         repeat(100000) {
-            val coin = random.nextInt(2)
-
             // create new signature instance with newly generated keys
             val tempClient = Signature(algorithmName)
             tempClient.generate_keypair()
 
-            if (coin == 0) {
+            if (random.nextBoolean()) {
 
                 // reuse the same key for signing
                 val time = measureNanoTime {

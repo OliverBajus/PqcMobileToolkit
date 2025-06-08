@@ -1,6 +1,8 @@
 package com.example.pqcdemoapp.kem.tvla.bc.kem
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.pqcdemoapp.saveTimingsToCsv
+import com.google.common.truth.Truth.assertThat
 import org.bouncycastle.pqc.crypto.mlkem.MLKEMExtractor
 import org.bouncycastle.pqc.crypto.mlkem.MLKEMGenerator
 import org.bouncycastle.pqc.crypto.mlkem.MLKEMKeyGenerationParameters
@@ -35,8 +37,7 @@ class MlKemBouncyCastleTvlaTest {
         val kemExtractor = MLKEMExtractor(keyPair.private as MLKEMPrivateKeyParameters)
         val decapsulatedKey = kemExtractor.extractSecret(fixedEncaps.encapsulation)
 
-        println(fixedEncaps.secret)
-        println(decapsulatedKey)
+        assertThat(fixedEncaps.secret).isEqualTo(decapsulatedKey)
     }
 
     @Test
@@ -65,6 +66,9 @@ class MlKemBouncyCastleTvlaTest {
                 randomTimings.add(time)
             }
         }
+
+        saveTimingsToCsv(randomTimings, randomTimings, mlKemParameters.name, "BC_KEM_TVLA_ciphertext")
+        saveTimingsToCsv(fixedTimings, randomTimings, mlKemParameters.name, "BC_KEM_TVLA_ciphertext")
     }
 
 

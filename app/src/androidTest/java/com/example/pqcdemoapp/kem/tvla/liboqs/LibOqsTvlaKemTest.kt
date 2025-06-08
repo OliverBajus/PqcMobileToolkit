@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.libqos_android.KeyEncapsulation
 import com.example.pqcdemoapp.PqcConstants
 import com.example.pqcdemoapp.saveTimingsToCsv
+import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,6 +21,33 @@ class LibOqsTvlaKemTest {
     // NOTE: NOT POSSIBLE to do TVLA on key!
     //  - Can't import or set the private key.
     //  - Every generate_keypair() overwrites the internal key.
+
+    @Test
+    fun validate() {
+        client = KeyEncapsulation(PqcConstants.KEM.ALG_NAME_ML_KEM_3)
+        server = KeyEncapsulation(PqcConstants.KEM.ALG_NAME_ML_KEM_3)
+
+        val clientPublicKey: ByteArray = client.generate_keypair()
+
+        val enc = server.encap_secret(clientPublicKey)
+        val fixedCiphertext: ByteArray = enc.left
+        val serverSharedSecret: ByteArray = enc.right
+
+        val clientSharedSecret = client.decap_secret(fixedCiphertext)
+
+        assertThat(serverSharedSecret).isEqualTo(clientSharedSecret)
+
+        // test reused client public key
+        val serverForReusedClientKey = KeyEncapsulation(PqcConstants.KEM.ALG_NAME_ML_KEM_3)
+
+        val secondKeyEnc = serverForReusedClientKey.encap_secret(clientPublicKey)
+        val secondCiphertext = secondKeyEnc.left
+        val secondSharedSecret = secondKeyEnc.right
+
+        val secondClientSharedSecret = client.decap_secret(secondCiphertext)
+
+        assertThat(secondSharedSecret).isEqualTo(secondClientSharedSecret)
+    }
 
     @Test
     fun test_ML_KEM_3() {
@@ -57,13 +85,11 @@ class LibOqsTvlaKemTest {
         val randomTimings = mutableListOf<Long>()
 
         repeat(100000) {
-            val coin = random.nextInt(2)
-
             // create new instance with newly generated keys
             val serverForRandomCiphertext = KeyEncapsulation(algName)
             val randomCiphertext = serverForRandomCiphertext.encap_secret(clientPublicKey).left
 
-            if (coin == 0) {
+            if (random.nextBoolean()) {
 
                 // reuse the same key for signing
                 val time = measureNanoTime {
@@ -81,9 +107,6 @@ class LibOqsTvlaKemTest {
             }
             serverForRandomCiphertext.dispose_KEM()
         }
-        client.dispose_KEM()
-        // NOTE: result of decaps and encaps.right are shared secretes that should be equal
-
         saveTimingsToCsv(fixedTimings, randomTimings, algName, "LibOQS_KEM_ciphertext_TVLA")
     }
 

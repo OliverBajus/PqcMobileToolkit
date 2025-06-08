@@ -21,11 +21,7 @@ internal fun saveTimingsToCsv(
 }
 
 private fun writeListToCsv(data: List<Long>, file: File) {
-    if (file.exists()) {
-        file.delete()
-    }
-
-    FileWriter(file).use { writer ->
+    FileWriter(file, false).use { writer ->
         data.forEach { time ->
             writer.appendLine(time.toString())
         }
