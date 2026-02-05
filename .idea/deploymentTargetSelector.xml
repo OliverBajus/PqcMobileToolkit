@@ -5,19 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="validate()">
+      <SelectionState runConfigName="testNativeTiming_SanityCheck()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_ML_KEM_3_message_TVLA()">
+      <SelectionState runConfigName="compare_Native_vs_JavaWrapper_Overhead()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="validate() (1)">
+      <SelectionState runConfigName="generate_Chart_Data()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_HQC_3_message_TVLA()">
+      <SelectionState runConfigName="generate_Full_Architecture_Profile()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_ML_KEM_3()">
+      <SelectionState runConfigName="generate_KEM_Architecture_Profile()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

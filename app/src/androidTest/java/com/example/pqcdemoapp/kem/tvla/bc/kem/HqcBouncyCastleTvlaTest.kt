@@ -9,6 +9,8 @@ import org.bouncycastle.pqc.crypto.hqc.HQCKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.hqc.HQCKeyPairGenerator
 import org.bouncycastle.pqc.crypto.hqc.HQCParameters
 import org.bouncycastle.pqc.crypto.hqc.HQCPrivateKeyParameters
+import org.bouncycastle.pqc.legacy.crypto.mceliece.McElieceKeyGenerationParameters
+import org.bouncycastle.pqc.legacy.crypto.mceliece.McElieceParameters
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,6 +28,7 @@ class HqcBouncyCastleTvlaTest {
     @Before
     fun setUp() {
         keyGenerator.init(HQCKeyGenerationParameters(random, hqcParameters))
+        
     }
 
     @Test
@@ -38,6 +41,7 @@ class HqcBouncyCastleTvlaTest {
         val decapsulatedKey = kemExtractor.extractSecret(fixedEncaps.encapsulation)
 
         assertThat(fixedEncaps.secret).isEqualTo(decapsulatedKey)
+        assertThat(generator.generateEncapsulated(keyPair.public).encapsulation).isNotEqualTo(decapsulatedKey)
     }
 
     @Test
@@ -66,7 +70,6 @@ class HqcBouncyCastleTvlaTest {
                 randomTimings.add(time)
             }
         }
-        saveTimingsToCsv(randomTimings, randomTimings, hqcParameters.name, "BC_KEM_TVLA_ciphertext")
-        saveTimingsToCsv(fixedTimings, randomTimings, hqcParameters.name, "BC_KEM_TVLA_ciphertext")
+        saveTimingsToCsv(randomTimings, randomTimings, hqcParameters.name, "BC_KEM_ciphertext_TVLA")
     }
 }

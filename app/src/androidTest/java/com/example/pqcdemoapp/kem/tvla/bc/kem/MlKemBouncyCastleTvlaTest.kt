@@ -67,8 +67,7 @@ class MlKemBouncyCastleTvlaTest {
             }
         }
 
-        saveTimingsToCsv(randomTimings, randomTimings, mlKemParameters.name, "BC_KEM_TVLA_ciphertext")
-        saveTimingsToCsv(fixedTimings, randomTimings, mlKemParameters.name, "BC_KEM_TVLA_ciphertext")
+        saveTimingsToCsv(randomTimings, randomTimings, mlKemParameters.name, "BC_KEM_ciphertext_TVLA")
     }
 
 

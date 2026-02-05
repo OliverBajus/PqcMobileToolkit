@@ -5,6 +5,7 @@ object PqcConstants {
         const val ALG_NAME_ML_KEM_3 = "ML-KEM-768"
         const val ALG_NAME_ML_KEM_5 = "ML-KEM-1024"
 
+        const val ALG_NAME_HQC_1 = "HQC-128"
         const val ALG_NAME_HQC_3 = "HQC-192"
         const val ALG_NAME_HQC_5 = "HQC-256"
 
@@ -16,6 +17,8 @@ object PqcConstants {
 
         const val ALG_NAME_FRODO_SHAKE_3 = "FrodoKEM-976-SHAKE"
         const val ALG_NAME_FRODO_SHAKE_5 = "FrodoKEM-1344-SHAKE"
+
+        const val ALG_NAME_MC_ELIECE_3 = "Classic-McEliece-460896"
     }
 
     object DSA {

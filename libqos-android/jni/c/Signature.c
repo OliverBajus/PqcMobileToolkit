@@ -1,4 +1,5 @@
 #include <oqs/oqs.h>
+#include <time.h>
 #include "Signature.h"
 #include "handle.h"
 
@@ -251,4 +252,128 @@ JNIEXPORT jboolean JNICALL Java_com_example_libqos_1android_Signature_verify_1wi
     return (rv_ == OQS_SUCCESS) ? JNI_TRUE : JNI_FALSE;
 }
 
+
+// ------------------------------------------------------------
+// TIMING HARNESS IMPLEMENTATION
+// ------------------------------------------------------------
+
+long get_nanos_diff(struct timespec start, struct timespec end) {
+    return (long)((end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec));
+}
+
+/*
+ * Class:     com_example_libqos_1android_Signature
+ * Method:    sign_with_timing_native  <-- NOTE THE NAME CHANGE
+ * Signature: ([B[B)J
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_Signature_sign_1with_1timing_1native
+        (JNIEnv *env, jobject obj, jbyteArray jmessage, jbyteArray jsecret_key)
+{
+    // ... (The rest of the body is EXACTLY the same as before) ...
+
+    // 1. Get Handle
+    OQS_SIG *sig = (OQS_SIG *) getHandle(env, obj, "native_sig_handle_");
+
+    // 2. Prepare Data
+    jbyte *message_native = (*env)->GetByteArrayElements(env, jmessage, 0);
+    jbyte *secret_key_native = (*env)->GetByteArrayElements(env, jsecret_key, 0);
+    jsize message_len = (*env)->GetArrayLength(env, jmessage);
+
+    uint8_t *signature_buffer = malloc(sig->length_signature);
+    size_t signature_len_out;
+
+    // 3. TIMER START
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    // 4. Crypto
+    OQS_SIG_sign(sig, signature_buffer, &signature_len_out,
+                 (uint8_t*)message_native, message_len,
+                 (uint8_t*)secret_key_native);
+
+    // 5. TIMER STOP
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 6. Cleanup
+    (*env)->ReleaseByteArrayElements(env, jmessage, message_native, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, jsecret_key, secret_key_native, JNI_ABORT);
+    free(signature_buffer);
+
+    return (jlong) get_nanos_diff(start, end);
+}
+
+/*
+ * Class:     com_example_libqos_1android_Signature
+ * Method:    keypair_with_timing_native
+ * Signature: ()J
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_Signature_keypair_1with_1timing_1native
+        (JNIEnv *env, jobject obj)
+{
+    OQS_SIG *sig = (OQS_SIG *) getHandle(env, obj, "native_sig_handle_");
+
+    // 1. Allocate Temporary Memory (We discard keys after measuring)
+    uint8_t *public_key = malloc(sig->length_public_key);
+    uint8_t *secret_key = malloc(sig->length_secret_key);
+
+    // Safety check
+    if (public_key == NULL || secret_key == NULL) {
+        if (public_key) free(public_key);
+        if (secret_key) free(secret_key);
+        return -1;
+    }
+
+    // 2. TIMING
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    OQS_SIG_keypair(sig, public_key, secret_key);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 3. Cleanup
+    free(public_key);
+    free(secret_key);
+
+    return (jlong) get_nanos_diff(start, end);
+}
+
+/*
+ * Class:     com_example_libqos_1android_Signature
+ * Method:    verify_with_timing_native
+ * Signature: ([B[B[B)J
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_Signature_verify_1with_1timing_1native
+        (JNIEnv *env, jobject obj, jbyteArray jmessage, jbyteArray jsignature, jbyteArray jpublic_key)
+{
+    OQS_SIG *sig = (OQS_SIG *) getHandle(env, obj, "native_sig_handle_");
+
+    // 1. Prepare Pointers
+    // (Doing this OUTSIDE the timer to exclude JNI overhead)
+    jbyte *message_native = (*env)->GetByteArrayElements(env, jmessage, 0);
+    jbyte *signature_native = (*env)->GetByteArrayElements(env, jsignature, 0);
+    jbyte *public_key_native = (*env)->GetByteArrayElements(env, jpublic_key, 0);
+
+    jsize message_len = (*env)->GetArrayLength(env, jmessage);
+    jsize signature_len = (*env)->GetArrayLength(env, jsignature);
+
+    // 2. TIMING
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    // We don't check the return value (success/fail) because we only care about SPEED.
+    OQS_SIG_verify(sig,
+                   (uint8_t*)message_native, message_len,
+                   (uint8_t*)signature_native, signature_len,
+                   (uint8_t*)public_key_native);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 3. Cleanup
+    (*env)->ReleaseByteArrayElements(env, jmessage, message_native, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, jsignature, signature_native, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, jpublic_key, public_key_native, JNI_ABORT);
+
+    return (jlong) get_nanos_diff(start, end);
+}
 

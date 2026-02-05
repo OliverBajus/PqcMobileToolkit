@@ -240,4 +240,50 @@ public class KeyEncapsulation {
         alg_details_.printKeyEncapsulation();
     }
 
+    // -------------------------------------------------------------------------
+    // PERFORMANCE TIMING HARNESSES (KeyGen, Encaps, Decaps)
+    // -------------------------------------------------------------------------
+
+    // --- 1. KEY GENERATION TIMING ---
+    private native long keypair_with_timing_native();
+
+    public long generate_keypair_with_timing() throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_KEM_details();
+        }
+        // Native C will allocate temp memory, measure math, and free it.
+        return keypair_with_timing_native();
+    }
+
+    // --- 2. ENCAPSULATION TIMING ---
+    // Requires a valid Public Key to run
+    private native long encaps_with_timing_native(byte[] public_key);
+
+    public long encap_secret_with_timing(byte[] public_key) throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_KEM_details();
+        }
+        if (public_key == null || public_key.length != alg_details_.length_public_key) {
+            throw new RuntimeException("Invalid public key for timing test");
+        }
+        return encaps_with_timing_native(public_key);
+    }
+
+    // --- 3. DECAPSULATION TIMING ---
+    // Requires a valid Ciphertext and Secret Key to run
+    private native long decaps_with_timing_native(byte[] ciphertext, byte[] secret_key);
+
+    public long decap_secret_with_timing(byte[] ciphertext, byte[] secret_key) throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_KEM_details();
+        }
+        // Basic length checks to prevent native crashes
+        if (ciphertext == null || ciphertext.length != alg_details_.length_ciphertext) {
+            throw new RuntimeException("Invalid ciphertext length");
+        }
+        if (secret_key == null || secret_key.length != alg_details_.length_secret_key) {
+            throw new RuntimeException("Invalid secret key length");
+        }
+        return decaps_with_timing_native(ciphertext, secret_key);
+    }
 }

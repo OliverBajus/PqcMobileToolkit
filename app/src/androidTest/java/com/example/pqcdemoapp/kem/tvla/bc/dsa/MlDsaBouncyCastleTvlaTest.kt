@@ -77,7 +77,7 @@ class MlDsaBouncyCastleTvlaTest {
             }
         }
 
-        saveTimingsToCsv(fixedTimings, randomTimings, mlDsaParameters.name, "BC_DSA_TVLA_message")
+        saveTimingsToCsv(fixedTimings, randomTimings, mlDsaParameters.name, "BC_DSA_message_TVLA")
     }
 
     @Test
@@ -114,7 +114,7 @@ class MlDsaBouncyCastleTvlaTest {
             }
         }
 
-        saveTimingsToCsv(fixedTimings, randomTimings, mlDsaParameters.name, "BC_DSA_TVLA_key")
+        saveTimingsToCsv(fixedTimings, randomTimings, mlDsaParameters.name, "BC_DSA_key_TVLA")
     }
 
     private fun warmUp(signer: MLDSASigner) {

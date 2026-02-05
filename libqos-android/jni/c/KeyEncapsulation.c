@@ -1,4 +1,5 @@
 #include <oqs/oqs.h>
+#include <time.h>
 #include "KeyEncapsulation.h"
 #include "handle.h"
 
@@ -154,4 +155,111 @@ JNIEXPORT jint JNICALL Java_com_example_libqos_1android_KeyEncapsulation_decap_1
     (*env)->ReleaseByteArrayElements(env, jciphertext, ciphertext_native, JNI_ABORT);
     (*env)->ReleaseByteArrayElements(env, jsecret_key, secret_key_native, JNI_ABORT);
     return (rv_ == OQS_SUCCESS) ? 0 : -1;
+}
+
+// =========================================================================
+// PERFORMANCE TIMING HARNESSES
+// =========================================================================
+
+long calculate_nanos_diff(struct timespec start, struct timespec end) {
+    return (long)((end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec));
+}
+
+
+/*
+ * Method:    keypair_with_timing_native
+ * Measure OQS_KEM_keypair in isolation
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_KeyEncapsulation_keypair_1with_1timing_1native
+        (JNIEnv *env, jobject obj)
+{
+    OQS_KEM *kem = (OQS_KEM *) getHandle(env, obj, "native_kem_handle_");
+
+    // 1. Allocate Temp Memory (Discarded after test)
+    uint8_t *public_key = malloc(kem->length_public_key);
+    uint8_t *secret_key = malloc(kem->length_secret_key);
+
+    if (!public_key || !secret_key) {
+        if (public_key) free(public_key);
+        if (secret_key) free(secret_key);
+        return -1;
+    }
+
+    // 2. TIMING
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    OQS_KEM_keypair(kem, public_key, secret_key);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 3. Cleanup
+    free(public_key);
+    free(secret_key);
+
+    return (jlong) calculate_nanos_diff(start, end);
+}
+
+/*
+ * Method:    encaps_with_timing_native
+ * Measure OQS_KEM_encaps in isolation
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_KeyEncapsulation_encaps_1with_1timing_1native
+        (JNIEnv *env, jobject obj, jbyteArray jpublic_key)
+{
+    OQS_KEM *kem = (OQS_KEM *) getHandle(env, obj, "native_kem_handle_");
+
+    // 1. Prepare Inputs (Outside Timer)
+    jbyte *public_key_native = (*env)->GetByteArrayElements(env, jpublic_key, 0);
+
+    // 2. Allocate Outputs
+    uint8_t *ciphertext = malloc(kem->length_ciphertext);
+    uint8_t *shared_secret = malloc(kem->length_shared_secret);
+
+    // 3. TIMING
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    OQS_KEM_encaps(kem, ciphertext, shared_secret, (uint8_t*) public_key_native);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 4. Cleanup
+    free(ciphertext);
+    free(shared_secret);
+    (*env)->ReleaseByteArrayElements(env, jpublic_key, public_key_native, JNI_ABORT);
+
+    return (jlong) calculate_nanos_diff(start, end);
+}
+
+/*
+ * Method:    decaps_with_timing_native
+ * Measure OQS_KEM_decaps in isolation
+ */
+JNIEXPORT jlong JNICALL Java_com_example_libqos_1android_KeyEncapsulation_decaps_1with_1timing_1native
+        (JNIEnv *env, jobject obj, jbyteArray jciphertext, jbyteArray jsecret_key)
+{
+    OQS_KEM *kem = (OQS_KEM *) getHandle(env, obj, "native_kem_handle_");
+
+    // 1. Prepare Inputs
+    jbyte *ciphertext_native = (*env)->GetByteArrayElements(env, jciphertext, 0);
+    jbyte *secret_key_native = (*env)->GetByteArrayElements(env, jsecret_key, 0);
+
+    // 2. Allocate Output
+    uint8_t *shared_secret = malloc(kem->length_shared_secret);
+
+    // 3. TIMING
+    struct timespec start, end;
+    clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+
+    OQS_KEM_decaps(kem, shared_secret, (uint8_t*) ciphertext_native, (uint8_t*) secret_key_native);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+    // 4. Cleanup
+    free(shared_secret);
+    (*env)->ReleaseByteArrayElements(env, jciphertext, ciphertext_native, JNI_ABORT);
+    (*env)->ReleaseByteArrayElements(env, jsecret_key, secret_key_native, JNI_ABORT);
+
+    return (jlong) calculate_nanos_diff(start, end);
 }

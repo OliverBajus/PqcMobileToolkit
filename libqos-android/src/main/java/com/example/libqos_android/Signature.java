@@ -343,4 +343,57 @@ public class Signature {
         public T getValue() { return this.value; }
     }
 
+    /**
+     * \brief Private native declaration. Matches the C function exactly.
+     * C expects: (JNIEnv*, jobject, jbyteArray message, jbyteArray secretKey)
+     */
+    private native long sign_with_timing_native(byte[] message, byte[] secretKey);
+
+    /**
+     * \brief Public API for Timing Analysis.
+     * Automatically uses the internal 'this.secret_key_' to match standard behavior.
+     * * \param message The data to sign
+     * \return Execution time in nanoseconds (measured in C)
+     */
+    public long sign_with_timing(byte[] message) throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_sig_details();
+        }
+
+        // ensure secret key is valid
+        if (this.secret_key_ == null || this.secret_key_.length != alg_details_.length_secret_key) {
+            throw new RuntimeException("Incorrect secret key length, " +
+                    "make sure you specify one in the " +
+                    "constructor or run generate_keypair()");
+        }
+
+        return sign_with_timing_native(message, this.secret_key_);
+    }
+
+    private native long keypair_with_timing_native();
+
+    public long generate_keypair_with_timing() throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_sig_details();
+        }
+        // We don't need to pass any arrays. C will allocate temp memory, measure, and free it.
+        return keypair_with_timing_native();
+    }
+
+    // --- VERIFICATION ---
+    private native long verify_with_timing_native(byte[] message, byte[] signature, byte[] publicKey);
+
+    public long verify_with_timing(byte[] message, byte[] signature, byte[] publicKey) throws RuntimeException {
+        if (alg_details_ == null) {
+            alg_details_ = get_sig_details();
+        }
+        // Basic safety checks
+        if (publicKey == null || publicKey.length != alg_details_.length_public_key) {
+            throw new RuntimeException("Invalid public key length");
+        }
+        // Note: We don't check signature length strictly here to allow flexibility in testing,
+        // but normally you would.
+
+        return verify_with_timing_native(message, signature, publicKey);
+    }
 }
