@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.android.library) apply false
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
     alias(libs.plugins.android.test) apply false
+    alias(libs.plugins.benchmark) apply false
 }

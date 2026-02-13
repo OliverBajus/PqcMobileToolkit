@@ -170,6 +170,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -209,6 +210,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -227,6 +229,32 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-621906427">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-588918721">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="139" />
+                  <entry key="Tests" value="408" />
+                  <entry key="Xiaomi Mi 9T Pro" value="168" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-563706775">
           <value>
             <AndroidTestResultsTableState>
@@ -235,6 +263,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -248,6 +277,19 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-457349021">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -274,6 +316,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -410,6 +453,32 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="139898466">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="214403814">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="252946265">
           <value>
             <AndroidTestResultsTableState>
@@ -475,6 +544,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="759611300">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="802761419">
           <value>
             <AndroidTestResultsTableState>
@@ -496,6 +578,32 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="901305312">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="921498235">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -561,6 +669,19 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google Pixel 6a" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1522815976">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="Xiaomi Mi 9T Pro" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

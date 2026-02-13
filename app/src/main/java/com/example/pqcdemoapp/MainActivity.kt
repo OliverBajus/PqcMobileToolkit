@@ -1,88 +1,176 @@
+// MainActivity.kt
 package com.example.pqcdemoapp
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import com.example.pqcdemoapp.ui.theme.PqcDemoAppTheme
-import org.bouncycastle.pqc.crypto.mlkem.MLKEMParameters
+import kotlinx.coroutines.android.awaitFrame
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
-            PqcDemoAppTheme {
-                PqcScreen(MainViewModel(MLKEMService()))
-            }
+            val vm = remember { PqcViewModel() }
+            PqcScreen(vm)
         }
     }
 }
 
 @Composable
-fun PqcScreen(viewModel: MainViewModel) {
-    val logText by viewModel.logText.collectAsState()
-    val coroutineScope = rememberCoroutineScope()
+fun PqcScreen(vm: PqcViewModel) {
+    val logText by vm.logText.collectAsState()
+    val scroll = rememberScrollState()
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
+    // NEW: selected alg state
+    val selectedKem by vm.selectedKem.collectAsState()
+    val selectedSig by vm.selectedSig.collectAsState()
+
+    LaunchedEffect(Unit) { vm.onAppStart() }
+
+    LaunchedEffect(logText) {
+        awaitFrame()
+        scroll.animateScrollTo(scroll.maxValue)
+    }
+
+    Scaffold { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(padding)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            val context = LocalContext.current
-            Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                viewModel.runKEM(context, MainViewModel.SecurityLevel.LEVEL_3)
+
+            // Header + clear
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "PQC Thesis Test",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = vm::clearLogs) {
+                    Icon(Icons.Default.Delete, contentDescription = "Clear logs")
+                }
             }
-            }) {
-                Text("Run KEM Security level 3 tests")
+
+            // NEW: pickers
+            AlgoPicker(
+                label = "KEM algorithm",
+                selectedLabel = selectedKem.name,
+                options = vm.kemOptions,
+                optionLabel = { it.name },
+                onSelect = vm::selectKem,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            AlgoPicker(
+                label = "Signature algorithm",
+                selectedLabel = selectedSig.name,
+                options = vm.sigOptions,
+                optionLabel = { it.name },
+                onSelect = vm::selectSig,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Log window
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .padding(12.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scroll)
+                ) {
+                    Text(
+                        text = logText,
+                        fontFamily = FontFamily.Monospace,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
-            Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                viewModel.runKEM(context, MainViewModel.SecurityLevel.LEVEL_5)
+
+            // Buttons row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Button(
+                    onClick = vm::runFullKemFlow,
+                    modifier = Modifier.weight(1f)
+                ) { Text("Test KEM") }
+
+                Button(
+                    onClick = vm::runFullSigFlow,
+                    modifier = Modifier.weight(1f)
+                ) { Text("Test DSA") }
             }
-            }) {
-                Text("Run KEM Security level 5 tests")
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun <T> AlgoPicker(
+    label: String,
+    selectedLabel: String,
+    options: List<T>,
+    optionLabel: (T) -> String,
+    onSelect: (T) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = modifier
+    ) {
+        OutlinedTextField(
+            value = selectedLabel,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { opt ->
+                DropdownMenuItem(
+                    text = { Text(optionLabel(opt)) },
+                    onClick = {
+                        onSelect(opt)
+                        expanded = false
+                    }
+                )
             }
-            Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                viewModel.runDSA(context, MainViewModel.SecurityLevel.LEVEL_3)
-            }
-            }) {
-                Text("Run DSA  Security level 3 tests")
-            }
-            Button(onClick = { if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                viewModel.runDSA(context, MainViewModel.SecurityLevel.LEVEL_5)
-            }
-            }) {
-                Text("Run DSA Security level 5 tests")
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("Logs:", style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = logText, modifier = Modifier.fillMaxWidth())
         }
     }
 }

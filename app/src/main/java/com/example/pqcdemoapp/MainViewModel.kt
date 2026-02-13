@@ -1,231 +1,140 @@
+// PqcViewModel.kt
 package com.example.pqcdemoapp
 
-import android.R
-import android.content.ContentUris
-import android.content.ContentValues
-import android.content.Context
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.libqos_android.Common
-import com.example.libqos_android.KEMs
-import com.example.libqos_android.KeyEncapsulation
-import com.example.libqos_android.Pair
-import com.example.libqos_android.Signature
-import com.example.libqos_android.Sigs
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.libqos_android.Oqs
+import com.example.libqos_android.api.model.PqcAlgorithm
+import com.example.libqos_android.api.model.KemAlgorithm
+import com.example.libqos_android.api.model.SignatureAlgorithm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import kotlin.system.measureNanoTime
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
+class PqcViewModel : ViewModel() {
 
-@HiltViewModel
-class MainViewModel @Inject internal constructor(
-    private val mlkemService: MLKEMService,
-): ViewModel() {
-    private val _logText = MutableStateFlow("")
+    private val _logText = MutableStateFlow("Ready to validate PQC...\n")
     val logText = _logText.asStateFlow()
 
-    var kemEncapsulationTimes: ArrayList<Long> = arrayListOf()
-    var kemDecapsulationTimes: ArrayList<Long> = arrayListOf()
-    var kemKeyGenerationTimes: ArrayList<Long> = arrayListOf()
+    // NEW: options for pickers (swap to enabled-only lists if you want)
+    val kemOptions: List<KemAlgorithm> = PqcAlgorithm.Kem.all
 
-    var dsaVerificationTimes: ArrayList<Long> = arrayListOf()
-    var dsaSigningTimes: ArrayList<Long> = arrayListOf()
-    var dsaKeyGenerationTimes: ArrayList<Long> = arrayListOf()
+    val sigOptions: List<SignatureAlgorithm> = PqcAlgorithm.Sig.all
 
-//    private val kems3 = listOf("BIKE-L3", "HQC-192", "ML-KEM-768", "FrodoKEM-976-AES", "FrodoKEM-976-SHAKE")
-    private val kems3 = listOf("ML-KEM-768")
-    private val kems5 = listOf("BIKE-L5", "HQC-256", "ML-KEM-1024", "FrodoKEM-1344-AES", "FrodoKEM-1344-SHAKE")
+    private val _selectedKem = MutableStateFlow(kemOptions.first())
+    val selectedKem = _selectedKem.asStateFlow()
 
-    enum class SecurityLevel {
-        LEVEL_3,
-        LEVEL_5,
+    private val _selectedSig = MutableStateFlow(sigOptions.first())
+    val selectedSig = _selectedSig.asStateFlow()
+
+    fun selectKem(alg: KemAlgorithm) {
+        _selectedKem.value = alg
+        appendLog("Selected KEM: ${alg.name}")
     }
 
-    private val dsa3 = listOf("ML-DSA-65", "SPHINCS+-SHA2-192f-simple", "SPHINCS+-SHA2-192s-simple", "SPHINCS+-SHAKE-192f-simple", "SPHINCS+-SHAKE-192s-simple", "MAYO-3", "cross-rsdp-192-balanced", "cross-rsdp-192-fast", "cross-rsdp-192-small", "cross-rsdpg-192-balanced", "cross-rsdpg-192-fast", "cross-rsdpg-192-small")
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun runDSA(context: Context, securityLevel: SecurityLevel) {
-        val random = java.security.SecureRandom()
-        val randomMessage = ByteArray("sskfskdfjjhksdflkshkfskfjsdjkfsdhfsksfhj".toByteArray().size)
-        random.nextBytes(randomMessage)
-        println(randomMessage)
-        return
-        viewModelScope.launch(Dispatchers.IO) {
-            Common.loadNativeLibrary()
-            val dsa = when(securityLevel) {
-                SecurityLevel.LEVEL_3 -> dsa3
-                SecurityLevel.LEVEL_5 -> dsa3
-            }
-
-            dsa3.forEach {
-                appendLog("Testing $it...")
-                testDSA(it, context, securityLevel)
-                appendLog("Testing $it finished")
-                dsaVerificationTimes = arrayListOf()
-                dsaKeyGenerationTimes = arrayListOf()
-                dsaSigningTimes = arrayListOf()
-            }
-        }
+    fun selectSig(alg: SignatureAlgorithm) {
+        _selectedSig.value = alg
+        appendLog("Selected SIG: ${alg.name}")
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    fun runKEM(context: Context, securityLevel: SecurityLevel) {
-        viewModelScope.launch(Dispatchers.IO) {
-            Common.loadNativeLibrary()
-            val kems = when(securityLevel) {
-                SecurityLevel.LEVEL_3 -> kems3
-                SecurityLevel.LEVEL_5 -> kems5
-            }
-
-            kems.forEach {
-                appendLog("Testing $it...")
-                testKEM(it, context, securityLevel)
-                appendLog("Testing $it finished")
-                kemEncapsulationTimes = arrayListOf()
-                kemDecapsulationTimes = arrayListOf()
-                kemKeyGenerationTimes = arrayListOf()
-            }
-            appendLog("----Test finished-----")
-        }
+    fun clearLogs() {
+        _logText.value = "Logs cleared.\n"
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun testDSA(dsaName: String, context: Context, securityLevel: SecurityLevel) {
-        val message = "This is the message to sign".toByteArray()
-        repeat(1000) {
-            val signer = Signature(dsaName)
-
-            val keyGenerationNanoTime = measureNanoTime {
-                signer.generate_keypair()
-            }
-            val signer_public_key: ByteArray = signer.generate_keypair()
-
-            val signingNanoTime = measureNanoTime {
-                signer.sign(message)
-            }
-
-            val signature = signer.sign(message)
-            val verifier = Signature(dsaName)
-
-            val verificationNanoTime = measureNanoTime {
-                verifier.verify(message, signature, signer_public_key)
-            }
-
-            signer.dispose_sig()
-            verifier.dispose_sig()
-
-            dsaVerificationTimes.add(verificationNanoTime)
-            dsaSigningTimes.add(signingNanoTime)
-            dsaKeyGenerationTimes.add(keyGenerationNanoTime)
-        }
-
-        appendLog("Saving results")
-        appendCsvToDownloads(context, "DSA_${securityLevel.name}_performance_times.csv", dsaSigningTimes, dsaName, "signing")
-        appendCsvToDownloads(context, "DSA_${securityLevel.name}_performance_times.csv", dsaVerificationTimes, dsaName, "verification")
-        appendCsvToDownloads(context, "DSA_${securityLevel.name}_performance_times.csv", dsaKeyGenerationTimes, dsaName, "key_generation")
+    fun onAppStart() {
+        appendSeparator()
+        appendLog("App started.")
+        appendLog("Default KEM: ${_selectedKem.value.name}")
+        appendLog("Default SIG: ${_selectedSig.value.name}")
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun testKEM(kemName: String, context: Context, securityLevel: SecurityLevel) {
-        repeat(100000) {
+    fun runFullKemFlow() {
+        val kemAlg = _selectedKem.value
+        viewModelScope.launch(Dispatchers.Default) {
+            appendSeparator()
+            appendLog("🚀 Starting ${kemAlg.name}...")
 
-            val client = KeyEncapsulation(kemName)
+            try {
+                Oqs.createKemManager(kemAlg).use { client ->
+                    // 1) Keypair
+                    lateinit var keypair: com.example.libqos_android.api.kem.model.KemKeypair
+                    val keypairTimeNs = measureNanoTime { keypair = client.generateKeyPair() }
+                    appendLog("1️⃣ KeyPair: ${nsToMs(keypairTimeNs)} ms")
 
-            val keyGenerationNanoTime = measureNanoTime {
-                client.generate_keypair()
-            }
-            val client_public_key = client.generate_keypair()
-            val server = KeyEncapsulation(kemName)
-            val encapsulationNanoTime = measureNanoTime {
-                server.encap_secret(client_public_key)
-            }
+                    // 2) Encaps
+                    Oqs.createKemManager(kemAlg).use { server ->
+                        lateinit var encaps: com.example.libqos_android.api.kem.model.KemEncapsulationResult
+                        val encapsTimeNs = measureNanoTime { encaps = server.encapsulate(keypair.public) }
+                        appendLog("2️⃣ Encaps: ${nsToMs(encapsTimeNs)} ms")
 
-            val server_pair: Pair<ByteArray, ByteArray> = server.encap_secret(client_public_key)
-            val decapsulationNanoTime = measureNanoTime {
-                client.decap_secret(server_pair.left)
-            }
+                        // 3) Decaps
+                        lateinit var ss: com.example.libqos_android.api.kem.model.KemSharedSecret
+                        val decapsTimeNs = measureNanoTime { ss = client.decapsulate(encaps.kemCiphertext) }
+                        appendLog("3️⃣ Decaps: ${nsToMs(decapsTimeNs)} ms")
 
-            client.dispose_KEM()
-            server.dispose_KEM()
-
-            kemEncapsulationTimes.add(encapsulationNanoTime)
-            kemDecapsulationTimes.add(decapsulationNanoTime)
-            kemKeyGenerationTimes.add(keyGenerationNanoTime)
-        }
-
-        appendLog("Saving results")
-        appendCsvToDownloads(context, "KEM_${securityLevel.name}_performance_times.csv", kemEncapsulationTimes, kemName, "encapsulation")
-        appendCsvToDownloads(context, "KEM_${securityLevel.name}_performance_times.csv", kemDecapsulationTimes, kemName, "decapsulation")
-        appendCsvToDownloads(context, "KEM_${securityLevel.name}_performance_times.csv", kemKeyGenerationTimes, kemName, "key_generation")
-    }
-
-
-    private fun appendLog(message: String) {
-        Log.d("PQC", message)
-        _logText.update { it + "\n" + message }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.Q)
-fun appendCsvToDownloads(context: Context, fileName: String, data: List<Long>, algName: String, operation: String) {
-    val resolver = context.contentResolver
-    val queryUri = MediaStore.Downloads.EXTERNAL_CONTENT_URI
-
-    // Search for the existing file in Downloads
-    val cursor = resolver.query(
-        queryUri,
-        arrayOf(MediaStore.Downloads._ID),
-        "${MediaStore.Downloads.DISPLAY_NAME} = ?",
-        arrayOf(fileName),
-        null
-    )
-
-    var uri: Uri? = null
-
-    if (cursor?.moveToFirst() == true) {
-        // File exists, get its URI
-        val id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Downloads._ID))
-        uri = ContentUris.withAppendedId(MediaStore.Downloads.EXTERNAL_CONTENT_URI, id)
-    }
-    cursor?.close()
-
-
-    if (uri != null) {
-        // File exists, append data
-        resolver.openOutputStream(uri, "wa")?.use { outputStream ->
-            data.forEach { line ->
-                outputStream.write("$algName, $operation, $line\n".toByteArray())
-            }
-        }
-    } else {
-        val contentValues = ContentValues().apply {
-            put(MediaStore.Downloads.DISPLAY_NAME, fileName)
-            put(MediaStore.Downloads.MIME_TYPE, "text/csv")
-            put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-        }
-        uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-
-        uri?.let {
-            resolver.openOutputStream(it)?.use { outputStream ->
-                outputStream.write("alg_name, operation, time_nano_sec\n".toByteArray())
-
-                data.forEach { line ->
-                    outputStream.write("$algName, $operation, $line\n".toByteArray())
+                        // 4) Validate
+                        val ok = ss.bytes.contentEquals(encaps.kemSharedSecret.bytes)
+                        if (ok) appendLog("✅ SHARED SECRETS MATCH!")
+                        else appendLog("❌ MISMATCH! Encryption failed.")
+                    }
                 }
+            } catch (t: Throwable) {
+                appendLog("❌ KEM flow failed: ${t.message ?: t::class.java.simpleName}")
             }
         }
     }
 
+    fun runFullSigFlow() {
+        val sigAlg = _selectedSig.value
+        viewModelScope.launch(Dispatchers.Default) {
+            appendSeparator()
+            appendLog("✍️ Starting ${sigAlg.name}...")
+
+            val message = "Thesis Proof".encodeToByteArray()
+
+            try {
+                Oqs.createSignatureManager(sigAlg).use { signer ->
+                    // 1) Keypair
+                    lateinit var keypair: com.example.libqos_android.api.sig.model.SigKeypair
+                    val keygenNs = measureNanoTime { keypair = signer.generateKeyPair() }
+                    appendLog("1️⃣ KeyPair: ${nsToMs(keygenNs)} ms")
+
+                    // 2) Sign
+                    lateinit var signature: ByteArray
+                    val signNs = measureNanoTime { signature = signer.sign(message) }
+                    appendLog("2️⃣ Sign: ${nsToMs(signNs)} ms")
+
+                    // 3) Verify (separate instance)
+                    Oqs.createSignatureManager(sigAlg).use { verifier ->
+                        var isValid = false
+                        val verifyNs = measureNanoTime { isValid = verifier.verify(message, signature, keypair.public) }
+                        appendLog("3️⃣ Verify: ${nsToMs(verifyNs)} ms")
+
+                        if (isValid) appendLog("✅ SIGNATURE VALID!")
+                        else appendLog("❌ INVALID SIGNATURE.")
+                    }
+                }
+            } catch (t: Throwable) {
+                appendLog("❌ SIG flow failed: ${t.message ?: t::class.java.simpleName}")
+            }
+        }
+    }
+
+    private fun appendSeparator() {
+        val time = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date())
+        appendLog("\n--- Run at $time ---")
+    }
+
+    private fun appendLog(msg: String) {
+        _logText.update { it + msg + "\n" }
+    }
+
+    private fun nsToMs(ns: Long): String =
+        String.format(Locale.US, "%.3f", ns / 1_000_000.0)
 }

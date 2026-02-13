@@ -6,7 +6,7 @@
  * Method:    randombytes
  * Signature: (J)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_example_libqos_1android_Rand_randombytes
+JNIEXPORT jbyteArray JNICALL Java_com_example_libqos_1android_utils_Rand_randombytes
   (JNIEnv *env, jclass cls, jlong bytes_to_read)
 {
     // create array that will be passed back to Java
@@ -33,7 +33,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_example_libqos_1android_Rand_randombytes
  * Method:    randombytes_switch_algorithm_native
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_example_libqos_1android_Rand_randombytes_1switch_1algorithm_1native
+JNIEXPORT jint JNICALL Java_com_example_libqos_1android_utils_Rand_randombytes_1switch_1algorithm_1native
   (JNIEnv *env, jclass cls, jstring jstr)
 {
     const char *alg_name_native = (*env)->GetStringUTFChars(env, jstr, 0);

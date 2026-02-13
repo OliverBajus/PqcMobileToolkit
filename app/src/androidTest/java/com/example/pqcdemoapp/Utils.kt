@@ -1,7 +1,8 @@
 package com.example.pqcdemoapp
 
+import android.content.Context
 import android.os.Environment
-import androidx.core.app.ActivityCompat
+import androidx.test.platform.app.InstrumentationRegistry
 import java.io.File
 import java.io.FileWriter
 
@@ -11,19 +12,21 @@ internal fun saveTimingsToCsv(
     algorithmName: String,
     prefix: String,
 ) {
-    val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+    val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    // App-scoped external "Downloads" directory (no permission needed)
+    val dir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)!!
+    dir.mkdirs()
 
-    val fixedFile = File(downloadsDir, "${prefix}_${algorithmName}_fixed_timings.csv")
-    val randomFile = File(downloadsDir, "${prefix}_${algorithmName}_random_timings.csv")
+    val fixedFile = File(dir, "${prefix}_${algorithmName}_fixed_timings.csv")
+    val randomFile = File(dir, "${prefix}_${algorithmName}_random_timings.csv")
 
     writeListToCsv(fixedTimings, fixedFile)
     writeListToCsv(randomTimings, randomFile)
 }
 
 private fun writeListToCsv(data: List<Long>, file: File) {
+    file.parentFile?.mkdirs()
     FileWriter(file, false).use { writer ->
-        data.forEach { time ->
-            writer.appendLine(time.toString())
-        }
+        data.forEach { writer.appendLine(it.toString()) }
     }
 }

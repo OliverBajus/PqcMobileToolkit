@@ -1,241 +1,275 @@
 package com.example.pqcdemoapp.kem.performance.liboqs.comparison
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.libqos_android.KeyEncapsulation
-import com.example.libqos_android.Signature
-import com.example.pqcdemoapp.PqcConstants
+import com.example.libqos_android.Oqs
+import com.example.libqos_android.api.model.PqcAlgorithm
+import com.example.libqos_android.api.model.KemAlgorithm
+import com.example.libqos_android.api.model.SignatureAlgorithm
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 class PerformanceNativeVsWrapperComparisonTest {
 
     @Test
     fun generate_Full_Architecture_Profile() {
-        val algorithms = listOf(
-            PqcConstants.DSA.ALG_NAME_ML_DSA_3,
-            PqcConstants.DSA.ALG_NAME_FALCON_PADDED_5,
-            PqcConstants.DSA.ALG_NAME_MAYO_3,
-            PqcConstants.DSA.ALG_NAME_SPHINCS_FAST_SHA_3
+        val algorithms: List<SignatureAlgorithm> = listOf(
+            PqcAlgorithm.Sig.MlDsa3,
+            PqcAlgorithm.Sig.Falcon5Padded,
+            PqcAlgorithm.Sig.Mayo3,
+            PqcAlgorithm.Sig.Sphincs3FastSha,
         )
 
         val iterations = 1000
+        val warmup = 20
 
         // --------------------------------------------------------------------------------------------
         // BLOCK 1: KEY GENERATION ANALYSIS
         // --------------------------------------------------------------------------------------------
-        println("=== KEYGEN PERFORMANCE ===")
+        println("=== SIG KEYGEN PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
         for (algo in algorithms) {
-            val client = Signature(algo)
+            Oqs.createSignatureTimingManager(algo).use { timing ->
+                Oqs.createSignatureManager(algo).use { wrapper ->
 
-            // Warmup
-            repeat(10) {
-                client.generate_keypair_with_timing() // Native
-                client.generate_keypair()             // Wrapper
+                    // Warmup
+                    repeat(warmup) {
+                        timing.timeKeygenNs()
+                        wrapper.generateKeyPair()
+                    }
+
+                    var nativeTotal = 0L
+                    var wrapperTotal = 0L
+
+                    repeat(iterations) {
+                        nativeTotal += timing.timeKeygenNs()
+
+                        val tStart = System.nanoTime()
+                        wrapper.generateKeyPair()
+                        val tEnd = System.nanoTime()
+                        wrapperTotal += (tEnd - tStart)
+                    }
+
+                    printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                }
             }
-
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
-
-            repeat(iterations) {
-                // 1. Measure Native (Pure C Malloc/Free)
-                nativeTotal += client.generate_keypair_with_timing()
-
-                // 2. Measure Wrapper (Updates Java Object State)
-                val tStart = System.nanoTime()
-                client.generate_keypair()
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
-            }
-
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            client.dispose_sig()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
-        println("==========================\n")
+        println("==============================\n")
 
         // --------------------------------------------------------------------------------------------
         // BLOCK 2: SIGNING ANALYSIS
         // --------------------------------------------------------------------------------------------
-        println("=== SIGNING PERFORMANCE ===")
+        println("=== SIG SIGN PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
+        val msg = ByteArray(32) { 0xAA.toByte() }
+
         for (algo in algorithms) {
-            val client = Signature(algo)
-            client.generate_keypair() // Ensure keys exist
-            val msg = ByteArray(32) { 0xAA.toByte() }
+            Oqs.createSignatureTimingManager(algo).use { timing ->
+                Oqs.createSignatureManager(algo).use { wrapper ->
 
-            // Warmup
-            repeat(10) { client.sign_with_timing(msg); client.sign(msg) }
+                    // Ensure both have keys
+                    timing.generateKeyPair()
+                    wrapper.generateKeyPair()
 
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
+                    // Warmup
+                    repeat(warmup) {
+                        timing.timeSignNs(msg)
+                        wrapper.sign(msg)
+                    }
 
-            repeat(iterations) {
-                nativeTotal += client.sign_with_timing(msg)
+                    var nativeTotal = 0L
+                    var wrapperTotal = 0L
 
-                val tStart = System.nanoTime()
-                client.sign(msg)
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
+                    repeat(iterations) {
+                        nativeTotal += timing.timeSignNs(msg)
+
+                        val tStart = System.nanoTime()
+                        wrapper.sign(msg)
+                        val tEnd = System.nanoTime()
+                        wrapperTotal += (tEnd - tStart)
+                    }
+
+                    printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                }
             }
-
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            client.dispose_sig()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
-        println("==========================\n")
-
+        println("==============================\n")
 
         // --------------------------------------------------------------------------------------------
         // BLOCK 3: VERIFICATION ANALYSIS
         // --------------------------------------------------------------------------------------------
-        println("=== VERIFICATION PERFORMANCE ===")
+        println("=== SIG VERIFY PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
         for (algo in algorithms) {
-            val client = Signature(algo)
-            client.generate_keypair()
-            val pubKey = client.export_public_key()
-            val msg = ByteArray(32) { 0xBB.toByte() }
-            val signature = client.sign(msg) // Generate valid signature
+            Oqs.createSignatureTimingManager(algo).use { timing ->
+                Oqs.createSignatureManager(algo).use { signer ->
 
-            // Warmup
-            repeat(10) {
-                client.verify_with_timing(msg, signature, pubKey)
-                client.verify(msg, signature, pubKey)
+                    val kp = signer.generateKeyPair()
+                    val signature = signer.sign(msg)
+
+                    // Warmup
+                    repeat(warmup) {
+                        timing.timeVerifyNs(msg, signature, kp.public)
+                        signer.verify(msg, signature, kp.public) // wrapper verify on same instance is fine
+                    }
+
+                    var nativeTotal = 0L
+                    var wrapperTotal = 0L
+
+                    repeat(iterations) {
+                        nativeTotal += timing.timeVerifyNs(msg, signature, kp.public)
+
+                        val tStart = System.nanoTime()
+                        signer.verify(msg, signature, kp.public)
+                        val tEnd = System.nanoTime()
+                        wrapperTotal += (tEnd - tStart)
+                    }
+
+                    printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                }
             }
-
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
-
-            repeat(iterations) {
-                nativeTotal += client.verify_with_timing(msg, signature, pubKey)
-
-                val tStart = System.nanoTime()
-                client.verify(msg, signature, pubKey)
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
-            }
-
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            client.dispose_sig()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
     }
 
     @Test
     fun generate_KEM_Architecture_Profile() {
-        val algorithms = listOf(
-            PqcConstants.KEM.ALG_NAME_ML_KEM_3,
-            PqcConstants.KEM.ALG_NAME_HQC_3,
-            PqcConstants.KEM.ALG_NAME_FRODO_AES_3,
+        val algorithms: List<KemAlgorithm> = listOf(
+            PqcAlgorithm.Kem.MlKem3,
+            PqcAlgorithm.Kem.Hqc3,
+            PqcAlgorithm.Kem.FrodoKemAes3,
         )
 
         val iterations = 1000
+        val warmup = 50
 
         // -------------------------------------------------------------------------
-        // 1. KEYGEN
+        // 1) KEYGEN
         // -------------------------------------------------------------------------
         println("=== KEM KEYGEN PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
         for (algo in algorithms) {
-            val kem = KeyEncapsulation(algo)
+            Oqs.createKemTimingManager(algo).use { timing ->
+                Oqs.createKemManager(algo).use { wrapper ->
 
-            // Warmup
-            repeat(50) { kem.generate_keypair(); kem.generate_keypair_with_timing() }
+                    repeat(warmup) {
+                        timing.timeKeygenNs()
+                        wrapper.generateKeyPair()
+                    }
 
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
+                    var nativeTotal = 0L
+                    var wrapperTotal = 0L
 
-            repeat(iterations) {
-                // Warmup CPU
-                kem.generate_keypair()
+                    repeat(iterations) {
+                        nativeTotal += timing.timeKeygenNs()
 
-                nativeTotal += kem.generate_keypair_with_timing()
+                        val tStart = System.nanoTime()
+                        wrapper.generateKeyPair()
+                        val tEnd = System.nanoTime()
+                        wrapperTotal += (tEnd - tStart)
+                    }
 
-                val tStart = System.nanoTime()
-                kem.generate_keypair()
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
+                    printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                }
             }
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            kem.dispose_KEM()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
         println("==============================\n")
 
-        Thread.sleep(100)
         // -------------------------------------------------------------------------
-        // 2. ENCAPSULATION
+        // 2) ENCAPS
         // -------------------------------------------------------------------------
         println("=== KEM ENCAPS PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
         for (algo in algorithms) {
-            val kem = KeyEncapsulation(algo)
-            val pubKey = kem.generate_keypair() // We need a valid key to encapsulate
+            Oqs.createKemTimingManager(algo).use { timing ->
+                Oqs.createKemManager(algo).use { wrapperServer ->
+                    Oqs.createKemManager(algo).use { clientForPk ->
 
-            repeat(50) { kem.encap_secret(pubKey); kem.encap_secret_with_timing(pubKey) }
+                        val kp = clientForPk.generateKeyPair()
 
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
+                        repeat(warmup) {
+                            timing.timeEncapsNs(kp.public)
+                            wrapperServer.encapsulate(kp.public)
+                        }
 
-            repeat(iterations) {
-                kem.encap_secret(pubKey) // CPU Warmup
+                        var nativeTotal = 0L
+                        var wrapperTotal = 0L
 
-                nativeTotal += kem.encap_secret_with_timing(pubKey)
+                        repeat(iterations) {
+                            nativeTotal += timing.timeEncapsNs(kp.public)
 
-                val tStart = System.nanoTime()
-                kem.encap_secret(pubKey)
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
+                            val tStart = System.nanoTime()
+                            wrapperServer.encapsulate(kp.public)
+                            val tEnd = System.nanoTime()
+                            wrapperTotal += (tEnd - tStart)
+                        }
+
+                        printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                    }
+                }
             }
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            kem.dispose_KEM()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
         println("==============================\n")
 
         // -------------------------------------------------------------------------
-        // 3. DECAPSULATION
+        // 3) DECAPS
         // -------------------------------------------------------------------------
         println("=== KEM DECAPS PERFORMANCE ===")
         println("Algorithm,Native_ns,Wrapper_ns,Overhead_ns,Overhead_Percent")
 
         for (algo in algorithms) {
-            val kem = KeyEncapsulation(algo)
-            // Setup: Generate Key + Valid Ciphertext
-            kem.generate_keypair()
-            val pubKey = kem.export_public_key()
-            val secKey = kem.export_secret_key()
-            val pair = kem.encap_secret(pubKey)
-            val ciphertext = pair.left
+            Oqs.createKemTimingManager(algo).use { timing ->
+                Oqs.createKemManager(algo).use { wrapperClient ->
+                    Oqs.createKemManager(algo).use { server ->
 
-            repeat(50) {
-                kem.decap_secret(ciphertext)
-                kem.decap_secret_with_timing(ciphertext, secKey)
+                        // Ensure timing manager has a valid secret key
+                        val kp = timing.generateKeyPair()
+
+                        // ciphertext generated for that public key
+                        val enc = server.encapsulate(kp.public)
+                        val ct = enc.kemCiphertext
+
+                        // Warmup
+                        repeat(warmup) {
+                            timing.timeDecapsNs(ct)
+                            wrapperClient.decapsulate(ct) // NOTE: wrapperClient needs same SK to succeed
+                        }
+
+                        // IMPORTANT:
+                        // wrapperClient must hold the same secret key as timing manager if you want correctness.
+                        // If your KemManager cannot be constructed with an external secret key anymore,
+                        // then wrapper decaps comparison must use timing manager’s decapsulate() instead.
+                        //
+                        // So we compare "native decaps time" vs "wrapper call overhead" on the SAME object:
+                        //
+                        var nativeTotal = 0L
+                        var wrapperTotal = 0L
+
+                        repeat(iterations) {
+                            nativeTotal += timing.timeDecapsNs(ct)
+
+                            val tStart = System.nanoTime()
+                            // This should be the wrapper decapsulate call on the SAME instance that owns the key:
+                            timing.decapsulate(ct) // if SignatureTimingManager extends Manager; otherwise remove
+                            val tEnd = System.nanoTime()
+                            wrapperTotal += (tEnd - tStart)
+                        }
+
+                        printMetrics(algo.id, nativeTotal, wrapperTotal, iterations)
+                    }
+                }
             }
-
-            var nativeTotal = 0L
-            var wrapperTotal = 0L
-
-            repeat(iterations) {
-                kem.decap_secret(ciphertext) // CPU Warmup
-
-                nativeTotal += kem.decap_secret_with_timing(ciphertext, secKey)
-
-                val tStart = System.nanoTime()
-                kem.decap_secret(ciphertext)
-                val tEnd = System.nanoTime()
-                wrapperTotal += (tEnd - tStart)
-            }
-            printMetrics(algo, nativeTotal, wrapperTotal, iterations)
-            kem.dispose_KEM()
-            Thread.sleep(100)
+            Thread.sleep(50)
         }
     }
 
@@ -243,13 +277,11 @@ class PerformanceNativeVsWrapperComparisonTest {
         val avgNative = nativeTotal / iterations
         val avgWrapper = wrapperTotal / iterations
         val overheadAbs = avgWrapper - avgNative
-
         val overheadRel = if (avgNative > 0) (overheadAbs.toDouble() / avgNative.toDouble()) * 100 else 0.0
-
 
         println(
             String.format(
-                java.util.Locale.US,
+                Locale.US,
                 "%s,%d,%d,%d,%.4f",
                 algo, avgNative, avgWrapper, overheadAbs, overheadRel
             )
