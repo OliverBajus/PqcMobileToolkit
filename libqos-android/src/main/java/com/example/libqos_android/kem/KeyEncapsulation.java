@@ -48,6 +48,7 @@ class KeyEncapsulation implements KemManager, KemTimingManager {
                 throw new MechanismNotSupportedError(alg_name);
             }
         }
+
         create_KEM_new(alg_name);
         alg_details_ = get_KEM_details();
         if (alg_details_ == null) {

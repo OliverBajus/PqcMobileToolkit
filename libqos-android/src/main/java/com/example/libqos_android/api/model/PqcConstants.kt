@@ -35,6 +35,17 @@ internal object PqcConstants {
         const val ALG_NAME_ML_DSA_3 = "ML-DSA-65"
         const val ALG_NAME_ML_DSA_5 = "ML-DSA-87"
 
+        const val ALG_NAME_SLH_DSA_3_PS_FAST_SHA = "SLH_DSA_PURE_SHA2_192F"
+        const val ALG_NAME_SLH_DSA_5_PS_FAST_SHA = "SLH_DSA_PURE_SHA2_256F"
+        const val ALG_NAME_SLH_DSA_3_PS_SMALL_SHA = "SLH_DSA_PURE_SHA2_192S"
+        const val ALG_NAME_SLH_DSA_5_PS_SMALL_SHA = "SLH_DSA_PURE_SHA2_256S"
+
+        const val ALG_NAME_SLH_DSA_3_PS_FAST_SHAKE = "SLH_DSA_PURE_SHAKE_192F"
+        const val ALG_NAME_SLH_DSA_5_PS_FAST_SHAKE = "SLH_DSA_PURE_SHAKE_256F"
+        const val ALG_NAME_SLH_DSA_3_PS_SMALL_SHAKE = "SLH_DSA_PURE_SHAKE_192S"
+        const val ALG_NAME_SLH_DSA_5_PS_SMALL_SHAKE = "SLH_DSA_PURE_SHAKE_256S"
+
+
         const val ALG_NAME_SPHINCS_3_PS_FAST_SHA = "SPHINCS+-SHA2-192f-simple"
         const val ALG_NAME_SPHINCS_5_PS_FAST_SHA = "SPHINCS+-SHA2-256f-simple"
         const val ALG_NAME_SPHINCS_3_PS_SMALL_SHA = "SPHINCS+-SHA2-192s-simple"
@@ -69,6 +80,9 @@ internal object PqcConstants {
         const val ALG_NAME_SNOVA_3_PS_49_11_3 = "SNOVA_49_11_3"
         const val ALG_NAME_SNOVA_3_PS_37_8_4 = "SNOVA_37_8_4"
         const val ALG_NAME_SNOVA_3_PS_24_5_5 = "SNOVA_24_5_5"
+
+        const val ALG_NAME_SNOVA_5_PS_60_10_4 = "SNOVA_60_10_4"
+        const val ALG_NAME_SNOVA_5_PS_29_6_5 = "SNOVA_29_6_5"
 
         const val ALG_NAME_UOV_3= "OV-III"
         const val ALG_NAME_UOV_5= "OV-V"

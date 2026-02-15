@@ -11,13 +11,8 @@ object PqcAlgorithm {
         data object MlKem5 : KemAlgorithm { override val id = KEM.ALG_NAME_ML_KEM_5 }
 
         // --- HQC
-        data object Hqc1 : KemAlgorithm { override val id = KEM.ALG_NAME_HQC_1 }
         data object Hqc3 : KemAlgorithm { override val id = KEM.ALG_NAME_HQC_3 }
         data object Hqc5 : KemAlgorithm { override val id = KEM.ALG_NAME_HQC_5 }
-
-        // --- BIKE
-        data object Bike3 : KemAlgorithm { override val id = KEM.ALG_NAME_BIKE_3 }
-        data object Bike5 : KemAlgorithm { override val id = KEM.ALG_NAME_BIKE_5 }
 
         // --- FrodoKEM
         data object FrodoKemAes3 : KemAlgorithm { override val id = KEM.ALG_NAME_FRODO_AES_3 }
@@ -25,7 +20,7 @@ object PqcAlgorithm {
         data object FrodoKemShake3 : KemAlgorithm { override val id = KEM.ALG_NAME_FRODO_SHAKE_3 }
         data object FrodoKemShake5 : KemAlgorithm { override val id = KEM.ALG_NAME_FRODO_SHAKE_5 }
 
-        // --- Classic McEliece (multiple L5 parameter sets)
+        // --- Classic McEliece
         data object McEliece3 : KemAlgorithm { override val id = KEM.ALG_NAME_MC_ELIECE_3 }
         data object McEliece3f : KemAlgorithm { override val id = KEM.ALG_NAME_MC_ELIECE_3_F }
 
@@ -44,10 +39,8 @@ object PqcAlgorithm {
             // ML-KEM
             MlKem3, MlKem5,
             // HQC
-            Hqc1, Hqc3, Hqc5,
-            // BIKE
-            Bike3, Bike5,
-            // Frodo
+            Hqc3, Hqc5,
+            // FrodoKem
             FrodoKemAes3, FrodoKemAes5, FrodoKemShake3, FrodoKemShake5,
             // McEliece
             McEliece3, McEliece3f,
@@ -62,17 +55,18 @@ object PqcAlgorithm {
         data object MlDsa3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_ML_DSA_3 }
         data object MlDsa5 : SignatureAlgorithm { override val id = DSA.ALG_NAME_ML_DSA_5 }
 
-        // --- SPHINCS+ SHA2 (fast/small)
-        data object Sphincs3FastSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_3_PS_FAST_SHA }
-        data object Sphincs5FastSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_5_PS_FAST_SHA }
-        data object Sphincs3SmallSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_3_PS_SMALL_SHA }
-        data object Sphincs5SmallSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_5_PS_SMALL_SHA }
+        // --- SLH-DSA SHA2 (fast/small)
+        data object SlhDsa3FastSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_3_PS_FAST_SHA }
+        data object SlhDsa5FastSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_5_PS_FAST_SHA }
+        data object SlhDsa3SmallSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_3_PS_SMALL_SHA }
+        data object SlhDsa5SmallSha : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_5_PS_SMALL_SHA }
 
-        // --- SPHINCS+ SHAKE (fast/small)
-        data object Sphincs3FastShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_3_PS_FAST_SHAKE }
-        data object Sphincs5FastShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_5_PS_FAST_SHAKE }
-        data object Sphincs3SmallShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_3_PS_SMALL_SHAKE }
-        data object Sphincs5SmallShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SPHINCS_5_PS_SMALL_SHAKE }
+
+        // --- SLH-DSA SHAKE (fast/small)
+        data object SlhDsa3FastShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_3_PS_FAST_SHAKE }
+        data object SlhDsa5FastShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_5_PS_FAST_SHAKE }
+        data object SlhDsa3SmallShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_3_PS_SMALL_SHAKE }
+        data object SlhDsa5SmallShake : SignatureAlgorithm { override val id = DSA.ALG_NAME_SLH_DSA_5_PS_SMALL_SHAKE }
 
         // --- MAYO
         data object Mayo3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_MAYO_3 }
@@ -104,6 +98,9 @@ object PqcAlgorithm {
         data object Snova3Ps37x8x4  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_3_PS_37_8_4 }
         data object Snova3Ps24x5x5  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_3_PS_24_5_5 }
 
+        data object Snova5Ps29x6x5  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_5_PS_29_6_5 }
+        data object Snova5Ps60x10x4  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_5_PS_60_10_4 }
+
         // --- UOV / OV
         data object Uov3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_UOV_3 }
         data object Uov5 : SignatureAlgorithm { override val id = DSA.ALG_NAME_UOV_5 }
@@ -117,8 +114,8 @@ object PqcAlgorithm {
         val all: List<SignatureAlgorithm> = listOf(
             MlDsa3, MlDsa5,
 
-            Sphincs3FastSha, Sphincs5FastSha, Sphincs3SmallSha, Sphincs5SmallSha,
-            Sphincs3FastShake, Sphincs5FastShake, Sphincs3SmallShake, Sphincs5SmallShake,
+            SlhDsa3FastSha, SlhDsa5FastSha, SlhDsa3SmallSha, SlhDsa5SmallSha,
+            SlhDsa3FastShake, SlhDsa5FastShake, SlhDsa3SmallShake, SlhDsa5SmallShake,
 
             Mayo3, Mayo5,
             Falcon5, Falcon5Padded,
@@ -132,6 +129,7 @@ object PqcAlgorithm {
             Cross3RsdpgBalanced, Cross5RsdpgBalanced,
 
             Snova3Ps56x25x2, Snova3Ps49x11x3, Snova3Ps37x8x4, Snova3Ps24x5x5,
+            Snova5Ps29x6x5, Snova5Ps60x10x4,
 
             Uov3, Uov5, Uov3Pkc, Uov5Pkc, Uov3PkcSkc, Uov5PkcSkc
         )
