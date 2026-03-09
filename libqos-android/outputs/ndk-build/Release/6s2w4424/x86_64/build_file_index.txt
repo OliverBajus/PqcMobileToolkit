@@ -1,1 +1,1 @@
-/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk
+/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/jni/Android.mk

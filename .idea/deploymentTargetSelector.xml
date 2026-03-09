@@ -5,16 +5,19 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_ML_KEM_3()">
+      <SelectionState runConfigName="TestKemDecapsulation">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_ML_HQC_3()">
+      <SelectionState runConfigName="TestKemEncapsulation">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="validate() (1)">
+      <SelectionState runConfigName="Tests in 'sk.bajuso.benchmark'">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test_ML_DSA_3()">
+      <SelectionState runConfigName="Tests in 'sk.bajuso.benchmark.liboqs.dsa'">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="benchmarkCross5RsdpgBalancedVerify()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

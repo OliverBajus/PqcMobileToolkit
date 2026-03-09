@@ -1,31 +1,31 @@
 {
   "buildFiles": [
-    "/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk"
+    "/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/jni/Android.mk"
   ],
   "cleanCommandsComponents": [
     [
       "/Users/oliverbajus/Library/Android/sdk/ndk/28.0.13004108/ndk-build",
       "NDK_PROJECT_PATH\u003dnull",
-      "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk",
+      "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/jni/Android.mk",
       "APP_ABI\u003dx86_64",
       "NDK_ALL_ABIS\u003dx86_64",
       "NDK_DEBUG\u003d0",
       "APP_PLATFORM\u003dandroid-26",
-      "NDK_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
-      "NDK_LIBS_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
+      "NDK_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
+      "NDK_LIBS_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
       "clean"
     ]
   ],
   "buildTargetsCommandComponents": [
     "/Users/oliverbajus/Library/Android/sdk/ndk/28.0.13004108/ndk-build",
     "NDK_PROJECT_PATH\u003dnull",
-    "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk",
+    "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/jni/Android.mk",
     "APP_ABI\u003dx86_64",
     "NDK_ALL_ABIS\u003dx86_64",
     "NDK_DEBUG\u003d0",
     "APP_PLATFORM\u003dandroid-26",
-    "NDK_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
-    "NDK_LIBS_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
+    "NDK_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
+    "NDK_LIBS_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
     "{LIST_OF_TARGETS_TO_BUILD}"
   ],
   "libraries": {
@@ -33,19 +33,19 @@
       "buildCommandComponents": [
         "/Users/oliverbajus/Library/Android/sdk/ndk/28.0.13004108/ndk-build",
         "NDK_PROJECT_PATH\u003dnull",
-        "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/jni/Android.mk",
+        "APP_BUILD_SCRIPT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/jni/Android.mk",
         "APP_ABI\u003dx86_64",
         "NDK_ALL_ABIS\u003dx86_64",
         "NDK_DEBUG\u003d0",
         "APP_PLATFORM\u003dandroid-26",
-        "NDK_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
-        "NDK_LIBS_OUT\u003d/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
-        "/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj/local/x86_64/liboqs-jni.so"
+        "NDK_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj",
+        "NDK_LIBS_OUT\u003d/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/lib",
+        "/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj/local/x86_64/liboqs-jni.so"
       ],
       "toolchain": "toolchain-x86_64",
       "abi": "x86_64",
       "artifactName": "oqs-jni",
-      "output": "/Users/oliverbajus/StudioProjects/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj/local/x86_64/liboqs-jni.so"
+      "output": "/Users/oliverbajus/Documents/School/SWE/thesis/PqcDemoApp/libqos-android/build/intermediates/cxx/Release/6s2w4424/obj/local/x86_64/liboqs-jni.so"
     }
   },
   "toolchains": {

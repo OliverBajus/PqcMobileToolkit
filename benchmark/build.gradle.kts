@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "sk.bajuso.benchmark"
+    namespace = "cz.monetplus.pqc.benchmark"
     compileSdk = 36
 
     defaultConfig {
@@ -37,18 +37,25 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
+    packaging {
+        resources {
+            pickFirsts += setOf(
+                "META-INF/versions/**/OSGI-INF/MANIFEST.MF",
+                "OSGI-INF/MANIFEST.MF"
+            )
+        }
+    }
 }
 
 dependencies {
-    implementation(project(":libqos-android"))
+    api(project(":libqos-android"))
+
+    implementation(libs.bcpkix.jdk18on)
 
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.benchmark.junit4)
-    // Add your dependencies here. Note that you cannot benchmark code
-    // in an app module this way - you will need to move any code you
-    // want to benchmark to a library module:
-    // https://developer.android.com/studio/projects/android-library#Convert
-
+    androidTestImplementation(libs.truth)
 }

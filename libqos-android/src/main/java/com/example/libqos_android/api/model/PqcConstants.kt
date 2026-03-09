@@ -45,44 +45,38 @@ internal object PqcConstants {
         const val ALG_NAME_SLH_DSA_3_PS_SMALL_SHAKE = "SLH_DSA_PURE_SHAKE_192S"
         const val ALG_NAME_SLH_DSA_5_PS_SMALL_SHAKE = "SLH_DSA_PURE_SHAKE_256S"
 
-
-        const val ALG_NAME_SPHINCS_3_PS_FAST_SHA = "SPHINCS+-SHA2-192f-simple"
-        const val ALG_NAME_SPHINCS_5_PS_FAST_SHA = "SPHINCS+-SHA2-256f-simple"
-        const val ALG_NAME_SPHINCS_3_PS_SMALL_SHA = "SPHINCS+-SHA2-192s-simple"
-        const val ALG_NAME_SPHINCS_5_PS_SMALL_SHA = "SPHINCS+-SHA2-256s-simple"
-
-        const val ALG_NAME_SPHINCS_3_PS_FAST_SHAKE = "SPHINCS+-SHAKE-192f-simple"
-        const val ALG_NAME_SPHINCS_5_PS_FAST_SHAKE = "SPHINCS+-SHAKE-256f-simple"
-        const val ALG_NAME_SPHINCS_3_PS_SMALL_SHAKE =  "SPHINCS+-SHAKE-192s-simple"
-        const val ALG_NAME_SPHINCS_5_PS_SMALL_SHAKE = "SPHINCS+-SHAKE-256s-simple"
-
         const val ALG_NAME_MAYO_3 = "MAYO-3"
-        const val ALG_NAME_MAYO_5 = "MAYO-5"
+        //const val ALG_NAME_MAYO_5 = "MAYO-5"
 
         const val ALG_NAME_FALCON_5 = "Falcon-1024"
         const val ALG_NAME_FALCON_5_PS_PADDED = "Falcon-padded-1024"
 
-        const val ALG_NAME_CROSS_3_PS_RSDP_SMALL = "cross-rsdp-192-small"
-        const val ALG_NAME_CROSS_5_PS_RSDP_SMALL = "cross-rsdp-256-small"
+        // BIG STACK USAGE
+        //const val ALG_NAME_CROSS_3_PS_RSDP_SMALL = "cross-rsdp-192-small"
+        // BIG STACK USAGE
+        //const val ALG_NAME_CROSS_5_PS_RSDP_SMALL = "cross-rsdp-256-small"
         const val ALG_NAME_CROSS_3_PS_RSDP_FAST =  "cross-rsdp-192-fast"
         const val ALG_NAME_CROSS_5_PS_RSDP_FAST = "cross-rsdp-256-fast"
         const val ALG_NAME_CROSS_3_PS_RSDP_BALANCED = "cross-rsdp-192-balanced"
-        const val ALG_NAME_CROSS_5_PS_RSDP_BALANCED = "cross-rsdp-256-balanced"
 
-        const val ALG_NAME_CROSS_3_PS_RSDPG_SMALL = "cross-rsdpg-192-small"
-        const val ALG_NAME_CROSS_5_PS_RSDPG_SMALL = "cross-rsdpg-256-small"
+        //const val ALG_NAME_CROSS_5_PS_RSDP_BALANCED = "cross-rsdp-256-balanced"
+
+        // BIG STACK USAGE
+        // const val ALG_NAME_CROSS_3_PS_RSDPG_SMALL = "cross-rsdpg-192-small"
+        // BIG STACK USAGE
+        //const val ALG_NAME_CROSS_5_PS_RSDPG_SMALL = "cross-rsdpg-256-small"
         const val ALG_NAME_CROSS_3_PS_RSDPG_FAST = "cross-rsdpg-192-fast"
         const val ALG_NAME_CROSS_5_PS_RSDPG_FAST = "cross-rsdpg-256-fast"
         const val ALG_NAME_CROSS_3_PS_RSDPG_BALANCED = "cross-rsdpg-192-balanced"
         const val ALG_NAME_CROSS_5_PS_RSDPG_BALANCED = "cross-rsdpg-256-balanced"
 
-        const val ALG_NAME_SNOVA_3_PS_56_25_2 = "SNOVA_56_25_2"
-        const val ALG_NAME_SNOVA_3_PS_49_11_3 = "SNOVA_49_11_3"
-        const val ALG_NAME_SNOVA_3_PS_37_8_4 = "SNOVA_37_8_4"
-        const val ALG_NAME_SNOVA_3_PS_24_5_5 = "SNOVA_24_5_5"
+        // const val ALG_NAME_SNOVA_3_PS_56_25_2 = "SNOVA_56_25_2"
+        // const val ALG_NAME_SNOVA_3_PS_49_11_3 = "SNOVA_49_11_3"
+        // const val ALG_NAME_SNOVA_3_PS_37_8_4 = "SNOVA_37_8_4"
+        // const val ALG_NAME_SNOVA_3_PS_24_5_5 = "SNOVA_24_5_5"
 
-        const val ALG_NAME_SNOVA_5_PS_60_10_4 = "SNOVA_60_10_4"
-        const val ALG_NAME_SNOVA_5_PS_29_6_5 = "SNOVA_29_6_5"
+        // const val ALG_NAME_SNOVA_5_PS_60_10_4 = "SNOVA_60_10_4"
+        // const val ALG_NAME_SNOVA_5_PS_29_6_5 = "SNOVA_29_6_5"
 
         const val ALG_NAME_UOV_3= "OV-III"
         const val ALG_NAME_UOV_5= "OV-V"

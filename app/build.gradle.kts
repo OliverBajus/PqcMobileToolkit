@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pqcdemoapp"
+    namespace = "cz.monetplus.pqcdemoapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.pqcdemoapp"
+        applicationId = "cz.monetplus.pqcdemoapp"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -58,8 +58,7 @@ android {
 }
 
 dependencies {
-    implementation("org.bouncycastle:bcpkix-jdk18on:1.83")
-    implementation("org.bouncycastle:bcprov-jdk18on:1.83")
+    implementation(libs.bcpkix.jdk18on)
     implementation(project(":libqos-android"))
 
     implementation(libs.androidx.core.ktx)
@@ -76,8 +75,8 @@ dependencies {
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation("androidx.test:rules:1.4.0")
-    androidTestImplementation("com.google.truth:truth:1.4.4")
+    androidTestImplementation(libs.androidx.rules)
+    androidTestImplementation(libs.truth)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 

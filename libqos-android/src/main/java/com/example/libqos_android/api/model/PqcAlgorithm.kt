@@ -70,29 +70,30 @@ object PqcAlgorithm {
 
         // --- MAYO
         data object Mayo3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_MAYO_3 }
-        data object Mayo5 : SignatureAlgorithm { override val id = DSA.ALG_NAME_MAYO_5 }
+        //data object Mayo5 : SignatureAlgorithm { override val id = DSA.ALG_NAME_MAYO_5 }
 
         // --- Falcon
         data object Falcon5 : SignatureAlgorithm { override val id = DSA.ALG_NAME_FALCON_5 }
         data object Falcon5Padded : SignatureAlgorithm { override val id = DSA.ALG_NAME_FALCON_5_PS_PADDED }
 
         // --- CROSS (rsdp)
-        data object Cross3RsdpSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDP_SMALL }
-        data object Cross5RsdpSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDP_SMALL }
+        // data object Cross3RsdpSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDP_SMALL }
+        // data object Cross5RsdpSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDP_SMALL }
         data object Cross3RsdpFast : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDP_FAST }
         data object Cross5RsdpFast : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDP_FAST }
         data object Cross3RsdpBalanced : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDP_BALANCED }
-        data object Cross5RsdpBalanced : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDP_BALANCED }
+        //data object Cross5RsdpBalanced : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDP_BALANCED }
 
         // --- CROSS (rsdpg)
-        data object Cross3RsdpgSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDPG_SMALL }
-        data object Cross5RsdpgSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDPG_SMALL }
+        // data object Cross3RsdpgSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDPG_SMALL }
+       // data object Cross5RsdpgSmall : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDPG_SMALL }
         data object Cross3RsdpgFast : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDPG_FAST }
         data object Cross5RsdpgFast : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDPG_FAST }
         data object Cross3RsdpgBalanced : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_3_PS_RSDPG_BALANCED }
         data object Cross5RsdpgBalanced : SignatureAlgorithm { override val id = DSA.ALG_NAME_CROSS_5_PS_RSDPG_BALANCED }
 
         // --- SNOVA
+/*
         data object Snova3Ps56x25x2 : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_3_PS_56_25_2 }
         data object Snova3Ps49x11x3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_3_PS_49_11_3 }
         data object Snova3Ps37x8x4  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_3_PS_37_8_4 }
@@ -100,6 +101,7 @@ object PqcAlgorithm {
 
         data object Snova5Ps29x6x5  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_5_PS_29_6_5 }
         data object Snova5Ps60x10x4  : SignatureAlgorithm { override val id = DSA.ALG_NAME_SNOVA_5_PS_60_10_4 }
+*/
 
         // --- UOV / OV
         data object Uov3 : SignatureAlgorithm { override val id = DSA.ALG_NAME_UOV_3 }
@@ -117,19 +119,19 @@ object PqcAlgorithm {
             SlhDsa3FastSha, SlhDsa5FastSha, SlhDsa3SmallSha, SlhDsa5SmallSha,
             SlhDsa3FastShake, SlhDsa5FastShake, SlhDsa3SmallShake, SlhDsa5SmallShake,
 
-            Mayo3, Mayo5,
+            Mayo3,// Mayo5,
             Falcon5, Falcon5Padded,
 
-            Cross3RsdpSmall, Cross5RsdpSmall,
+            // Cross3RsdpSmall, Cross5RsdpSmall,
             Cross3RsdpFast, Cross5RsdpFast,
-            Cross3RsdpBalanced, Cross5RsdpBalanced,
+            Cross3RsdpBalanced, // Cross5RsdpBalanced,
 
-            Cross3RsdpgSmall, Cross5RsdpgSmall,
+            // Cross3RsdpgSmall, Cross5RsdpgSmall,
             Cross3RsdpgFast, Cross5RsdpgFast,
             Cross3RsdpgBalanced, Cross5RsdpgBalanced,
 
-            Snova3Ps56x25x2, Snova3Ps49x11x3, Snova3Ps37x8x4, Snova3Ps24x5x5,
-            Snova5Ps29x6x5, Snova5Ps60x10x4,
+            // Snova3Ps56x25x2, Snova3Ps49x11x3, Snova3Ps37x8x4, Snova3Ps24x5x5,
+            // Snova5Ps29x6x5, Snova5Ps60x10x4,
 
             Uov3, Uov5, Uov3Pkc, Uov5Pkc, Uov3PkcSkc, Uov5PkcSkc
         )

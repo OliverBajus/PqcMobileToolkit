@@ -15,6 +15,7 @@ import com.example.libqos_android.api.sig.model.SigPublicKey;
 import com.example.libqos_android.api.model.SignatureAlgorithm;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -28,8 +29,8 @@ class Signature implements SignatureManager, SignatureTimingManager {
      */
     private long native_sig_handle_;
 
-    private final byte[] _publicKey;
-    private final byte[] _secretKey;
+    private final byte[] publicKey;
+    private final byte[] secretKey;
 
 
     /**
@@ -71,11 +72,11 @@ class Signature implements SignatureManager, SignatureTimingManager {
 
         // initialize keys
         if (secret_key != null) {
-            this._secretKey = Arrays.copyOf(secret_key, secret_key.length);
+            this.secretKey = Arrays.copyOf(secret_key, secret_key.length);
         } else {
-            this._secretKey = new byte[(int) _algDetails.length_secret_key];
+            this.secretKey = new byte[(int) _algDetails.length_secret_key];
         }
-        this._publicKey = new byte[(int) _algDetails.length_public_key];
+        this.publicKey = new byte[(int) _algDetails.length_public_key];
     }
 
 
@@ -100,11 +101,11 @@ class Signature implements SignatureManager, SignatureTimingManager {
     @Override
     @NotNull
     public SigKeypair generateKeyPair() {
-        int rv_ = generate_keypair(this._publicKey, this._secretKey);
+        int rv_ = generate_keypair(this.publicKey, this.secretKey);
         if (rv_ != 0) throw new RuntimeException("Cannot generate keypair");
         return new SigKeypair(
-                new SigPublicKey(Arrays.copyOf(this._publicKey, this._publicKey.length)),
-                new SigPrivateKey(Arrays.copyOf(this._secretKey, this._secretKey.length))
+                new SigPublicKey(Arrays.copyOf(this.publicKey, this.publicKey.length)),
+                new SigPrivateKey(Arrays.copyOf(this.secretKey, this.secretKey.length))
         );
     }
 
@@ -123,7 +124,7 @@ class Signature implements SignatureManager, SignatureTimingManager {
     @NonNull
     @Override
     public byte[] sign(@NonNull byte[] message) throws RuntimeException {
-        if (this._secretKey.length != _algDetails.length_secret_key) {
+        if (this.secretKey.length != _algDetails.length_secret_key) {
             throw new RuntimeException("Incorrect secret key length, " +
                     "make sure you specify one in the " +
                     "constructor or run generate_keypair()");
@@ -131,7 +132,7 @@ class Signature implements SignatureManager, SignatureTimingManager {
         byte[] signature = new byte[(int) _algDetails.max_length_signature];
         Mutable<Long> signature_len_ret = new Mutable<>();
         int rv_= sign(signature, signature_len_ret,
-                message, message.length, this._secretKey);
+                message, message.length, this.secretKey);
         long actual_signature_len = signature_len_ret.value;
         byte[] actual_signature = new byte[(int) actual_signature_len];
         System.arraycopy(signature, 0,
@@ -144,7 +145,7 @@ class Signature implements SignatureManager, SignatureTimingManager {
     public long timeKeygenNs() {
         if (_algDetails == null) _algDetails = get_sig_details();
 
-        long t = keypair_with_timing_native(this._publicKey, this._secretKey);
+        long t = keypair_with_timing_native(this.publicKey, this.secretKey);
         if (t < 0) throw new RuntimeException("Native keypair timing failed");
         return t;
     }
@@ -153,14 +154,14 @@ class Signature implements SignatureManager, SignatureTimingManager {
     public long timeSignNs(@NonNull byte[] message) {
         if (_algDetails == null) _algDetails = get_sig_details();
 
-        if (this._secretKey == null || this._secretKey.length != _algDetails.length_secret_key) {
+        if (this.secretKey == null || this.secretKey.length != _algDetails.length_secret_key) {
             throw new RuntimeException("Incorrect secret key length, " +
                     "make sure you specify one in the constructor or run generate_keypair()");
         }
 
         byte[] signatureBuf = new byte[(int) _algDetails.max_length_signature];
 
-        long t = sign_with_timing_native(signatureBuf, message, this._secretKey);
+        long t = sign_with_timing_native(signatureBuf, message, this.secretKey);
         if (t < 0) throw new RuntimeException("Native sign timing failed");
         return t;
     }
@@ -176,6 +177,16 @@ class Signature implements SignatureManager, SignatureTimingManager {
         long t = verify_with_timing_native(message, signature, publicKey.getBytes());
         if (t < 0) throw new RuntimeException("Native verify timing failed");
         return t;
+    }
+
+    @Override
+    public @Nullable SigPublicKey getPublicKey() {
+        return new SigPublicKey(Arrays.copyOf(this.publicKey, this.publicKey.length));
+    }
+
+    @Override
+    public @Nullable SigPrivateKey getPrivateKey() {
+        return new SigPrivateKey(Arrays.copyOf(this.secretKey, this.secretKey.length));
     }
 
     /**
@@ -196,7 +207,7 @@ class Signature implements SignatureManager, SignatureTimingManager {
      * \brief Invoke native free_sig
      */
     private void dispose_sig() {
-        wipe(this._secretKey);
+        wipe(this.secretKey);
         free_sig();
     }
 
