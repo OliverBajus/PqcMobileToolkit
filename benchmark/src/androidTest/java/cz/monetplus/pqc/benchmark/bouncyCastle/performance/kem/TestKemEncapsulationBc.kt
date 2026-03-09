@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.bouncyCastle.performance.kem
+package cz.monetplus.pqc.benchmark.bouncyCastle.performance.kem
 
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
@@ -7,9 +7,9 @@ import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import sk.bajuso.benchmark.utils.model.BcKem
-import sk.bajuso.benchmark.utils.BcFactory
-import sk.bajuso.benchmark.utils.BcKemManager
+import cz.monetplus.pqc.benchmark.utils.model.BcKem
+import cz.monetplus.pqc.benchmark.utils.BcFactory
+import cz.monetplus.pqc.benchmark.utils.BcKemManager
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)

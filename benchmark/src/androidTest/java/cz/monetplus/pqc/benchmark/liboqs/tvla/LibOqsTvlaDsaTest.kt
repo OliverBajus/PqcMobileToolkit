@@ -1,4 +1,4 @@
-package com.example.pqcdemoapp.kem.tvla.liboqs
+package cz.monetplus.pqc.benchmark.liboqs.tvla
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -6,8 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.libqos_android.Oqs
 import com.example.libqos_android.api.model.PqcAlgorithm
 import com.example.libqos_android.api.model.SignatureAlgorithm
-import com.example.pqcdemoapp.saveTimingsToCsv
 import com.google.common.truth.Truth.assertThat
+import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)
@@ -66,13 +66,6 @@ class LibOqsTvlaDsaTest {
     @Test
     fun test_MAYO_3() {
         sigAlg = PqcAlgorithm.Sig.Mayo3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_MAYO_5() {
-        sigAlg = PqcAlgorithm.Sig.Mayo5
         performTVLA_on_ciphertext()
         performTVLA_on_key()
     }

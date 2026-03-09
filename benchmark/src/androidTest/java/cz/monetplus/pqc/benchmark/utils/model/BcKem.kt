@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.utils.model
+package cz.monetplus.pqc.benchmark.utils.model
 
 enum class BcKem(
     val id: String,

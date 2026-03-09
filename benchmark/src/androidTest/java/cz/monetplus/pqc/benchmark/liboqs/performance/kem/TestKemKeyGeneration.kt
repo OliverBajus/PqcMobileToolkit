@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.liboqs.performance.kem
+package cz.monetplus.pqc.benchmark.liboqs.performance.kem
 
 import androidx.benchmark.ExperimentalBenchmarkConfigApi
 import androidx.benchmark.junit4.BenchmarkRule

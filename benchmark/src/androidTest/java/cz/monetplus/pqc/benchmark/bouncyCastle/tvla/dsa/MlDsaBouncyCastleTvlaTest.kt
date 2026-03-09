@@ -1,8 +1,8 @@
-package com.example.pqcdemoapp.kem.tvla.bc.dsa
+package cz.monetplus.pqc.benchmark.bouncyCastle.tvla.dsa
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.pqcdemoapp.saveTimingsToCsv
 import com.google.common.truth.Truth.assertThat
+import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
 import org.bouncycastle.crypto.params.ParametersWithRandom
 import org.bouncycastle.pqc.crypto.mldsa.MLDSAKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.mldsa.MLDSAKeyPairGenerator

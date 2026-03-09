@@ -1,16 +1,14 @@
-package com.example.pqcdemoapp.kem.tvla.bc.kem
+package cz.monetplus.pqc.benchmark.bouncyCastle.tvla.kem
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.pqcdemoapp.saveTimingsToCsv
 import com.google.common.truth.Truth.assertThat
+import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
 import org.bouncycastle.pqc.crypto.hqc.HQCKEMExtractor
 import org.bouncycastle.pqc.crypto.hqc.HQCKEMGenerator
 import org.bouncycastle.pqc.crypto.hqc.HQCKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.hqc.HQCKeyPairGenerator
 import org.bouncycastle.pqc.crypto.hqc.HQCParameters
 import org.bouncycastle.pqc.crypto.hqc.HQCPrivateKeyParameters
-import org.bouncycastle.pqc.legacy.crypto.mceliece.McElieceKeyGenerationParameters
-import org.bouncycastle.pqc.legacy.crypto.mceliece.McElieceParameters
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

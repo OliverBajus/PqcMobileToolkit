@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.utils
+package cz.monetplus.pqc.benchmark.utils
 
 import org.bouncycastle.pqc.crypto.falcon.FalconKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.falcon.FalconKeyPairGenerator
@@ -38,8 +38,8 @@ import org.bouncycastle.pqc.crypto.snova.SnovaKeyGenerationParameters
 import org.bouncycastle.pqc.crypto.snova.SnovaKeyPairGenerator
 import org.bouncycastle.pqc.crypto.snova.SnovaParameters
 import org.bouncycastle.pqc.crypto.snova.SnovaSigner
-import sk.bajuso.benchmark.utils.model.BcKem
-import sk.bajuso.benchmark.utils.model.BcSig
+import cz.monetplus.pqc.benchmark.utils.model.BcKem
+import cz.monetplus.pqc.benchmark.utils.model.BcSig
 import java.security.SecureRandom
 
 class BcFactory constructor(
@@ -67,9 +67,9 @@ class BcFactory constructor(
                 )
 
                 BcKemManager(FrodoKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
-                    }
+                { key ->
+                    FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
+                }
             }
             BcKem.FRODO_976_SHAKE -> {
                 val keyGenerator = FrodoKeyPairGenerator()
@@ -78,9 +78,9 @@ class BcFactory constructor(
                 )
 
                 BcKemManager(FrodoKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
-                    }
+                { key ->
+                    FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
+                }
             }
             BcKem.FRODO_1344_SHAKE -> {
                 val keyGenerator = FrodoKeyPairGenerator()
@@ -89,9 +89,9 @@ class BcFactory constructor(
                 )
 
                 BcKemManager(FrodoKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
-                    }
+                { key ->
+                    FrodoKEMExtractor(key as FrodoPrivateKeyParameters)
+                }
             }
             BcKem.HQC_192 -> {
                 val keyGenerator = HQCKeyPairGenerator()
@@ -100,9 +100,9 @@ class BcFactory constructor(
                 )
 
                 BcKemManager(HQCKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        HQCKEMExtractor(key as HQCPrivateKeyParameters)
-                    }
+                { key ->
+                    HQCKEMExtractor(key as HQCPrivateKeyParameters)
+                }
             }
             BcKem.HQC_256 ->  {
                 val keyGenerator =HQCKeyPairGenerator()
@@ -111,27 +111,27 @@ class BcFactory constructor(
                 )
 
                 BcKemManager(HQCKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        HQCKEMExtractor(key as HQCPrivateKeyParameters)
-                    }
+                { key ->
+                    HQCKEMExtractor(key as HQCPrivateKeyParameters)
+                }
             }
             BcKem.MLKEM_768 -> {
                 val keyGenerator = MLKEMKeyPairGenerator()
                 keyGenerator.init(MLKEMKeyGenerationParameters(secureRandom, MLKEMParameters.ml_kem_768))
 
                 BcKemManager(MLKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        MLKEMExtractor(key as MLKEMPrivateKeyParameters)
-                    }
+                { key ->
+                    MLKEMExtractor(key as MLKEMPrivateKeyParameters)
+                }
             }
             BcKem.MLKEM_1024-> {
                 val keyGenerator = MLKEMKeyPairGenerator()
                 keyGenerator.init(MLKEMKeyGenerationParameters(secureRandom, MLKEMParameters.ml_kem_1024))
 
                 BcKemManager(MLKEMGenerator(secureRandom), keyGenerator)
-                    { key ->
-                        MLKEMExtractor(key as MLKEMPrivateKeyParameters)
-                    }
+                { key ->
+                    MLKEMExtractor(key as MLKEMPrivateKeyParameters)
+                }
             }
         }
 

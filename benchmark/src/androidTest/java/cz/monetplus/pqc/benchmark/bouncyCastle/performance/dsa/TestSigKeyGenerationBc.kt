@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.bouncyCastle.performance.dsa
+package cz.monetplus.pqc.benchmark.bouncyCastle.performance.dsa
 
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
@@ -6,9 +6,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import sk.bajuso.benchmark.utils.model.BcSig
-import sk.bajuso.benchmark.utils.BcFactory
-import sk.bajuso.benchmark.utils.BcSigManager
+import cz.monetplus.pqc.benchmark.utils.model.BcSig
+import cz.monetplus.pqc.benchmark.utils.BcFactory
+import cz.monetplus.pqc.benchmark.utils.BcSigManager
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)

@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.utils
+package cz.monetplus.pqc.benchmark.utils
 
 import org.bouncycastle.crypto.CipherParameters
 import org.bouncycastle.crypto.Signer

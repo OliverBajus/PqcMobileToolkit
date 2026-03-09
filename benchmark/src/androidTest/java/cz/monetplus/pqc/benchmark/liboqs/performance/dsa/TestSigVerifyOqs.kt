@@ -1,4 +1,4 @@
-package sk.bajuso.benchmark.liboqs.performance.dsa
+package cz.monetplus.pqc.benchmark.liboqs.performance.dsa
 
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated

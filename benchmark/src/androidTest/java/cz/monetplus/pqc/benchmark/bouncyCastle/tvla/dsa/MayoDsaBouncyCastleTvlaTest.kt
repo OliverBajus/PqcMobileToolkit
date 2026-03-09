@@ -1,4 +1,4 @@
-package com.example.pqcdemoapp.kem.tvla.bc.dsa
+package cz.monetplus.pqc.benchmark.bouncyCastle.tvla.dsa
 
 class MayoDsaBouncyCastleTvlaTest {
 }
