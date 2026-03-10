@@ -43,36 +43,21 @@ class LibOqsTvlaKemTest {
     fun test_ML_KEM_3() {
         kemAlg = PqcAlgorithm.Kem.MlKem3
         performTVLA_on_ciphertext_fixed_vs_random()
-    }
-
-    @Test
-    fun test_ML_KEM_5() {
-        kemAlg = PqcAlgorithm.Kem.MlKem5
-        performTVLA_on_ciphertext_fixed_vs_random()
+        performTVLA_on_ciphertext_valid_vs_invalid()
     }
 
     @Test
     fun test_HQC_3() {
         kemAlg = PqcAlgorithm.Kem.Hqc3
         performTVLA_on_ciphertext_fixed_vs_random()
-    }
-
-    @Test
-    fun test_HQC_5() {
-        kemAlg = PqcAlgorithm.Kem.Hqc5
-        performTVLA_on_ciphertext_fixed_vs_random()
+        performTVLA_on_ciphertext_valid_vs_invalid()
     }
 
     @Test
     fun test_FRODO_SHAKE_3() {
         kemAlg = PqcAlgorithm.Kem.FrodoKemShake3
         performTVLA_on_ciphertext_fixed_vs_random()
-    }
-
-    @Test
-    fun test_FRODO_AES_3() {
-        kemAlg = PqcAlgorithm.Kem.FrodoKemAes3
-        performTVLA_on_ciphertext_fixed_vs_random()
+        performTVLA_on_ciphertext_valid_vs_invalid()
     }
 
     private fun performTVLA_on_ciphertext_fixed_vs_random() {

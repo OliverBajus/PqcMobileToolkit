@@ -4,36 +4,41 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
 import org.bouncycastle.crypto.params.ParametersWithRandom
-import org.bouncycastle.pqc.crypto.mayo.MayoKeyGenerationParameters
-import org.bouncycastle.pqc.crypto.mayo.MayoKeyPairGenerator
-import org.bouncycastle.pqc.crypto.mayo.MayoParameters
-import org.bouncycastle.pqc.crypto.mayo.MayoSigner
+import org.bouncycastle.pqc.crypto.snova.SnovaKeyGenerationParameters
+import org.bouncycastle.pqc.crypto.snova.SnovaKeyPairGenerator
+import org.bouncycastle.pqc.crypto.snova.SnovaParameters
+import org.bouncycastle.pqc.crypto.snova.SnovaSigner
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)
-class MayoDsaBouncyCastleTvlaTest {
+class SnovaDsaBouncyCastleTvlaTest {
 
     private val fixedMessage =
         "This is the message to sign to test TVLA on DSA PQC algorithms!".toByteArray()
 
     private val random = SecureRandom()
-    private val mayoParameters = MayoParameters.mayo3
-    private val keyGenerator = MayoKeyPairGenerator()
+    private val snovaParameters = SnovaParameters.SNOVA_24_5_5_SSK
+    private val keyGenerator = SnovaKeyPairGenerator()
 
     @Before
     fun setUp() {
-        keyGenerator.init(MayoKeyGenerationParameters(random, mayoParameters))
+        keyGenerator.init(SnovaKeyGenerationParameters(random, snovaParameters))
     }
+
+    private fun createSigner(
+        keyPair: org.bouncycastle.crypto.AsymmetricCipherKeyPair
+    ): SnovaSigner =
+        SnovaSigner().apply {
+            init(true, ParametersWithRandom(keyPair.private, random))
+        }
 
     @Test
     fun validate() {
         val keyPair = keyGenerator.generateKeyPair()
-        val signer = MayoSigner()
-
-        signer.init(true, ParametersWithRandom(keyPair.private, random))
+        val signer = createSigner(keyPair)
         val signature = signer.generateSignature(fixedMessage)
 
         signer.init(false, keyPair.public)
@@ -42,19 +47,18 @@ class MayoDsaBouncyCastleTvlaTest {
     }
 
     @Test
-    fun test_MAYO_3_message_TVLA() {
+    fun test_SNOVA_24_5_5_SSK_message_TVLA() {
         performTVLA_on_message()
     }
 
     @Test
-    fun test_MAYO_3_key_TVLA() {
+    fun test_SNOVA_24_5_5_SSK_key_TVLA() {
         performTVLA_on_key()
     }
 
     private fun performTVLA_on_message() {
         val keyPair = keyGenerator.generateKeyPair()
-        val signer = MayoSigner()
-        signer.init(true, ParametersWithRandom(keyPair.private, random))
+        val signer = createSigner(keyPair)
 
         // Pre-generate schedule
         val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
@@ -94,7 +98,7 @@ class MayoDsaBouncyCastleTvlaTest {
         saveTimingsToCsv(
             fixedTimings.asList(),
             randomTimings.asList(),
-            mayoParameters.name,
+            snovaParameters.name,
             "BC_DSA_message_TVLA"
         )
     }
@@ -102,8 +106,7 @@ class MayoDsaBouncyCastleTvlaTest {
     private fun performTVLA_on_key() {
         // Fixed-key signer
         val fixedKeyPair = keyGenerator.generateKeyPair()
-        val fixedSigner = MayoSigner()
-        fixedSigner.init(true, ParametersWithRandom(fixedKeyPair.private, random))
+        val fixedSigner = createSigner(fixedKeyPair)
 
         // Pre-generate schedule
         val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
@@ -119,8 +122,7 @@ class MayoDsaBouncyCastleTvlaTest {
         repeat(WARMUP) {
             fixedSigner.generateSignature(fixedMessage)
             val tempKp = keyGenerator.generateKeyPair()
-            val tempSigner = MayoSigner()
-            tempSigner.init(true, ParametersWithRandom(tempKp.private, random))
+            val tempSigner = createSigner(tempKp)
             tempSigner.generateSignature(fixedMessage)
         }
 
@@ -131,8 +133,7 @@ class MayoDsaBouncyCastleTvlaTest {
             // Keygen + init runs on EVERY iteration for cache symmetry:
             // both branches have the same memory/cache state before the timed call
             val tempKeyPair = keyGenerator.generateKeyPair()
-            val tempSigner = MayoSigner()
-            tempSigner.init(true, ParametersWithRandom(tempKeyPair.private, random))
+            val tempSigner = createSigner(tempKeyPair)
 
             if (schedule[idx]) {
                 val t0 = System.nanoTime()
@@ -150,7 +151,7 @@ class MayoDsaBouncyCastleTvlaTest {
         saveTimingsToCsv(
             fixedTimings.asList(),
             randomTimings.asList(),
-            mayoParameters.name,
+            snovaParameters.name,
             "BC_DSA_key_TVLA"
         )
     }

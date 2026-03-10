@@ -38,52 +38,39 @@ class LibOqsTvlaDsaTest {
     @Test
     fun test_ML_DSA_3() {
         sigAlg = PqcAlgorithm.Sig.MlDsa3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_ML_DSA_5() {
-        sigAlg = PqcAlgorithm.Sig.MlDsa5
-        performTVLA_on_ciphertext()
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
     @Test
     fun test_FALCON_5() {
         sigAlg = PqcAlgorithm.Sig.Falcon5
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_FALCON_5_PADDED() {
-        sigAlg = PqcAlgorithm.Sig.Falcon5Padded
-        performTVLA_on_ciphertext()
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
     @Test
     fun test_MAYO_3() {
         sigAlg = PqcAlgorithm.Sig.Mayo3
-        performTVLA_on_ciphertext()
-        performTVLA_on_key()
-    }
-
-    @Test
-    fun test_CROSS_RSDP_FAST_3() {
-        sigAlg = PqcAlgorithm.Sig.Cross3RsdpFast
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
     @Test
     fun test_CROSS_RSDPG_FAST_3() {
         sigAlg = PqcAlgorithm.Sig.Cross3RsdpgFast
-        performTVLA_on_ciphertext()
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
-    private fun performTVLA_on_ciphertext() {
+    @Test
+    fun test_UOV_3() {
+        sigAlg = PqcAlgorithm.Sig.Uov3
+        performTVLA_on_message()
+        performTVLA_on_key()
+    }
+
+    private fun performTVLA_on_message() {
         Oqs.createSignatureTimingManager(sigAlg).use { signer ->
             signer.generateKeyPair()
 

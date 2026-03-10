@@ -4,55 +4,55 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.makeInvalidCtByBitFlip
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
-import org.bouncycastle.pqc.crypto.hqc.HQCKEMExtractor
-import org.bouncycastle.pqc.crypto.hqc.HQCKEMGenerator
-import org.bouncycastle.pqc.crypto.hqc.HQCKeyGenerationParameters
-import org.bouncycastle.pqc.crypto.hqc.HQCKeyPairGenerator
-import org.bouncycastle.pqc.crypto.hqc.HQCParameters
-import org.bouncycastle.pqc.crypto.hqc.HQCPrivateKeyParameters
+import org.bouncycastle.pqc.crypto.frodo.FrodoKEMExtractor
+import org.bouncycastle.pqc.crypto.frodo.FrodoKEMGenerator
+import org.bouncycastle.pqc.crypto.frodo.FrodoKeyGenerationParameters
+import org.bouncycastle.pqc.crypto.frodo.FrodoKeyPairGenerator
+import org.bouncycastle.pqc.crypto.frodo.FrodoParameters
+import org.bouncycastle.pqc.crypto.frodo.FrodoPrivateKeyParameters
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)
-class HqcBouncyCastleTvlaTest {
+class FrodoKemBouncyCastleTvlaTest {
 
     private val random = SecureRandom()
-    private val hqcParameters = HQCParameters.hqc192
-    private val keyGenerator = HQCKeyPairGenerator()
+    private val frodoParameters = FrodoParameters.frodokem976shake
+    private val keyGenerator = FrodoKeyPairGenerator()
 
     @Before
     fun setUp() {
-        keyGenerator.init(HQCKeyGenerationParameters(random, hqcParameters))
+        keyGenerator.init(FrodoKeyGenerationParameters(random, frodoParameters))
     }
 
     @Test
     fun validate() {
         val keyPair = keyGenerator.generateKeyPair()
-        val generator = HQCKEMGenerator(random)
+        val generator = FrodoKEMGenerator(random)
 
-        val fixedEncaps = generator.generateEncapsulated(keyPair.public)
-        val kemExtractor = HQCKEMExtractor(keyPair.private as HQCPrivateKeyParameters)
-        val decapsulatedKey = kemExtractor.extractSecret(fixedEncaps.encapsulation)
+        val encapsResult = generator.generateEncapsulated(keyPair.public)
+        val kemExtractor = FrodoKEMExtractor(keyPair.private as FrodoPrivateKeyParameters)
+        val decapsulatedKey = kemExtractor.extractSecret(encapsResult.encapsulation)
 
-        assertThat(fixedEncaps.secret).isEqualTo(decapsulatedKey)
+        assertThat(encapsResult.secret).isEqualTo(decapsulatedKey)
     }
 
     @Test
-    fun test_HQC_3_ciphertext_fixed_vs_random() {
+    fun test_FRODO_SHAKE_3_ciphertext_fixed_vs_random() {
         performTVLA_on_ciphertext_fixed_vs_random()
     }
 
     @Test
-    fun test_HQC_3_ciphertext_valid_vs_invalid() {
+    fun test_FRODO_SHAKE_3_ciphertext_valid_vs_invalid() {
         performTVLA_on_ciphertext_valid_vs_invalid()
     }
 
     private fun performTVLA_on_ciphertext_fixed_vs_random() {
         val keyPair = keyGenerator.generateKeyPair()
-        val generator = HQCKEMGenerator(random)
-        val kemExtractor = HQCKEMExtractor(keyPair.private as HQCPrivateKeyParameters)
+        val generator = FrodoKEMGenerator(random)
+        val kemExtractor = FrodoKEMExtractor(keyPair.private as FrodoPrivateKeyParameters)
 
         val fixedCt = generator.generateEncapsulated(keyPair.public).encapsulation
 
@@ -92,15 +92,15 @@ class HqcBouncyCastleTvlaTest {
         saveTimingsToCsv(
             fixedTimings.asList(),
             randomTimings.asList(),
-            hqcParameters.name,
+            frodoParameters.name,
             "BC_KEM_ciphertext_TVLA_fixed_vs_random"
         )
     }
 
     private fun performTVLA_on_ciphertext_valid_vs_invalid() {
         val keyPair = keyGenerator.generateKeyPair()
-        val generator = HQCKEMGenerator(random)
-        val kemExtractor = HQCKEMExtractor(keyPair.private as HQCPrivateKeyParameters)
+        val generator = FrodoKEMGenerator(random)
+        val kemExtractor = FrodoKEMExtractor(keyPair.private as FrodoPrivateKeyParameters)
 
         // Pre-generate schedule
         val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
@@ -139,7 +139,7 @@ class HqcBouncyCastleTvlaTest {
         saveTimingsToCsv(
             fixedTimings.asList(),
             randomTimings.asList(),
-            hqcParameters.name,
+            frodoParameters.name,
             "BC_KEM_ciphertext_TVLA_valid_vs_invalid"
         )
     }
