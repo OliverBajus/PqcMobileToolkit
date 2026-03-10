@@ -19,99 +19,22 @@ The library follows a layered design:
 
 ### Class diagram
 
-```plantuml
-@startuml
-top to bottom direction
-skinparam classAttributeIconSize 0
-skinparam nodesep 40
-skinparam ranksep 50
+<p align="center">
+  <img src="class-diagram.png" alt="liboqs-android class diagram" width="100%" />
+</p>
 
-interface AutoCloseable {
-  +close() : void
-}
+<details>
+<summary>Regenerating the diagram</summary>
 
-interface KemManager {
-  +kemDetails: KemDetails
-  +generateKeyPair() : KemKeypair
-  +encapsulate(pk: KemPublicKey) : KemEncapsulationResult
-  +decapsulate(ct: KemCiphertext) : KemSharedSecret
-  +getPublicKey() : KemPublicKey?
-  +getPrivateKey() : KemPrivateKey?
-}
+The PlantUML source is stored in [`class-diagram.puml`](class-diagram.puml).
+After editing it, regenerate the images with:
 
-interface KemTimingManager {
-  +timeKeygenNs() : Long
-  +timeEncapsNs(pk: KemPublicKey) : Long
-  +timeDecapsNs(ct: KemCiphertext) : Long
-}
-
-interface SignatureManager {
-  +signatureDetails: SigDetails
-  +generateKeyPair() : SigKeypair
-  +sign(msg: ByteArray) : ByteArray
-  +verify(msg: ByteArray, sig: ByteArray, pk: SigPublicKey) : Boolean
-}
-
-interface SignatureTimingManager {
-  +timeKeygenNs() : Long
-  +timeSignNs(msg: ByteArray) : Long
-  +timeVerifyNs(msg: ByteArray, sig: ByteArray, pk: SigPublicKey) : Long
-}
-
-AutoCloseable <|-down- KemManager
-AutoCloseable <|-down- SignatureManager
-KemManager <|-down- KemTimingManager
-SignatureManager <|-down- SignatureTimingManager
-
-class Oqs <<singleton / SDK factory>> #E1F5FE {
-  +createKemManager(alg: KemAlgorithm) : KemManager
-  +createKemTimingManager(alg: KemAlgorithm) : KemTimingManager
-  +createSignatureManager(alg: SignatureAlgorithm) : SignatureManager
-  +createSignatureTimingManager(alg: SignatureAlgorithm) : SigTimingManager
-}
-
-class KEMs <<singleton / metadata>> #E1F5FE {
-  +supportedIds() : List<String>
-  +enabledIds() : List<String>
-  +supportedAlgorithms(incUnk: Boolean) : List<KemAlgorithm>
-  +enabledAlgorithms(incUnk: Boolean) : List<KemAlgorithm>
-  +isSupported(alg: KemAlgorithm) : Boolean
-  +isEnabled(alg: KemAlgorithm) : Boolean
-}
-
-class Sigs <<singleton / metadata>> #E1F5FE {
-  +supportedIds() : List<String>
-  +enabledIds() : List<String>
-  +supportedAlgorithms(incUnk: Boolean) : List<SigAlgorithm>
-  +enabledAlgorithms(incUnk: Boolean) : List<SigAlgorithm>
-  +isSupported(alg: SigAlgorithm) : Boolean
-  +isEnabled(alg: SigAlgorithm) : Boolean
-}
-
-KEMs -[hidden]down-> Sigs
-
-class KeyEncapsulation {
-  ~KeyEncapsulation(alg: KemAlgorithm)
-  ~KeyEncapsulation(alg: KemAlgorithm, sk: ByteArray)
-}
-
-class Signature {
-  ~Signature(alg: SignatureAlgorithm)
-  ~Signature(alg: SignatureAlgorithm, sk: ByteArray)
-}
-
-class LiboqsJNI <<native C boundary>> #FFEBEE
-
-KemTimingManager <|.. KeyEncapsulation
-SignatureTimingManager <|.. Signature
-Oqs ..> KeyEncapsulation : instantiates
-Oqs ..> Signature : instantiates
-KeyEncapsulation --> LiboqsJNI : delegates
-Signature --> LiboqsJNI : delegates
-KEMs --> LiboqsJNI : delegates
-Sigs --> LiboqsJNI : delegates
-@enduml
+```bash
+java -jar plantuml.jar -tpng docs/class-diagram.puml
+java -jar plantuml.jar -tsvg docs/class-diagram.puml
 ```
+
+</details>
 
 ## Package structure
 
