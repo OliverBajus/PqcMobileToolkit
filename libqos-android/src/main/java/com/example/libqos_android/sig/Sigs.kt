@@ -6,8 +6,14 @@ import com.example.libqos_android.api.model.sigFromIdOrNull
 import com.example.libqos_android.utils.loadNativeLibrary
 
 /**
- * \brief Signatures singleton class.
- * Singleton class, contains details about supported/enabled signature mechanisms
+ * Singleton providing metadata about digital-signature algorithms available
+ * in the native liboqs build.
+ *
+ * Use this object to query which signature algorithms are compiled into
+ * ("supported") and activated ("enabled") in the current native library build.
+ * The results depend on the liboqs compile-time configuration shipped with the AAR.
+ *
+ * @see Oqs.createSignatureManager
  */
 object Sigs {
 
@@ -15,34 +21,33 @@ object Sigs {
         loadNativeLibrary()
     }
 
-    /**
-     * \brief Wrapper for OQS_API int OQS_SIG_alg_count(void);
-     * \return Maximum number of supported signature algorithms
-     */
+    /** JNI: `OQS_SIG_alg_count()` -- total number of compiled signature algorithms. */
     private external fun maxNumberSigs(): Int
 
-    /**
-     * \brief Wrapper for OQS_API int OQS_SIG_alg_is_enabled(const char *method_name);
-     * Checks whether the signature algorithm alg_name is enabled
-     * \param alg_name Cryptographic algorithm name
-     * \return True if the signature algorithm is enabled, false otherwise
-     */
+    /** JNI: `OQS_SIG_alg_is_enabled(method_name)`. */
     private external fun isSigEnabled(alg_name: String?): Boolean
 
-    /**
-     * \brief Wrapper for OQS_API const char *OQS_SIG_alg_identifier(size_t i);
-     * \param alg_id Cryptographic algorithm numerical id
-     * \return signature algorithm name
-     */
+    /** JNI: `OQS_SIG_alg_identifier(i)` -- algorithm name by index. */
     private external fun getSigName(alg_id: Long): String?
 
+    /**
+     * Returns the liboqs identifier strings of all *supported* (compiled) signature algorithms.
+     */
     fun supportedIds(): List<String> =
         (0 until maxNumberSigs()).mapNotNull { i -> getSigName(i.toLong()) }
 
+    /**
+     * Returns the liboqs identifier strings of all *enabled* signature algorithms.
+     */
     fun enabledIds(): List<String> =
         supportedIds().filter(::isSigEnabled)
 
-
+    /**
+     * Returns typed [SignatureAlgorithm] objects for all *supported* algorithms.
+     *
+     * @param includeUnknown if `true`, algorithms that have no matching
+     *   `data object` in [PqcAlgorithm.Sig] are included as [PqcAlgorithm.Sig.UnknownSig]
+     */
     fun supportedAlgorithms(
         includeUnknown: Boolean = false
     ): List<SignatureAlgorithm> =
@@ -50,6 +55,12 @@ object Sigs {
             sigFromIdOrNull(id) ?: if (includeUnknown) PqcAlgorithm.Sig.UnknownSig(id) else null
         }
 
+    /**
+     * Returns typed [SignatureAlgorithm] objects for all *enabled* algorithms.
+     *
+     * @param includeUnknown if `true`, algorithms that have no matching
+     *   `data object` in [PqcAlgorithm.Sig] are included as [PqcAlgorithm.Sig.UnknownSig]
+     */
     fun enabledAlgorithms(
         includeUnknown: Boolean = false
     ): List<SignatureAlgorithm> =
@@ -57,6 +68,9 @@ object Sigs {
             sigFromIdOrNull(id) ?: if (includeUnknown) PqcAlgorithm.Sig.UnknownSig(id) else null
         }
 
+    /** Returns `true` if the algorithm is compiled into the native library. */
     fun isSupported(alg: SignatureAlgorithm): Boolean = supportedIds().contains(alg.id)
+
+    /** Returns `true` if the algorithm is both compiled and enabled at runtime. */
     fun isEnabled(alg: SignatureAlgorithm): Boolean = isSigEnabled(alg.id)
 }

@@ -6,8 +6,14 @@ import com.example.libqos_android.api.model.kemFromIdOrNull
 import com.example.libqos_android.utils.loadNativeLibrary
 
 /**
- * \brief Key Encapsulation Mechanisms Singleton class.
- * Contains details about supported/enabled key exchange mechanisms (KEMs)
+ * Singleton providing metadata about KEM algorithms available in the
+ * native liboqs build.
+ *
+ * Use this object to query which KEM algorithms are compiled into ("supported")
+ * and activated ("enabled") in the current native library build. The results
+ * depend on the liboqs compile-time configuration shipped with the AAR.
+ *
+ * @see Oqs.createKemManager
  */
 object KEMs {
 
@@ -15,34 +21,33 @@ object KEMs {
         loadNativeLibrary()
     }
 
-    /**
-     * \brief Wrapper for OQS_API int OQS_KEM_alg_count(void);
-     * \return Maximum number of supported KEM algorithms
-     */
+    /** JNI: `OQS_KEM_alg_count()` -- total number of compiled KEM algorithms. */
     private external fun maxNumberKEMs(): Int
 
-    /**
-     * \brief Wrapper for OQS_API int OQS_KEM_alg_is_enabled(const char *method_name);
-     * Checks whether the KEM algorithm alg_name is enabled
-     * \param alg_name Cryptographic algorithm name
-     * \return True if the KEM algorithm is enabled, false otherwise
-     */
+    /** JNI: `OQS_KEM_alg_is_enabled(method_name)`. */
     private external fun isKemEnabled(alg_name: String?): Boolean
 
-    /**
-     * \brief Wrapper for OQS_API const char *OQS_KEM_alg_identifier(size_t i);
-     * \param alg_id Cryptographic algorithm numerical id
-     * \return KEM algorithm name
-     */
+    /** JNI: `OQS_KEM_alg_identifier(i)` -- algorithm name by index. */
     private external fun getKemName(alg_id: Long): String?
 
-
+    /**
+     * Returns the liboqs identifier strings of all *supported* (compiled) KEM algorithms.
+     */
     fun supportedIds(): List<String> =
         (0 until maxNumberKEMs()).mapNotNull { i -> getKemName(i.toLong()) }
 
+    /**
+     * Returns the liboqs identifier strings of all *enabled* KEM algorithms.
+     */
     fun enabledIds(): List<String> =
         supportedIds().filter(::isKemEnabled)
 
+    /**
+     * Returns typed [KemAlgorithm] objects for all *supported* algorithms.
+     *
+     * @param includeUnknown if `true`, algorithms that have no matching
+     *   `data object` in [PqcAlgorithm.Kem] are included as [PqcAlgorithm.Kem.UnknownKem]
+     */
     fun supportedAlgorithms(
         includeUnknown: Boolean = false
     ): List<KemAlgorithm> =
@@ -50,6 +55,12 @@ object KEMs {
             kemFromIdOrNull(id) ?: if (includeUnknown) PqcAlgorithm.Kem.UnknownKem(id) else null
         }
 
+    /**
+     * Returns typed [KemAlgorithm] objects for all *enabled* algorithms.
+     *
+     * @param includeUnknown if `true`, algorithms that have no matching
+     *   `data object` in [PqcAlgorithm.Kem] are included as [PqcAlgorithm.Kem.UnknownKem]
+     */
     fun enabledAlgorithms(
         includeUnknown: Boolean = false
     ): List<KemAlgorithm> =
@@ -57,6 +68,9 @@ object KEMs {
             kemFromIdOrNull(id) ?: if (includeUnknown) PqcAlgorithm.Kem.UnknownKem(id) else null
         }
 
+    /** Returns `true` if the algorithm is compiled into the native library. */
     fun isSupported(alg: KemAlgorithm): Boolean = supportedIds().contains(alg.id)
+
+    /** Returns `true` if the algorithm is both compiled and enabled at runtime. */
     fun isEnabled(alg: KemAlgorithm): Boolean = isKemEnabled(alg.id)
 }
