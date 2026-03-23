@@ -22,6 +22,25 @@ python automatic_tvla.py -i data -o outputs -t 4.5
 | `-o` / `--output` | `outputs` | Output directory for plots and summary |
 | `-t` / `--threshold` | `4.5` | |t|-value threshold for leak detection |
 
+## Collecting Test Data
+
+The `benchmark` module contains TVLA instrumented tests that produce CSV files in the
+format expected by this script. Each test takes a long time, so run specific tests
+rather than the entire suite. To collect data and run analysis:
+
+1. Run a specific TVLA test on a connected Android device, e.g. ML-DSA message/key test via liboqs:
+   ```bash
+   ./gradlew :benchmark:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=cz.monetplus.pqc.benchmark.liboqs.tvla.LibOqsTvlaDsaTest#test_ML_DSA_3
+   ```
+2. Pull the results from the device:
+   ```bash
+   adb pull /sdcard/Android/data/cz.monetplus.pqc.benchmark.test/files/Download/ ./data/
+   ```
+3. Run the analysis:
+   ```bash
+   python automatic_tvla.py
+   ```
+
 ## Input Format
 
 The script expects **pairs** of CSV files in the input directory. Each pair represents one TVLA test case.
