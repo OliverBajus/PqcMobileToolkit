@@ -1,0 +1,451 @@
+platform,library,primitive,algorithm,operation,mean_ns,allocs,test_class,test_method
+Android,BouncyCastle,KEM,"FrodoKEM-1344-AES
+Level 5",decaps,46092326,56,TestKemDecapsulationBc,benchmarkFrodoAes5Decapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-976-SHAKE
+Level 3",decaps,22763183,42,TestKemDecapsulationBc,benchmarkFrodoShake3Decapsulation
+Android,BouncyCastle,KEM,"ML-KEM-768
+Level 3",decaps,113199,345,TestKemDecapsulationBc,benchmarkMlKem3Decapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-976-AES
+Level 3",decaps,23860121,54,TestKemDecapsulationBc,benchmarkFrodoAes3Decapsulation
+Android,BouncyCastle,KEM,"HQC-256
+Level 5",decaps,41968099,3228,TestKemDecapsulationBc,benchmarkHqc5Decapsulation
+Android,BouncyCastle,KEM,"HQC-192
+Level 3",decaps,17770939,2088,TestKemDecapsulationBc,benchmarkHqc3Decapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-1344-SHAKE
+Level 5",decaps,43350972,43,TestKemDecapsulationBc,benchmarkFrodoShake5Decapsulation
+Android,BouncyCastle,KEM,"ML-KEM-1024
+Level 5",decaps,161044,359,TestKemDecapsulationBc,benchmarkMlKem5Decapsulation
+Android,BouncyCastle,KEM,"HQC-192
+Level 3",encaps,11878804,903,TestKemEncapsulationBc,benchmarkHqc3Encapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-1344-SHAKE
+Level 5",encaps,42749694,38,TestKemEncapsulationBc,benchmarkFrodoShake5Encapsulation
+Android,BouncyCastle,KEM,"ML-KEM-1024
+Level 5",encaps,127205,192,TestKemEncapsulationBc,benchmarkMlKem5Encapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-1344-AES
+Level 5",encaps,48880412,51,TestKemEncapsulationBc,benchmarkFrodoAes5Encapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-976-SHAKE
+Level 3",encaps,22080281,37,TestKemEncapsulationBc,benchmarkFrodoShake3Encapsulation
+Android,BouncyCastle,KEM,"ML-KEM-768
+Level 3",encaps,89617,152,TestKemEncapsulationBc,benchmarkMlKem3Encapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-976-AES
+Level 3",encaps,24980238,49,TestKemEncapsulationBc,benchmarkFrodoAes3Encapsulation
+Android,BouncyCastle,KEM,"HQC-256
+Level 5",encaps,28288994,1416,TestKemEncapsulationBc,benchmarkHqc5Encapsulation
+Android,BouncyCastle,KEM,"FrodoKEM-976-SHAKE
+Level 3",keygen,21183736,7841,TestKemKeyGenerationBc,benchmarkFrodoShake3KeyGeneration
+Android,BouncyCastle,KEM,"ML-KEM-768
+Level 3",keygen,92121,179,TestKemKeyGenerationBc,benchmarkMlKem3KeyGeneration
+Android,BouncyCastle,KEM,"FrodoKEM-976-AES
+Level 3",keygen,23631073,7853,TestKemKeyGenerationBc,benchmarkFrodoAes3KeyGeneration
+Android,BouncyCastle,KEM,"HQC-256
+Level 5",keygen,14618930,41,TestKemKeyGenerationBc,benchmarkHqc5KeyGeneration
+Android,BouncyCastle,KEM,"HQC-192
+Level 3",keygen,6168828,41,TestKemKeyGenerationBc,benchmarkHqc3KeyGeneration
+Android,BouncyCastle,KEM,"FrodoKEM-1344-SHAKE
+Level 5",keygen,39055989,10786,TestKemKeyGenerationBc,benchmarkFrodoShake5KeyGeneration
+Android,BouncyCastle,KEM,"ML-KEM-1024
+Level 5",keygen,134633,218,TestKemKeyGenerationBc,benchmarkMlKem5KeyGeneration
+Android,BouncyCastle,KEM,"FrodoKEM-1344-AES
+Level 5",keygen,44189453,10798,TestKemKeyGenerationBc,benchmarkFrodoAes5KeyGeneration
+Android,liboqs,KEM,"FrodoKEM-1344-AES
+Level 5",decaps,1833768,2,TestKemDecapsulation,benchmarkFrodoAes5Decapsulation
+Android,liboqs,KEM,"FrodoKEM-1344-SHAKE
+Level 5",decaps,9079808,2,TestKemDecapsulation,benchmarkFrodoShake5Encapsulation
+Android,liboqs,KEM,"FrodoKEM-976-SHAKE
+Level 3",decaps,5025656,2,TestKemDecapsulation,benchmarkFrodoShake3Decapsulation
+Android,liboqs,KEM,"FrodoKEM-976-AES
+Level 3",decaps,984809,2,TestKemDecapsulation,benchmarkFrodoAes3Decapsulation
+Android,liboqs,KEM,"ML-KEM-768
+Level 3",decaps,32518,2,TestKemDecapsulation,benchmarkMlKem3EDecapsulation
+Android,liboqs,KEM,"HQC-256
+Level 5",decaps,155800252,4,TestKemDecapsulation,benchmarkHqc5Decapsulation
+Android,liboqs,KEM,"HQC-192
+Level 3",decaps,82928670,4,TestKemDecapsulation,benchmarkHqc3Decapsulation
+Android,liboqs,KEM,"ML-KEM-1024
+Level 5",decaps,47187,2,TestKemDecapsulation,benchmarkMlKem5Decapsulation
+Android,liboqs,KEM,"HQC-192
+Level 3",encaps,51459107,7,TestKemEncapsulation,benchmarkHqc3Encapsulation
+Android,liboqs,KEM,"FrodoKEM-1344-SHAKE
+Level 5",encaps,8934676,5,TestKemEncapsulation,benchmarkFrodoShake5Encapsulation
+Android,liboqs,KEM,"ML-KEM-1024
+Level 5",encaps,43997,5,TestKemEncapsulation,benchmarkMlKem5Encapsulation
+Android,liboqs,KEM,"FrodoKEM-1344-AES
+Level 5",encaps,1864127,5,TestKemEncapsulation,benchmarkFrodoAes5Encapsulation
+Android,liboqs,KEM,"FrodoKEM-976-SHAKE
+Level 3",encaps,4992557,5,TestKemEncapsulation,benchmarkFrodoShake3Encapsulation
+Android,liboqs,KEM,"ML-KEM-768
+Level 3",encaps,30675,5,TestKemEncapsulation,benchmarkMlKem3Encapsulation
+Android,liboqs,KEM,"FrodoKEM-976-AES
+Level 3",encaps,1053987,5,TestKemEncapsulation,benchmarkFrodoAes3Encapsulation
+Android,liboqs,KEM,"HQC-256
+Level 5",encaps,100181071,7,TestKemEncapsulation,benchmarkHqc5Encapsulation
+Android,liboqs,KEM,"FrodoKEM-976-SHAKE
+Level 3",keygen,4712394,5,TestKemKeyGeneration,benchmarkFrodoShake3KeyGeneration
+Android,liboqs,KEM,"ML-KEM-768
+Level 3",keygen,36707,5,TestKemKeyGeneration,benchmarkMlKem3KeyGeneration
+Android,liboqs,KEM,"FrodoKEM-976-AES
+Level 3",keygen,836994,5,TestKemKeyGeneration,benchmarkFrodoAes3KeyGeneration
+Android,liboqs,KEM,"HQC-256
+Level 5",keygen,49334085,6,TestKemKeyGeneration,benchmarkHqc5KeyGeneration
+Android,liboqs,KEM,"HQC-192
+Level 3",keygen,26414930,5,TestKemKeyGeneration,benchmarkHqc3KeyGeneration
+Android,liboqs,KEM,"FrodoKEM-1344-SHAKE
+Level 5",keygen,8209912,5,TestKemKeyGeneration,benchmarkFrodoShake5KeyGeneration
+Android,liboqs,KEM,"ML-KEM-1024
+Level 5",keygen,53446,5,TestKemKeyGeneration,benchmarkMlKem5KeyGeneration
+Android,liboqs,KEM,"FrodoKEM-1344-AES
+Level 5",keygen,1451125,5,TestKemKeyGeneration,benchmarkFrodoAes5KeyGeneration
+Android,liboqs,DSA,"SLH-DSA-SHA2-192f
+Level 3",keygen,1375755,5,TestSigKeyGenerationOqs,benchmarkSlhDsa3FastShaKeygen
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192s
+Level 3",keygen,135217082,7,TestSigKeyGenerationOqs,benchmarkSlhDsa3SmallShakeKeygen
+Android,liboqs,DSA,"cross-rsdpg-192-balanced
+Level 3",keygen,16429,5,TestSigKeyGenerationOqs,benchmarkCross3RsdpgBalancedKeygen
+Android,liboqs,DSA,"SLH-DSA-SHA2-192s
+Level 3",keygen,89871542,7,TestSigKeyGenerationOqs,benchmarkSlhDsa3SmallShaKeygen
+Android,liboqs,DSA,"cross-rsdp-192-balanced
+Level 3",keygen,33424,5,TestSigKeyGenerationOqs,benchmarkCross3RsdpBalancedKeygen
+Android,liboqs,DSA,"OV-V
+Level 5",keygen,346657675,7,TestSigKeyGenerationOqs,benchmarkUov5Keygen
+Android,liboqs,DSA,"cross-rsdpg-256-fast
+Level 5",keygen,26279,5,TestSigKeyGenerationOqs,benchmarkCross5RsdpgFastKeygen
+Android,liboqs,DSA,"ML-DSA-65
+Level 3",keygen,119515,5,TestSigKeyGenerationOqs,benchmarkMlDsa3Keygen
+Android,liboqs,DSA,"OV-V-pkc-skc
+Level 5",keygen,344262736,7,TestSigKeyGenerationOqs,benchmarkUov5PkcSkcKeygen
+Android,liboqs,DSA,"Falcon-padded-1024
+Level 5",keygen,26079345,7,TestSigKeyGenerationOqs,benchmarkFalcon5PaddedKeygen
+Android,liboqs,DSA,"cross-rsdp-256-fast
+Level 5",keygen,56010,5,TestSigKeyGenerationOqs,benchmarkCross5RsdpFastKeygen
+Android,liboqs,DSA,"cross-rsdpg-192-fast
+Level 3",keygen,16565,5,TestSigKeyGenerationOqs,benchmarkCross3RsdpgFastKeygen
+Android,liboqs,DSA,"MAYO-3
+Level 3",keygen,873149,5,TestSigKeyGenerationOqs,benchmarkMayo3Keygen
+Android,liboqs,DSA,"OV-III-pkc-skc
+Level 3",keygen,110695801,7,TestSigKeyGenerationOqs,benchmarkUov3PkcSkcKeygen
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256f
+Level 5",keygen,5552602,5,TestSigKeyGenerationOqs,benchmarkSlhDsa5FastShakeKeygen
+Android,liboqs,DSA,"OV-V-pkc
+Level 5",keygen,345153035,7,TestSigKeyGenerationOqs,benchmarkUov5PkcKeygen
+Android,liboqs,DSA,"cross-rsdp-192-fast
+Level 3",keygen,33579,5,TestSigKeyGenerationOqs,benchmarkCross3RsdpFastKeygen
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256s
+Level 5",keygen,91923015,7,TestSigKeyGenerationOqs,benchmarkSlhDsa5SmallShakeKeygen
+Android,liboqs,DSA,"OV-III-pkc
+Level 3",keygen,111016683,7,TestSigKeyGenerationOqs,benchmarkUov3PkcKeygen
+Android,liboqs,DSA,"ML-DSA-87
+Level 5",keygen,172139,5,TestSigKeyGenerationOqs,benchmarkMlDsa5Keygen
+Android,liboqs,DSA,"OV-III
+Level 3",keygen,111677165,7,TestSigKeyGenerationOqs,benchmarkUov3Keygen
+Android,liboqs,DSA,"SLH-DSA-SHA2-256s
+Level 5",keygen,58601522,7,TestSigKeyGenerationOqs,benchmarkSlhDsa5SmallShaKeygen
+Android,liboqs,DSA,"SLH-DSA-SHA2-256f
+Level 5",keygen,3670081,5,TestSigKeyGenerationOqs,benchmarkSlhDsa5FastShaKeygen
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192f
+Level 3",keygen,2107446,5,TestSigKeyGenerationOqs,benchmarkSlhDsa3FastShakeKeygen
+Android,liboqs,DSA,"cross-rsdpg-256-balanced
+Level 5",keygen,26593,5,TestSigKeyGenerationOqs,benchmarkCross5RsdpgBalancedKeygen
+Android,liboqs,DSA,"Falcon-1024
+Level 5",keygen,28689304,5,TestSigKeyGenerationOqs,benchmarkFalcon5Keygen
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256f
+Level 5",sign,116246786,6,TestSigSignOqs,benchmarkSlhDsa5FastShakeSign
+Android,liboqs,DSA,"SLH-DSA-SHA2-192s
+Level 3",sign,814091798,6,TestSigSignOqs,benchmarkSlhDsa3SmallShaSign
+Android,liboqs,DSA,"cross-rsdp-192-fast
+Level 3",sign,1487833,4,TestSigSignOqs,benchmarkCross3RsdpFastSign
+Android,liboqs,DSA,"cross-rsdpg-192-balanced
+Level 3",sign,1639879,4,TestSigSignOqs,benchmarkCross3RsdpgBalancedSign
+Android,liboqs,DSA,"cross-rsdpg-256-fast
+Level 5",sign,2250116,4,TestSigSignOqs,benchmarkCross5RsdpgFastSign
+Android,liboqs,DSA,"SLH-DSA-SHA2-192f
+Level 3",sign,36549642,5,TestSigSignOqs,benchmarkSlhDsa3FastShaSign
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192f
+Level 3",sign,59619792,6,TestSigSignOqs,benchmarkSlhDsa3FastShakeSign
+Android,liboqs,DSA,"SLH-DSA-SHA2-256f
+Level 5",sign,75448812,6,TestSigSignOqs,benchmarkSlhDsa5FastShaSign
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192s
+Level 3",sign,1347309856,6,TestSigSignOqs,benchmarkSlhDsa3SmallShakeSign
+Android,liboqs,DSA,"OV-V-pkc
+Level 5",sign,3135091,4,TestSigSignOqs,benchmarkUov5PkcSign
+Android,liboqs,DSA,"cross-rsdpg-192-fast
+Level 3",sign,1288246,4,TestSigSignOqs,benchmarkCross3RsdpgFastSign
+Android,liboqs,DSA,"ML-DSA-65
+Level 3",sign,369970,4,TestSigSignOqs,benchmarkMlDsa3Sign
+Android,liboqs,DSA,"ML-DSA-87
+Level 5",sign,469708,4,TestSigSignOqs,benchmarkMlDsa5Sign
+Android,liboqs,DSA,"OV-III-pkc
+Level 3",sign,1351751,4,TestSigSignOqs,benchmarkUov3PkcSign
+Android,liboqs,DSA,"Falcon-1024
+Level 5",sign,8250885,4,TestSigSignOqs,benchmarkFalcon5Sign
+Android,liboqs,DSA,"MAYO-3
+Level 3",sign,2648782,4,TestSigSignOqs,benchmarkMayo3Sign
+Android,liboqs,DSA,"Falcon-padded-1024
+Level 5",sign,8238379,4,TestSigSignOqs,benchmarkFalcon5PaddedSign
+Android,liboqs,DSA,"cross-rsdp-192-balanced
+Level 3",sign,2756424,4,TestSigSignOqs,benchmarkCross3RsdpBalancedSign
+Android,liboqs,DSA,"cross-rsdpg-256-balanced
+Level 5",sign,3050879,4,TestSigSignOqs,benchmarkCross5RsdpgBalancedSign
+Android,liboqs,DSA,"OV-III-pkc-skc
+Level 3",sign,71381673,6,TestSigSignOqs,benchmarkUov3PkcSkcSign
+Android,liboqs,DSA,"SLH-DSA-SHA2-256s
+Level 5",sign,741473511,6,TestSigSignOqs,benchmarkSlhDsa5SmallShaSign
+Android,liboqs,DSA,"OV-III
+Level 3",sign,1353042,4,TestSigSignOqs,benchmarkUov3Sign
+Android,liboqs,DSA,"OV-V
+Level 5",sign,3176860,4,TestSigSignOqs,benchmarkUov5Sign
+Android,liboqs,DSA,"OV-V-pkc-skc
+Level 5",sign,221974488,6,TestSigSignOqs,benchmarkUov5PkcSkcSign
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256s
+Level 5",sign,1237814739,6,TestSigSignOqs,benchmarkSlhDsa5SmallShakeSign
+Android,liboqs,DSA,"cross-rsdp-256-fast
+Level 5",sign,3206344,4,TestSigSignOqs,benchmarkCross5RsdpFastSign
+Android,liboqs,DSA,"Falcon-1024
+Level 5",verify,101947,0,TestSigVerifyOqs,benchmarkFalcon5Verify
+Android,liboqs,DSA,"SLH-DSA-SHA2-192f
+Level 3",verify,2006223,0,TestSigVerifyOqs,benchmarkSlhDsa3FastShaVerify
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192s
+Level 3",verify,1040869,0,TestSigVerifyOqs,benchmarkSlhDsa3SmallShakeVerify
+Android,liboqs,DSA,"cross-rsdpg-192-balanced
+Level 3",verify,968089,0,TestSigVerifyOqs,benchmarkCross3RsdpgBalancedVerify
+Android,liboqs,DSA,"SLH-DSA-SHA2-192s
+Level 3",verify,697703,0,TestSigVerifyOqs,benchmarkSlhDsa3SmallShaVerify
+Android,liboqs,DSA,"cross-rsdp-192-balanced
+Level 3",verify,1413604,0,TestSigVerifyOqs,benchmarkCross3RsdpBalancedVerify
+Android,liboqs,DSA,"OV-V
+Level 5",verify,563141,0,TestSigVerifyOqs,benchmarkUov5Verify
+Android,liboqs,DSA,"cross-rsdpg-256-fast
+Level 5",verify,1374265,0,TestSigVerifyOqs,benchmarkCross5RsdpgFastVerify
+Android,liboqs,DSA,"ML-DSA-65
+Level 3",verify,107334,0,TestSigVerifyOqs,benchmarkMlDsa3Verify
+Android,liboqs,DSA,"OV-V-pkc-skc
+Level 5",verify,1800342,0,TestSigVerifyOqs,benchmarkUov5PkcSkcVerify
+Android,liboqs,DSA,"Falcon-padded-1024
+Level 5",verify,103757,0,TestSigVerifyOqs,benchmarkFalcon5PaddedVerify
+Android,liboqs,DSA,"cross-rsdp-256-fast
+Level 5",verify,1831023,0,TestSigVerifyOqs,benchmarkCross5RsdpFastVerify
+Android,liboqs,DSA,"cross-rsdpg-192-fast
+Level 3",verify,740606,0,TestSigVerifyOqs,benchmarkCross3RsdpgFastVerify
+Android,liboqs,DSA,"MAYO-3
+Level 3",verify,434758,0,TestSigVerifyOqs,benchmarkMayo3Verify
+Android,liboqs,DSA,"OV-III-pkc-skc
+Level 3",verify,520347,0,TestSigVerifyOqs,benchmarkUov3PkcSkcVerify
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256f
+Level 5",verify,3285966,0,TestSigVerifyOqs,benchmarkSlhDsa5FastShakeVerify
+Android,liboqs,DSA,"OV-V-pkc
+Level 5",verify,1812341,0,TestSigVerifyOqs,benchmarkUov5PkcVerify
+Android,liboqs,DSA,"cross-rsdp-192-fast
+Level 3",verify,882350,0,TestSigVerifyOqs,benchmarkCross3RsdpFastVerify
+Android,liboqs,DSA,"SLH-DSA-SHAKE-256s
+Level 5",verify,1618360,0,TestSigVerifyOqs,benchmarkSlhDsa5SmallShakeVerify
+Android,liboqs,DSA,"OV-III-pkc
+Level 3",verify,500075,0,TestSigVerifyOqs,benchmarkUov3PkcVerify
+Android,liboqs,DSA,"ML-DSA-87
+Level 5",verify,176743,0,TestSigVerifyOqs,benchmarkMlDsa5Verify
+Android,liboqs,DSA,"OV-III
+Level 3",verify,242278,0,TestSigVerifyOqs,benchmarkUov3Verify
+Android,liboqs,DSA,"SLH-DSA-SHA2-256s
+Level 5",verify,1038757,0,TestSigVerifyOqs,benchmarkSlhDsa5SmallShaVerify
+Android,liboqs,DSA,"SLH-DSA-SHA2-256f
+Level 5",verify,2025126,0,TestSigVerifyOqs,benchmarkSlhDsa5FastShaVerify
+Android,liboqs,DSA,"cross-rsdpg-256-balanced
+Level 5",verify,1487795,0,TestSigSignOqs,benchmarkCross5RsdpgBalancedVerify
+Android,liboqs,DSA,"SLH-DSA-SHAKE-192f
+Level 3",verify,3095082,0,TestSigVerifyOqs,benchmarkSlhDsa3FastShakeVerify
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192f
+Level 3",keygen,3560359,13997,TestSigKeyGenerationBc,benchmarkSlhdsaSha2_192fKeygen
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_SSK
+Level 5",keygen,114732504,100837,TestSigKeyGenerationBc,benchmarkSnova60_10_4SskKeygen
+Android,BouncyCastle,DSA,"Falcon-1024
+Level 5",keygen,27535156,36991,TestSigKeyGenerationBc,benchmarkFalcon1024Keygen
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_SSK
+Level 3",keygen,9437898,9680,TestSigKeyGenerationBc,benchmarkSnova24_5_5SskKeygen
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_ESK
+Level 3",keygen,28885973,34113,TestSigKeyGenerationBc,benchmarkSnova37_8_4EskKeygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256s
+Level 5",keygen,196888061,310815,TestSigKeyGenerationBc,benchmarkSlhdsaShake_256sKeygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192f
+Level 3",keygen,4618183,7437,TestSigKeyGenerationBc,benchmarkSlhdsaShake_192fKeygen
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_SSK
+Level 3",keygen,28905151,34112,TestSigKeyGenerationBc,benchmarkSnova37_8_4SskKeygen
+Android,BouncyCastle,DSA,"ML-DSA-87
+Level 5",keygen,436899,716,TestSigKeyGenerationBc,benchmarkMlDsa87Keygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256f
+Level 5",keygen,10046016,36653,TestSigKeyGenerationBc,benchmarkSlhdsaSha2_256fKeygen
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_ESK
+Level 3",keygen,132576376,307434,TestSigKeyGenerationBc,benchmarkSnova56_25_2EskKeygen
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_ESK
+Level 5",keygen,19073222,16270,TestSigKeyGenerationBc,benchmarkSnova29_6_5EskKeygen
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_ESK
+Level 3",keygen,47119547,80779,TestSigKeyGenerationBc,benchmarkSnova49_11_3EskKeygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256f
+Level 5",keygen,12762317,19453,TestSigKeyGenerationBc,benchmarkSlhdsaShake_256fKeygen
+Android,BouncyCastle,DSA,"MAYO-3
+Level 3",keygen,4865705,50,TestSigKeyGenerationBc,benchmarkMayo3Keygen
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_SSK
+Level 3",keygen,129966146,307433,TestSigKeyGenerationBc,benchmarkSnova56_25_2SskKeygen
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_SSK
+Level 5",keygen,18877254,16269,TestSigKeyGenerationBc,benchmarkSnova29_6_5SskKeygen
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_SSK
+Level 3",keygen,45977437,80778,TestSigKeyGenerationBc,benchmarkSnova49_11_3SskKeygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192s
+Level 3",keygen,248332032,892976,TestSigKeyGenerationBc,benchmarkSlhdsaSha2_192sKeygen
+Android,BouncyCastle,DSA,"MAYO-5
+Level 5",keygen,11679920,50,TestSigKeyGenerationBc,benchmarkMayo5Keygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192s
+Level 3",keygen,304690836,474143,TestSigKeyGenerationBc,benchmarkSlhdsaShake_192sKeygen
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_ESK
+Level 5",keygen,120429200,100838,TestSigKeyGenerationBc,benchmarkSnova60_10_4EskKeygen
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_ESK
+Level 3",keygen,9604933,9681,TestSigKeyGenerationBc,benchmarkSnova24_5_5EskKeygen
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256s
+Level 5",keygen,156567301,585776,TestSigKeyGenerationBc,benchmarkSlhdsaSha2_256sKeygen
+Android,BouncyCastle,DSA,"ML-DSA-65
+Level 3",keygen,285567,502,TestSigKeyGenerationBc,benchmarkMlDsa65Keygen
+Android,BouncyCastle,DSA,"ML-DSA-65
+Level 3",sign,1002662,7701,TestSigSignBc,benchmarkMlDsa65Sign
+Android,BouncyCastle,DSA,"ML-DSA-87
+Level 5",sign,1196925,8143,TestSigSignBc,benchmarkMlDsa87Sign
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256f
+Level 5",sign,234226359,801975,TestSigSignBc,benchmarkSlhdsaSha2_256fSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256s
+Level 5",sign,2377193971,8155375,TestSigSignBc,benchmarkSlhdsaSha2_256sSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192f
+Level 3",sign,127399699,212707,TestSigSignBc,benchmarkSlhdsaShake_192fSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192s
+Level 3",sign,2992161378,5186329,TestSigSignBc,benchmarkSlhdsaShake_192sSign
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_SSK
+Level 5",sign,687319743,103466,TestSigSignBc,benchmarkSnova60_10_4SskSign
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_SSK
+Level 3",sign,168109008,11345,TestSigSignBc,benchmarkSnova24_5_5SskSign
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_ESK
+Level 5",sign,571281332,102828,TestSigSignBc,benchmarkSnova60_10_4EskSign
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_SSK
+Level 3",sign,155369466,82100,TestSigSignBc,benchmarkSnova49_11_3SskSign
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_SSK
+Level 5",sign,292454875,18259,TestSigSignBc,benchmarkSnova29_6_5SskSign
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_ESK
+Level 3",sign,173399292,11186,TestSigSignBc,benchmarkSnova24_5_5EskSign
+Android,BouncyCastle,DSA,"Falcon-1024
+Level 5",sign,1512468,3667,TestSigSignBc,benchmarkFalcon1024Sign
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_SSK
+Level 3",sign,172323812,308234,TestSigSignBc,benchmarkSnova56_25_2SskSign
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_ESK
+Level 3",sign,109786540,81522,TestSigSignBc,benchmarkSnova49_11_3EskSign
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_ESK
+Level 5",sign,297853028,18046,TestSigSignBc,benchmarkSnova29_6_5EskSign
+Android,BouncyCastle,DSA,"MAYO-3
+Level 3",sign,9181758,69,TestSigSignBc,benchmarkMayo3Sign
+Android,BouncyCastle,DSA,"MAYO-5
+Level 5",sign,21900655,69,TestSigSignBc,benchmarkMayo5Sign
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192f
+Level 3",sign,102888794,388129,TestSigSignBc,benchmarkSlhdsaSha2_192fSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192s
+Level 3",sign,2673735556,9372069,TestSigSignBc,benchmarkSlhdsaSha2_192sSign
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_ESK
+Level 3",sign,88026449,306796,TestSigSignBc,benchmarkSnova56_25_2EskSign
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_SSK
+Level 3",sign,238424439,35791,TestSigSignBc,benchmarkSnova37_8_4SskSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256f
+Level 5",sign,263745035,439512,TestSigSignBc,benchmarkSlhdsaShake_256fSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256s
+Level 5",sign,2578983237,4600129,TestSigSignBc,benchmarkSlhdsaShake_256sSign
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_ESK
+Level 3",sign,207729614,35457,TestSigSignBc,benchmarkSnova37_8_4EskSign
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256s
+Level 5",verify,2817818,9792,TestSigVerifyBc,benchmarkSlhdsaSha2_256sVerify
+Android,BouncyCastle,DSA,"ML-DSA-65
+Level 3",verify,291301,1790,TestSigVerifyBc,benchmarkMlDsa65Verify
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192f
+Level 3",verify,5594584,19524,TestSigVerifyBc,benchmarkSlhdsaSha2_192fVerify
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_SSK
+Level 5",verify,154566447,54182,TestSigVerifyBc,benchmarkSnova60_10_4SskVerify
+Android,BouncyCastle,DSA,"Falcon-1024
+Level 5",verify,100870,14,TestSigVerifyBc,benchmarkFalcon1024Verify
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_SSK
+Level 3",verify,41370056,6998,TestSigVerifyBc,benchmarkSnova24_5_5SskVerify
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_ESK
+Level 3",verify,52235393,19526,TestSigVerifyBc,benchmarkSnova37_8_4EskVerify
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256s
+Level 5",verify,3242876,5421,TestSigVerifyBc,benchmarkSlhdsaShake_256sVerify
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192f
+Level 3",verify,6612558,10343,TestSigVerifyBc,benchmarkSlhdsaShake_192fVerify
+Android,BouncyCastle,DSA,"SNOVA_37_8_4_SSK
+Level 3",verify,50619833,19526,TestSigVerifyBc,benchmarkSnova37_8_4SskVerify
+Android,BouncyCastle,DSA,"ML-DSA-87
+Level 5",verify,446496,2440,TestSigVerifyBc,benchmarkMlDsa87Verify
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-256f
+Level 5",verify,5521843,19663,TestSigVerifyBc,benchmarkSlhdsaSha2_256fVerify
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_ESK
+Level 3",verify,33767150,169920,TestSigVerifyBc,benchmarkSnova56_25_2EskVerify
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_ESK
+Level 5",verify,68393799,10762,TestSigVerifyBc,benchmarkSnova29_6_5EskVerify
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_ESK
+Level 3",verify,38429240,43063,TestSigVerifyBc,benchmarkSnova49_11_3EskVerify
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-256f
+Level 5",verify,6673828,10635,TestSigVerifyBc,benchmarkSlhdsaShake_256fVerify
+Android,BouncyCastle,DSA,"MAYO-3
+Level 3",verify,5027870,52,TestSigVerifyBc,benchmarkMayo3Verify
+Android,BouncyCastle,DSA,"SNOVA_56_25_2_SSK
+Level 3",verify,35680582,169920,TestSigVerifyBc,benchmarkSnova56_25_2SskVerify
+Android,BouncyCastle,DSA,"SNOVA_29_6_5_SSK
+Level 5",verify,67640300,10762,TestSigVerifyBc,benchmarkSnova29_6_5SskVerify
+Android,BouncyCastle,DSA,"SNOVA_49_11_3_SSK
+Level 3",verify,37805135,43063,TestSigVerifyBc,benchmarkSnova49_11_3SskVerify
+Android,BouncyCastle,DSA,"SLH-DSA-SHA2-192s
+Level 3",verify,1935461,7057,TestSigVerifyBc,benchmarkSlhdsaSha2_192sVerify
+Android,BouncyCastle,DSA,"MAYO-5
+Level 5",verify,10559407,52,TestSigVerifyBc,benchmarkMayo5Verify
+Android,BouncyCastle,DSA,"SLH-DSA-SHAKE-192s
+Level 3",verify,2120720,3771,TestSigVerifyBc,benchmarkSlhdsaShake_192sVerify
+Android,BouncyCastle,DSA,"SNOVA_60_10_4_ESK
+Level 5",verify,152681356,54182,TestSigVerifyBc,benchmarkSnova60_10_4EskVerify
+Android,BouncyCastle,DSA,"SNOVA_24_5_5_ESK
+Level 3",verify,40296692,6998,TestSigVerifyBc,benchmarkSnova24_5_5EskVerify
+iOS,CryptoKit,DSA,"ML-DSA-65
+Level 3",keygen,779492,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa65_KeyGen
+iOS,CryptoKit,DSA,"ML-DSA-65
+Level 3",sign,847675,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa65_Sign
+iOS,CryptoKit,DSA,"ML-DSA-65
+Level 3",verify,59983,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa65_Verify
+iOS,CryptoKit,DSA,"ML-DSA-87
+Level 5",keygen,1051281,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa87_KeyGen
+iOS,CryptoKit,DSA,"ML-DSA-87
+Level 5",sign,934677,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa87_Sign
+iOS,CryptoKit,DSA,"ML-DSA-87
+Level 5",verify,96883,0,CryptoKitPerformanceTests,testCryptoKit_MlDsa87_Verify
+iOS,CryptoKit,KEM,"ML-KEM-1024
+Level 5",decaps,88806,0,CryptoKitPerformanceTests,testCryptoKit_MlKem1024_Decaps
+iOS,CryptoKit,KEM,"ML-KEM-1024
+Level 5",encaps,23657,0,CryptoKitPerformanceTests,testCryptoKit_MlKem1024_Encaps
+iOS,CryptoKit,KEM,"ML-KEM-1024
+Level 5",keygen,138375,0,CryptoKitPerformanceTests,testCryptoKit_MlKem1024_KeyGen
+iOS,CryptoKit,KEM,"ML-KEM-768
+Level 3",decaps,59327,0,CryptoKitPerformanceTests,testCryptoKit_MlKem768_Decaps
+iOS,CryptoKit,KEM,"ML-KEM-768
+Level 3",encaps,16523,0,CryptoKitPerformanceTests,testCryptoKit_MlKem768_Encaps
+iOS,CryptoKit,KEM,"ML-KEM-768
+Level 3",keygen,89749,0,CryptoKitPerformanceTests,testCryptoKit_MlKem768_KeyGen
+iOS,liboqs,DSA,"ML-DSA-65
+Level 3",keygen,70602,0,PqcPerformanceTests,testOqs_MlDsa65_KeyGen
+iOS,liboqs,DSA,"ML-DSA-65
+Level 3",sign,162032,0,PqcPerformanceTests,testOqs_MlDsa65_Sign
+iOS,liboqs,DSA,"ML-DSA-65
+Level 3",verify,59040,0,PqcPerformanceTests,testOqs_MlDsa65_Verify
+iOS,liboqs,DSA,"ML-DSA-87
+Level 5",keygen,96924,0,PqcPerformanceTests,testOqs_MlDsa87_KeyGen
+iOS,liboqs,DSA,"ML-DSA-87
+Level 5",sign,210412,0,PqcPerformanceTests,testOqs_MlDsa87_Sign
+iOS,liboqs,DSA,"ML-DSA-87
+Level 5",verify,96309,0,PqcPerformanceTests,testOqs_MlDsa87_Verify
+iOS,liboqs,KEM,"ML-KEM-1024
+Level 5",decaps,27798,0,PqcPerformanceTests,testOqs_MlKem1024_Decaps
+iOS,liboqs,KEM,"ML-KEM-1024
+Level 5",encaps,25420,0,PqcPerformanceTests,testOqs_MlKem1024_Encaps
+iOS,liboqs,KEM,"ML-KEM-1024
+Level 5",keygen,28700,0,PqcPerformanceTests,testOqs_MlKem1024_KeyGen
+iOS,liboqs,KEM,"ML-KEM-768
+Level 3",decaps,19270,0,PqcPerformanceTests,testOqs_MlKem768_Decaps
+iOS,liboqs,KEM,"ML-KEM-768
+Level 3",encaps,17917,0,PqcPerformanceTests,testOqs_MlKem768_Encaps
+iOS,liboqs,KEM,"ML-KEM-768
+Level 3",keygen,19516,0,PqcPerformanceTests,testOqs_MlKem768_KeyGen

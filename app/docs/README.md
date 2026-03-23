@@ -1,89 +1,46 @@
 # app -- PQC Demo Application
 
-Android demo application for benchmarking post-quantum cryptographic algorithms.
-The app lets users select a PQC library backend (**liboqs** via JNI or
-**Bouncy Castle** via pure Java) and run KEM or digital-signature flows with
-real-time timing measurements displayed in a log view.
+Android application demonstrating end-to-end post-quantum cryptographic
+integration with a modular architecture that allows swapping between two
+independent PQC library backends -- **liboqs** (C via JNI) and **Bouncy Castle**
+(pure Java). Users select a backend and algorithm, then run KEM or
+digital-signature flows with real-time timing measurements. The app served as
+the execution platform for all performance benchmarks and TVLA measurements.
 
 ## Architecture
 
-The application follows **MVVM + Clean Architecture** with three layers:
+The application follows [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+combined with the MVVM presentation pattern.
 
-```
-┌─────────────────────────────────┐
-│  Presentation                   │
-│  MainActivity, MainScreen,      │
-│  MainViewModel (Jetpack Compose)│
-└──────────────┬──────────────────┘
-               │ StateFlow / Use Cases
-┌──────────────▼──────────────────┐
-│  Domain                         │
-│  PqcRepository, Use Cases,      │
-│  PqcRepositoryRouter, Models    │
-└──────────────┬──────────────────┘
-               │ Hilt DI
-┌──────────────▼──────────────────┐
-│  Data                           │
-│  OqsPqcRepository (liboqs JNI)  │
-│  BcPqcRepository  (Bouncy Castle│
-└─────────────────────────────────┘
-```
+<p align="center">
+  <img src="CleanArchitecture.jpg" alt="Clean Architecture diagram" width="60%" />
+</p>
 
-### Presentation layer
+The core idea is the **Dependency Rule**: source code dependencies always point
+inward. The inner layers (Domain) know nothing about the outer layers (Data,
+Presentation). This makes the business logic independent of frameworks, UI, and
+external libraries.
 
-| Component | Description |
-|---|---|
-| `MainActivity` | Hilt-injected entry point; hosts the Compose UI |
-| `MainScreen` | Material 3 Compose screen with library picker, algorithm pickers, log view, and action buttons |
-| `MainViewModel` | Holds UI state as `StateFlow`; dispatches use cases on `Dispatchers.Default` |
+In this application the layers map as follows:
 
-### Domain layer
+- **Domain (Entities + Use Cases)** -- defines the `PqcRepository` interface and
+  use cases (`RunKemFlow`, `RunSigFlow`, `GetSupportedKemAlgorithms`, …).
+  Domain models (`KemResult`, `SigResult`, `PqcFailure`) live here. This layer
+  has zero Android or library dependencies.
 
-| Component | Description |
-|---|---|
-| `PqcRepository` | Interface defining `supportedKems()`, `supportedSigs()`, `runKemFlow()`, `runSigFlow()` |
-| `PqcRepositoryRouter` | Routes calls to the OQS or BC repository based on the selected `PqcLibrary` |
-| `RunKemFlow` / `RunSigFlow` | Use cases that invoke the repository and return `Either<Failure, Result>` |
-| `GetSupportedKemAlgorithms` / `GetSupportedSigAlgorithms` | Use cases for algorithm discovery |
-| `AlgChoice` | Simple `id + name` model exposed to the UI |
-| `KemResult` / `SigResult` | Timing results (keygen, encaps/sign, decaps/verify in nanoseconds) + success flag |
-| `PqcFailure` | Sealed class (`UnsupportedAlgorithm`, `PqcError`) for error handling |
+- **Data (Interface Adapters)** -- contains concrete `PqcRepository`
+  implementations: `OqsPqcRepository` delegates to the liboqs-android JNI
+  module, `BcPqcRepository` delegates to Bouncy Castle. A
+  `PqcRepositoryRouter` selects the active backend at runtime. Hilt wires the
+  implementations via `@OqsRepo` / `@BcRepo` qualifiers.
 
-### Data layer
+- **Presentation (Frameworks & Drivers)** -- Jetpack Compose UI with a
+  `MainViewModel` exposing state via `StateFlow`. The ViewModel dispatches
+  use cases and the Compose screen observes and renders results.
 
-| Component | Description |
-|---|---|
-| `OqsPqcRepository` | Delegates to `Oqs.createKemManager()` / `createSignatureManager()` from the **liboqs-android** module |
-| `BcPqcRepository` | Uses Bouncy Castle (`org.bouncycastle.pqc.crypto.*`) for KEM and signature operations |
-| `BcFactory` | Factory that creates `BcKemManager` / `BcSigManager` for a given BC algorithm enum |
-| `BcKemManager` / `BcSigManager` | Wrappers around Bouncy Castle's generator/signer APIs |
-
-## Dependency injection (Hilt)
-
-```
-@HiltAndroidApp  App
-│
-├── DataModule    Binds OqsPqcRepository (@OqsRepo) and BcPqcRepository (@BcRepo)
-└── PQCModule     Provides SecureRandom singleton
-```
-
-The `@OqsRepo` and `@BcRepo` qualifiers distinguish the two `PqcRepository` bindings.
-
-## Data flow
-
-```
-User taps "Test KEM"
-  → MainViewModel.runFullKemFlow()
-    → RunKemFlow(library, algorithmId)
-      → PqcRepositoryRouter.repoFor(library)
-        ├── OQS: OqsPqcRepository.runKemFlow()
-        │         → Oqs.createKemManager() → JNI → liboqs C
-        └── BC:  BcPqcRepository.runKemFlow()
-                  → BcFactory.createKemManager() → Bouncy Castle Java
-      → Either<PqcFailure, KemResult>
-    → ViewModel appends timing log to logText StateFlow
-  → MainScreen observes and renders
-```
+Because the domain layer only depends on its own interfaces, adding a new PQC
+backend (e.g. a future Android Keystore provider) requires only a new
+`PqcRepository` implementation without touching business logic or UI.
 
 ## Supported algorithms
 

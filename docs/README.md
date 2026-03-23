@@ -1,21 +1,48 @@
-# PqcDemoApp -- Post-Quantum Cryptography Demo for Android
+# PqcMobileToolkit
 
-A multi-module Android application for benchmarking post-quantum cryptographic
-algorithms on mobile devices. The project compares two independent PQC backends
--- **liboqs** (C via JNI) and **Bouncy Castle** (pure Java) -- through a unified
-Kotlin API.
+An open-source Android toolkit consolidating all PQC engineering artifacts
+produced in the thesis *Analysis of Transition to Post-Quantum Cryptography on
+Mobile Platforms*. It serves as a practical reference for developers and
+researchers undertaking PQC migration on Android.
+
+The toolkit integrates the following components:
+
+- **liboqs-android** -- production-ready Android library (AAR) combining the
+  cross-compiled native liboqs binary with a rewritten Java/Kotlin wrapper,
+  consumable as a single Gradle dependency.
+- **Build pipeline** -- reproducible Android NDK cross-compilation scripts for
+  liboqs and OpenSSL.
+- **Benchmark module** -- Jetpack Microbenchmark harness with pre-configured
+  performance and TVLA test suites covering all evaluated algorithms across
+  security levels 3 and 5.
+- **TVLA pipeline** -- timing-based leakage assessment framework, including the
+  native JNI timing harness, interleaved measurement loop, and incremental
+  t-test analysis scripts.
+- **Prototype application** -- Android application (Kotlin/Compose)
+  demonstrating end-to-end PQC integration with both liboqs and Bouncy Castle.
+
+> **Note:** iOS artifacts (Swift wrapper, build scripts, prototype application)
+> are maintained in a separate repository.
 
 ## Project structure
 
 ```
-PqcDemoApp/
-├── app/                     # Demo application (MVVM + Clean Architecture)
-│   └── docs/README.md       # App-level documentation
-├── libqos-android/          # Android library wrapping liboqs via JNI
-│   └── docs/README.md       # Library-level documentation
-├── docs/                    # This directory (project-level docs)
+PqcMobileToolkit/
+├── app/                         # Prototype application (MVVM + Clean Architecture)
+│   └── docs/README.md
+├── libqos-android/              # Android library wrapping liboqs via JNI
+│   └── docs/README.md
+├── benchmark/                   # Performance & TVLA instrumented test suites
+├── scripts/
+│   ├── compilation/             # liboqs NDK cross-compilation scripts
+│   │   └── docs/README.md
+│   ├── performance/             # Performance analysis Python scripts
+│   │   └── docs/README.md
+│   └── tvla/                    # TVLA analysis Python scripts
+│       └── docs/README.md
+├── docs/                        # This directory (project-level docs)
 │   └── README.md
-├── build.gradle.kts         # Root Gradle build
+├── build.gradle.kts
 └── settings.gradle.kts
 ```
 
@@ -23,8 +50,12 @@ PqcDemoApp/
 
 | Module | Description | Docs |
 |---|---|---|
-| **[libqos-android](../libqos-android/docs/README.md)** | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. | [libqos-android/docs/README.md](../libqos-android/docs/README.md) |
-| **[app](../app/docs/README.md)** | Jetpack Compose demo app that benchmarks PQC algorithms using both liboqs and Bouncy Castle backends. | [app/docs/README.md](../app/docs/README.md) |
+| **[libqos-android](../libqos-android/docs/README.md)** | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. Distributed as an AAR. | [libqos-android/docs/README.md](../libqos-android/docs/README.md) |
+| **[app](../app/docs/README.md)** | Jetpack Compose prototype app demonstrating end-to-end PQC integration using both liboqs and Bouncy Castle backends. | [app/docs/README.md](../app/docs/README.md) |
+| **benchmark** | Jetpack Microbenchmark module with performance and TVLA test suites for both libraries. | — |
+| **[scripts/compilation](../scripts/compilation/docs/README.md)** | Shell scripts for cross-compiling liboqs (with optional OpenSSL) for Android via NDK. | [scripts/compilation/docs/README.md](../scripts/compilation/docs/README.md) |
+| **[scripts/performance](../scripts/performance/docs/README.md)** | Python script generating benchmark visualization charts from PQC performance data. | [scripts/performance/docs/README.md](../scripts/performance/docs/README.md) |
+| **[scripts/tvla](../scripts/tvla/docs/README.md)** | Python script performing Welch's t-test on PQC timing traces to detect timing side-channel leakage. | [scripts/tvla/docs/README.md](../scripts/tvla/docs/README.md) |
 
 ## Requirements
 

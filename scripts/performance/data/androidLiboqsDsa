@@ -1,0 +1,153 @@
+
+Pixel 6a - 16 Tests 0/81 completed. (0 skipped) (0 failed)
+    1,375,755   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa3FastShaKeygen
+Pixel 6a - 16 Tests 1/81 completed. (0 skipped) (0 failed)
+  135,217,082   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa3SmallShakeKeygen
+Pixel 6a - 16 Tests 2/81 completed. (0 skipped) (0 failed)
+       16,429   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross3RsdpgBalancedKeygen
+Pixel 6a - 16 Tests 3/81 completed. (0 skipped) (0 failed)
+   89,871,542   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa3SmallShaKeygen
+Pixel 6a - 16 Tests 4/81 completed. (0 skipped) (0 failed)
+       33,424   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross3RsdpBalancedKeygen
+Pixel 6a - 16 Tests 5/81 completed. (0 skipped) (0 failed)
+  346,657,675   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov5Keygen
+Pixel 6a - 16 Tests 6/81 completed. (0 skipped) (0 failed)
+       26,279   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross5RsdpgFastKeygen
+Pixel 6a - 16 Tests 7/81 completed. (0 skipped) (0 failed)
+      119,515   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkMlDsa3Keygen
+Pixel 6a - 16 Tests 8/81 completed. (0 skipped) (0 failed)
+  344,262,736   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov5PkcSkcKeygen
+Pixel 6a - 16 Tests 9/81 completed. (0 skipped) (0 failed)
+   26,079,345   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkFalcon5PaddedKeygen
+Pixel 6a - 16 Tests 10/81 completed. (0 skipped) (0 failed)
+       56,010   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross5RsdpFastKeygen
+       16,565   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross3RsdpgFastKeygen
+Pixel 6a - 16 Tests 12/81 completed. (0 skipped) (0 failed)
+      873,149   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkMayo3Keygen
+Timed out waiting for process (sk.bajuso.benchmark.test) to appear on google-pixel_6a-26081JEGR04849.
+Pixel 6a - 16 Tests 13/81 completed. (0 skipped) (0 failed)
+  110,695,801   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov3PkcSkcKeygen
+Pixel 6a - 16 Tests 14/81 completed. (0 skipped) (0 failed)
+    5,552,602   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa5FastShakeKeygen
+Pixel 6a - 16 Tests 15/81 completed. (0 skipped) (0 failed)
+  345,153,035   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov5PkcKeygen
+Pixel 6a - 16 Tests 16/81 completed. (0 skipped) (0 failed)
+       33,579   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross3RsdpFastKeygen
+Pixel 6a - 16 Tests 17/81 completed. (0 skipped) (0 failed)
+   91,923,015   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa5SmallShakeKeygen
+Pixel 6a - 16 Tests 18/81 completed. (0 skipped) (0 failed)
+  111,016,683   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov3PkcKeygen
+      172,139   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkMlDsa5Keygen
+Pixel 6a - 16 Tests 20/81 completed. (0 skipped) (0 failed)
+  111,677,165   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkUov3Keygen
+Pixel 6a - 16 Tests 21/81 completed. (0 skipped) (0 failed)
+   58,601,522   ns           7 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa5SmallShaKeygen
+Pixel 6a - 16 Tests 22/81 completed. (0 skipped) (0 failed)
+    3,670,081   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa5FastShaKeygen
+Pixel 6a - 16 Tests 23/81 completed. (0 skipped) (0 failed)
+    2,107,446   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkSlhDsa3FastShakeKeygen
+Pixel 6a - 16 Tests 24/81 completed. (0 skipped) (0 failed)
+    2,290,002   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkMayo5Keygen
+Pixel 6a - 16 Tests 25/81 completed. (0 skipped) (0 failed)
+       26,593   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkCross5RsdpgBalancedKeygen
+Pixel 6a - 16 Tests 26/81 completed. (0 skipped) (0 failed)
+   28,689,304   ns           5 allocs    Trace    Method Trace    TestSigKeyGenerationOqs.benchmarkFalcon5Keygen
+Pixel 6a - 16 Tests 27/81 completed. (0 skipped) (0 failed)
+  116,246,786   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa5FastShakeSign
+Pixel 6a - 16 Tests 28/81 completed. (0 skipped) (0 failed)
+  814,091,798   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa3SmallShaSign
+Pixel 6a - 16 Tests 29/81 completed. (0 skipped) (0 failed)
+    1,487,833   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross3RsdpFastSign
+Pixel 6a - 16 Tests 30/81 completed. (0 skipped) (0 failed)
+    1,639,879   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross3RsdpgBalancedSign
+Pixel 6a - 16 Tests 31/81 completed. (0 skipped) (0 failed)
+    2,250,116   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross5RsdpgFastSign
+Pixel 6a - 16 Tests 32/81 completed. (0 skipped) (0 failed)
+   36,549,642   ns           5 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa3FastShaSign
+Pixel 6a - 16 Tests 33/81 completed. (0 skipped) (0 failed)
+   59,619,792   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa3FastShakeSign
+Pixel 6a - 16 Tests 34/81 completed. (0 skipped) (0 failed)
+   75,448,812   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa5FastShaSign
+Pixel 6a - 16 Tests 35/81 completed. (0 skipped) (0 failed)
+1,347,309,856   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa3SmallShakeSign
+Pixel 6a - 16 Tests 36/81 completed. (0 skipped) (0 failed)
+    3,135,091   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov5PkcSign
+    1,288,246   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross3RsdpgFastSign
+Pixel 6a - 16 Tests 38/81 completed. (0 skipped) (0 failed)
+      369,970   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkMlDsa3Sign
+Pixel 6a - 16 Tests 39/81 completed. (0 skipped) (0 failed)
+      469,708   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkMlDsa5Sign
+Pixel 6a - 16 Tests 40/81 completed. (0 skipped) (0 failed)
+    1,351,751   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov3PkcSign
+Pixel 6a - 16 Tests 41/81 completed. (0 skipped) (0 failed)
+    8,250,885   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkFalcon5Sign
+Pixel 6a - 16 Tests 42/81 completed. (0 skipped) (0 failed)
+    2,648,782   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkMayo3Sign
+Pixel 6a - 16 Tests 43/81 completed. (0 skipped) (0 failed)
+    7,073,003   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkMayo5Sign
+Pixel 6a - 16 Tests 44/81 completed. (0 skipped) (0 failed)
+    8,238,379   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkFalcon5PaddedSign
+Pixel 6a - 16 Tests 45/81 completed. (0 skipped) (0 failed)
+    2,756,424   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross3RsdpBalancedSign
+Pixel 6a - 16 Tests 46/81 completed. (0 skipped) (0 failed)
+    3,050,879   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross5RsdpgBalancedSign
+Pixel 6a - 16 Tests 47/81 completed. (0 skipped) (0 failed)
+   71,381,673   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov3PkcSkcSign
+Pixel 6a - 16 Tests 48/81 completed. (0 skipped) (0 failed)
+  741,473,511   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa5SmallShaSign
+Pixel 6a - 16 Tests 49/81 completed. (0 skipped) (0 failed)
+    1,353,042   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov3Sign
+Pixel 6a - 16 Tests 50/81 completed. (0 skipped) (0 failed)
+    3,176,860   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov5Sign
+Pixel 6a - 16 Tests 51/81 completed. (0 skipped) (0 failed)
+  221,974,488   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkUov5PkcSkcSign
+Pixel 6a - 16 Tests 52/81 completed. (0 skipped) (0 failed)
+1,237,814,739   ns           6 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkSlhDsa5SmallShakeSign
+Pixel 6a - 16 Tests 53/81 completed. (0 skipped) (0 failed)
+    3,206,344   ns           4 allocs    Trace    Method Trace    TestSigSignOqs.benchmarkCross5RsdpFastSign
+Pixel 6a - 16 Tests 54/81 completed. (0 skipped) (0 failed)
+      101,947   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkFalcon5Verify
+Pixel 6a - 16 Tests 55/81 completed. (0 skipped) (0 failed)
+    2,006,223   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa3FastShaVerify
+Pixel 6a - 16 Tests 56/81 completed. (0 skipped) (0 failed)
+    1,040,869   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa3SmallShakeVerify
+      968,089   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross3RsdpgBalancedVerify
+Pixel 6a - 16 Tests 58/81 completed. (0 skipped) (0 failed)
+      697,703   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa3SmallShaVerify
+Pixel 6a - 16 Tests 59/81 completed. (0 skipped) (0 failed)
+    1,413,604   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross3RsdpBalancedVerify
+Pixel 6a - 16 Tests 60/81 completed. (0 skipped) (0 failed)
+      563,141   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov5Verify
+Pixel 6a - 16 Tests 61/81 completed. (0 skipped) (0 failed)
+    1,374,265   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross5RsdpgFastVerify
+Pixel 6a - 16 Tests 62/81 completed. (0 skipped) (0 failed)
+      107,334   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkMlDsa3Verify
+    1,800,342   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov5PkcSkcVerify
+Pixel 6a - 16 Tests 64/81 completed. (0 skipped) (0 failed)
+      103,757   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkFalcon5PaddedVerify
+Pixel 6a - 16 Tests 65/81 completed. (0 skipped) (0 failed)
+    1,831,023   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross5RsdpFastVerify
+Pixel 6a - 16 Tests 66/81 completed. (0 skipped) (0 failed)
+      740,606   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross3RsdpgFastVerify
+Pixel 6a - 16 Tests 67/81 completed. (0 skipped) (0 failed)
+      434,758   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkMayo3Verify
+      520,347   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov3PkcSkcVerify
+Pixel 6a - 16 Tests 69/81 completed. (0 skipped) (0 failed)
+    3,285,966   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa5FastShakeVerify
+Pixel 6a - 16 Tests 70/81 completed. (0 skipped) (0 failed)
+    1,812,341   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov5PkcVerify
+Pixel 6a - 16 Tests 71/81 completed. (0 skipped) (0 failed)
+      882,350   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkCross3RsdpFastVerify
+Pixel 6a - 16 Tests 72/81 completed. (0 skipped) (0 failed)
+    1,618,360   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa5SmallShakeVerify
+Pixel 6a - 16 Tests 73/81 completed. (0 skipped) (0 failed)
+      500,075   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov3PkcVerify
+      176,743   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkMlDsa5Verify
+Pixel 6a - 16 Tests 75/81 completed. (0 skipped) (0 failed)
+      242,278   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkUov3Verify
+Pixel 6a - 16 Tests 76/81 completed. (0 skipped) (0 failed)
+    1,038,757   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa5SmallShaVerify
+Pixel 6a - 16 Tests 77/81 completed. (0 skipped) (0 failed)
+    2,025,126   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa5FastShaVerify
+Pixel 6a - 16 Tests 78/81 completed. (0 skipped) (0 failed)
+    3,095,082   ns           0 allocs    Trace    Method Trace    TestSigVerifyOqs.benchmarkSlhDsa3FastShakeVerify

@@ -56,7 +56,7 @@ Thumbs.db
 
 # IntelliJ
 *.iml
-.idea/*
+**/.idea/
 *.working
 *.vpp~*
 
@@ -80,3 +80,8 @@ findbugs-android-exclude.xml
 
 **/fastlane/report.xml
 **/fastlane/README.md
+
+# liboqs compile script build outputs
+scripts/_build_android/
+
+**/.claude/
