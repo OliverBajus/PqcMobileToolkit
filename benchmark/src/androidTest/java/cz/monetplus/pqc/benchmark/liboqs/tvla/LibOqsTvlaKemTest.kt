@@ -47,9 +47,14 @@ class LibOqsTvlaKemTest {
     }
 
     @Test
-    fun test_HQC_3() {
+    fun test_HQC_3_fixed_vs_random() {
         kemAlg = PqcAlgorithm.Kem.Hqc3
         performTVLA_on_ciphertext_fixed_vs_random()
+    }
+
+    @Test
+    fun test_HQC_3_valid_vs_invalid() {
+        kemAlg = PqcAlgorithm.Kem.Hqc3
         performTVLA_on_ciphertext_valid_vs_invalid()
     }
 
@@ -86,9 +91,11 @@ class LibOqsTvlaKemTest {
                 repeat(ITERATIONS) { idx ->
                     val ct = server.encapsulate(kp.public).kemCiphertext
                     if (schedule[idx]) {
-                        fixedTimings[fi++] = client.timeDecapsNs(fixedCt)
+                        fixedTimings[fi] = client.timeDecapsNs(fixedCt)
+                        fi++
                     } else {
-                        randomTimings[ri++] = client.timeDecapsNs(ct)
+                        randomTimings[ri] = client.timeDecapsNs(ct)
+                        ri++
                     }
                 }
 
@@ -130,9 +137,11 @@ class LibOqsTvlaKemTest {
                     val invalid = KemCiphertext(makeInvalidCtByBitFlip(random, valid.bytes))
 
                     if (schedule[idx]) {
-                        fixedTimings[fi++] = client.timeDecapsNs(valid)
+                        fixedTimings[fi] = client.timeDecapsNs(valid)
+                        fi++
                     } else {
-                        randomTimings[ri++] = client.timeDecapsNs(invalid)
+                        randomTimings[ri] = client.timeDecapsNs(invalid)
+                        ri++
                     }
                 }
 

@@ -20,7 +20,7 @@ class FalconDsaBouncyCastleTvlaTest {
         "This is the message to sign to test TVLA on DSA PQC algorithms!".toByteArray()
 
     private val random = SecureRandom()
-    private val falconParameters = FalconParameters.falcon_512
+    private val falconParameters = FalconParameters.falcon_1024
     private val keyGenerator = FalconKeyPairGenerator()
 
     @Before
@@ -47,12 +47,12 @@ class FalconDsaBouncyCastleTvlaTest {
     }
 
     @Test
-    fun test_Falcon_3_message_TVLA() {
+    fun test_Falcon_5_message_TVLA() {
         performTVLA_on_message()
     }
 
     @Test
-    fun test_Falcon_3_key_TVLA() {
+    fun test_Falcon_5_key_TVLA() {
         performTVLA_on_key()
     }
 
@@ -157,7 +157,7 @@ class FalconDsaBouncyCastleTvlaTest {
     }
 
     companion object {
-        private const val ITERATIONS = 100_000
+        private const val ITERATIONS = 300_000
         private const val WARMUP = 200
     }
 }

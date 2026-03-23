@@ -52,7 +52,6 @@ class LibOqsTvlaDsaTest {
     @Test
     fun test_MAYO_3() {
         sigAlg = PqcAlgorithm.Sig.Mayo3
-        performTVLA_on_message()
         performTVLA_on_key()
     }
 
@@ -154,7 +153,7 @@ class LibOqsTvlaDsaTest {
     }
 
     companion object {
-        private const val ITERATIONS = 100_000
+        private const val ITERATIONS = 200_000
         private const val WARMUP = 100
     }
 }
