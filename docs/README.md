@@ -7,8 +7,8 @@ researchers undertaking PQC migration on Android.
 
 The toolkit integrates the following components:
 
-- **liboqs-android** -- production-ready Android library (AAR) combining the
-  cross-compiled native liboqs binary with a rewritten Java/Kotlin wrapper,
+- **liboqs-android** -- [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs)  wrapper as Android library (AAR) combining the
+  cross-compiled native liboqs binary with a rewritten [liboqs-java](https://github.com/open-quantum-safe/liboqs-java) wrapper,
   consumable as a single Gradle dependency.
 - **Build pipeline** -- reproducible Android NDK cross-compilation scripts for
   liboqs and OpenSSL.
