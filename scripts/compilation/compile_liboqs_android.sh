@@ -10,7 +10,7 @@ LIBOQS_VERSION="0.15.0"    # liboqs release tag (e.g. "0.15.0", "main" for lates
 ANDROID_API=21
 
 # Build for device + emulator
-ABIS=("arm64-v8a" "x86_64")
+ABIS=("arm64-v8a" "x86_64" "armeabi-v7a")
 
 # Your NDK (confirmed)
 ANDROID_NDK="${ANDROID_NDK:-$HOME/Library/Android/sdk/ndk/28.0.13004108}"

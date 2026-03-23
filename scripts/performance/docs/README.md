@@ -12,7 +12,6 @@ pip install pandas numpy matplotlib seaborn
 
 ```bash
 cd scripts/performance
-python performance_analysis.py
 python performance_analysis.py --inputs data/data.csv --out outputs --assume_unit ns
 ```
 

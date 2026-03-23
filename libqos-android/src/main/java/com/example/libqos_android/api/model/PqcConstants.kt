@@ -18,7 +18,8 @@ internal object PqcConstants {
         const val ALG_NAME_FRODO_SHAKE_3 = "FrodoKEM-976-SHAKE"
         const val ALG_NAME_FRODO_SHAKE_5 = "FrodoKEM-1344-SHAKE"
 
-        const val ALG_NAME_MC_ELIECE_3 = "Classic-McEliece-460896"
+        // !BIG STACK USAGE!
+/*        const val ALG_NAME_MC_ELIECE_3 = "Classic-McEliece-460896"
         const val ALG_NAME_MC_ELIECE_3_F = "Classic-McEliece-460896f"
 
         const val ALG_NAME_MC_ELIECE_5_6688128  = "Classic-McEliece-6688128"
@@ -28,7 +29,7 @@ internal object PqcConstants {
         const val ALG_NAME_MC_ELIECE_5_6960119F = "Classic-McEliece-6960119f"
 
         const val ALG_NAME_MC_ELIECE_5_8192128  = "Classic-McEliece-8192128"
-        const val ALG_NAME_MC_ELIECE_5_8192128F = "Classic-McEliece-8192128f"
+        const val ALG_NAME_MC_ELIECE_5_8192128F = "Classic-McEliece-8192128f"*/
     }
 
     object DSA {
@@ -51,17 +52,17 @@ internal object PqcConstants {
         const val ALG_NAME_FALCON_5 = "Falcon-1024"
         const val ALG_NAME_FALCON_5_PS_PADDED = "Falcon-padded-1024"
 
-        // BIG STACK USAGE
+        // !BIG STACK USAGE!
         //const val ALG_NAME_CROSS_3_PS_RSDP_SMALL = "cross-rsdp-192-small"
         // BIG STACK USAGE
         //const val ALG_NAME_CROSS_5_PS_RSDP_SMALL = "cross-rsdp-256-small"
+
         const val ALG_NAME_CROSS_3_PS_RSDP_FAST =  "cross-rsdp-192-fast"
         const val ALG_NAME_CROSS_5_PS_RSDP_FAST = "cross-rsdp-256-fast"
         const val ALG_NAME_CROSS_3_PS_RSDP_BALANCED = "cross-rsdp-192-balanced"
 
+        // !BIG STACK USAGE!
         //const val ALG_NAME_CROSS_5_PS_RSDP_BALANCED = "cross-rsdp-256-balanced"
-
-        // BIG STACK USAGE
         // const val ALG_NAME_CROSS_3_PS_RSDPG_SMALL = "cross-rsdpg-192-small"
         // BIG STACK USAGE
         //const val ALG_NAME_CROSS_5_PS_RSDPG_SMALL = "cross-rsdpg-256-small"
@@ -70,6 +71,7 @@ internal object PqcConstants {
         const val ALG_NAME_CROSS_3_PS_RSDPG_BALANCED = "cross-rsdpg-192-balanced"
         const val ALG_NAME_CROSS_5_PS_RSDPG_BALANCED = "cross-rsdpg-256-balanced"
 
+        // !BIG STACK USAGE!
         // const val ALG_NAME_SNOVA_3_PS_56_25_2 = "SNOVA_56_25_2"
         // const val ALG_NAME_SNOVA_3_PS_49_11_3 = "SNOVA_49_11_3"
         // const val ALG_NAME_SNOVA_3_PS_37_8_4 = "SNOVA_37_8_4"
