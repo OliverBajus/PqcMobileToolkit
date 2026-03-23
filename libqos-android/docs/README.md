@@ -79,7 +79,7 @@ com.example.libqos_android
 
 ### KEM algorithms
 
-| Family | Variants | NIST Level |
+| Algorithm | Variants | NIST Level |
 |---|---|---|
 | **ML-KEM** (CRYSTALS-Kyber) | ML-KEM-768, ML-KEM-1024 | 3, 5 |
 | **HQC** | HQC-192, HQC-256 | 3, 5 |
@@ -87,7 +87,7 @@ com.example.libqos_android
 
 ### Signature algorithms
 
-| Family | Variants | NIST Level |
+| Algorithm | Variants | NIST Level |
 |---|---|---|
 | **ML-DSA** (CRYSTALS-Dilithium) | ML-DSA-65, ML-DSA-87 | 3, 5 |
 | **SLH-DSA** (SPHINCS+) SHA2 | 192F, 256F, 192S, 256S | 3, 5 |
