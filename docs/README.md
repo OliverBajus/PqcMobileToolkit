@@ -64,8 +64,6 @@ This project is licensed under the **MIT License** — see [LICENSE](../LICENSE)
 The `liboqs-android` module bundles pre-compiled binaries from [liboqs](https://github.com/open-quantum-safe/liboqs), which is primarily MIT-licensed but includes third-party components under various open-source licenses (Apache 2.0, BSD 3-Clause, CC0, and others). See the [liboqs LICENSE](https://github.com/open-quantum-safe/liboqs/blob/main/LICENSE.txt) and [liboqs README](https://github.com/open-quantum-safe/liboqs/blob/main/README.md#license) for full details.
 
 ## Requirements
-
-- Android Studio Hedgehog or newer
 - Android NDK 28.0.13004108
 - Min SDK 26 (Android 8.0)
 - Target device: `arm64-v8a` or `x86_64`
