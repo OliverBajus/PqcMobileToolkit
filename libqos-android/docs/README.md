@@ -79,16 +79,15 @@ com.example.libqos_android
 
 ### KEM algorithms
 
-| Family | Variants | NIST Level |
+| Algorithm | Variants | NIST Level |
 |---|---|---|
 | **ML-KEM** (CRYSTALS-Kyber) | ML-KEM-768, ML-KEM-1024 | 3, 5 |
 | **HQC** | HQC-192, HQC-256 | 3, 5 |
 | **FrodoKEM** | FrodoKEM-976-AES, FrodoKEM-1344-AES, FrodoKEM-976-SHAKE, FrodoKEM-1344-SHAKE | 3, 5 |
-| **Classic McEliece** | 460896, 460896f, 6688128, 6688128f, 6960119, 6960119f, 8192128, 8192128f | 3, 5 |
 
 ### Signature algorithms
 
-| Family | Variants | NIST Level |
+| Algorithm | Variants | NIST Level |
 |---|---|---|
 | **ML-DSA** (CRYSTALS-Dilithium) | ML-DSA-65, ML-DSA-87 | 3, 5 |
 | **SLH-DSA** (SPHINCS+) SHA2 | 192F, 256F, 192S, 256S | 3, 5 |
@@ -179,17 +178,6 @@ val mlKemAvailable: Boolean = KEMs.isEnabled(PqcAlgorithm.Kem.MlKem3)
 | Supported ABIs | `arm64-v8a`, `x86_64` |
 | Java target | 11 |
 
-## Security notes
-
-- **Key wiping**: Secret keys are zeroed from memory on `close()` via `ByteArray.wipe()`.
-- **IND-CCA / EUF-CMA**: Algorithm metadata exposes the claimed security properties.
-- **AutoCloseable**: All managers implement `AutoCloseable`; use Kotlin's `.use { }` blocks
-  to guarantee cleanup even on exceptions.
-- **Error handling**: `MechanismNotSupportedError` / `MechanismNotEnabledError` are thrown
-  for invalid algorithm selections at construction time.
-
 ## Further reading
-
-- [API reference (KDoc)](api/) -- generated from the KDoc comments in source code
 - [liboqs upstream documentation](https://openquantumsafe.org/liboqs/)
 - [NIST PQC standardization](https://csrc.nist.gov/projects/post-quantum-cryptography)
