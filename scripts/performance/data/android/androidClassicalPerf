@@ -1,0 +1,19 @@
+Pixel 6a - 16 Tests 0/9 completed. (0 skipped) (0 failed)
+Timed out waiting for process (cz.monetplus.pqc.benchmark.test) to appear on pixel_6a-26081JEGR04849.
+       62,143   ns           0 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkEd25519Verify
+Pixel 6a - 16 Tests 1/9 completed. (0 skipped) (0 failed)
+   94,713,501   ns          33 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa3072Keygen
+Pixel 6a - 16 Tests 2/9 completed. (0 skipped) (0 failed)
+      945,991   ns           3 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa2048Sign
+Pixel 6a - 16 Tests 3/9 completed. (0 skipped) (0 failed)
+   48,622,599   ns          32 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa2048Keygen
+Pixel 6a - 16 Tests 4/9 completed. (0 skipped) (0 failed)
+       47,811   ns           2 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa3072Verify
+       23,737   ns           2 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa2048Verify
+Pixel 6a - 16 Tests 6/9 completed. (0 skipped) (0 failed)
+       40,831   ns           1 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkEd25519Sign
+Pixel 6a - 16 Tests 7/9 completed. (0 skipped) (0 failed)
+    2,857,947   ns           3 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkRsa3072Sign
+Pixel 6a - 16 Tests 8/9 completed. (0 skipped) (0 failed)
+       80,632   ns          12 allocs    Trace    Method Trace    TestClassicalDsaPerformance.benchmarkEd25519Keygen
+Finished 9 tests on Pixel 6a - 16

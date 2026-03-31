@@ -6,13 +6,13 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 LOCAL_MODULE := oqs
 LOCAL_SRC_FILES := jniLibs/$(TARGET_ARCH_ABI)/liboqs.so
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/include/$(TARGET_ARCH_ABI)
 include $(PREBUILT_SHARED_LIBRARY)
 
 # Create jni wrapper.
 include $(CLEAR_VARS)
 LOCAL_MODULE     := oqs-jni
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/include/$(TARGET_ARCH_ABI)
 LOCAL_CFLAGS     += -Wall
 LOCAL_SRC_FILES := $(LOCAL_PATH)/c/handle.c $(LOCAL_PATH)/c/KEMs.c  $(LOCAL_PATH)/c/KeyEncapsulation.c  $(LOCAL_PATH)/c/Rand.c  $(LOCAL_PATH)/c/Signature.c  $(LOCAL_PATH)/c/Sigs.c
 LOCAL_LDLIBS    := -llog -landroid

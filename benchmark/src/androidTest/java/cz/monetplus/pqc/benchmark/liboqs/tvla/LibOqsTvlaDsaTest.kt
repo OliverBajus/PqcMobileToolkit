@@ -69,6 +69,13 @@ class LibOqsTvlaDsaTest {
         performTVLA_on_key()
     }
 
+    @Test
+    fun test_SLH_DSA_SHA_192f() {
+        sigAlg = PqcAlgorithm.Sig.SlhDsa3FastSha
+        performTVLA_on_message()
+        performTVLA_on_key()
+    }
+
     private fun performTVLA_on_message() {
         Oqs.createSignatureTimingManager(sigAlg).use { signer ->
             signer.generateKeyPair()

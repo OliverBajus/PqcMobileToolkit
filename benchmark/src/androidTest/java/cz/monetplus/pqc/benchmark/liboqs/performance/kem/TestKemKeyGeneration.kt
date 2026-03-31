@@ -96,18 +96,6 @@ class TestKemKeyGeneration {
         testKeyGeneration()
     }
 
-    @Test
-    fun benchmarkMcEliece3KeyGeneration() {
-        kemManager = Oqs.createKemManager(PqcAlgorithm.Kem.McEliece3)
-        testKeyGeneration()
-    }
-
-    @Test
-    fun benchmarkMcEliece3fKeyGeneration() {
-        kemManager = Oqs.createKemManager(PqcAlgorithm.Kem.McEliece3f)
-        testKeyGeneration()
-    }
-
     private fun testKeyGeneration() {
         var count = 0
 

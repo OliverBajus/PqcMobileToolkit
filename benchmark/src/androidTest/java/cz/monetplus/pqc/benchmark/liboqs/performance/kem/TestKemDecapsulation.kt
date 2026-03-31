@@ -66,18 +66,6 @@ class TestKemDecapsulation {
         testDecapsulation()
     }
 
-    @Test
-    fun benchmarkMcEliece3Decapsulation() {
-        kemManager = Oqs.createKemManager(PqcAlgorithm.Kem.McEliece3)
-        testDecapsulation()
-    }
-
-    @Test
-    fun benchmarkMcEliece3fDecapsulation() {
-        kemManager = Oqs.createKemManager(PqcAlgorithm.Kem.McEliece3f)
-        testDecapsulation()
-    }
-
     private fun testDecapsulation() {
         val keyPair = kemManager.generateKeyPair()
         val encapsulation = kemManager.encapsulate(keyPair.public)

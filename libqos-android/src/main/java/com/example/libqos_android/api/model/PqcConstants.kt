@@ -5,12 +5,8 @@ internal object PqcConstants {
         const val ALG_NAME_ML_KEM_3 = "ML-KEM-768"
         const val ALG_NAME_ML_KEM_5 = "ML-KEM-1024"
 
-        const val ALG_NAME_HQC_1 = "HQC-128"
         const val ALG_NAME_HQC_3 = "HQC-192"
         const val ALG_NAME_HQC_5 = "HQC-256"
-
-        const val ALG_NAME_BIKE_3 = "BIKE-L3"
-        const val ALG_NAME_BIKE_5 = "BIKE-L5"
 
         const val ALG_NAME_FRODO_AES_3 = "FrodoKEM-976-AES"
         const val ALG_NAME_FRODO_AES_5 = "FrodoKEM-1344-AES"
@@ -47,6 +43,7 @@ internal object PqcConstants {
         const val ALG_NAME_SLH_DSA_5_PS_SMALL_SHAKE = "SLH_DSA_PURE_SHAKE_256S"
 
         const val ALG_NAME_MAYO_3 = "MAYO-3"
+        // !BIG STACK USAGE!
         //const val ALG_NAME_MAYO_5 = "MAYO-5"
 
         const val ALG_NAME_FALCON_5 = "Falcon-1024"
