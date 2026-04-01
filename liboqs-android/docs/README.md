@@ -169,14 +169,14 @@ val mlKemAvailable: Boolean = KEMs.isEnabled(PqcAlgorithm.Kem.MlKem3)
 
 ## Build configuration
 
-| Property | Value                        |
-|---|------------------------------|
-| Namespace | `com.example.liboqs_android` |
-| Compile SDK | 34 (Android 14)              |
-| Min SDK | 26 (Android 8.0)             |
-| NDK version | 28.0.13004108                |
-| Supported ABIs | `arm64-v8a`, `x86_64`        |
-| Java target | 11                           |
+| Property | Value                                  |
+|---|----------------------------------------|
+| Namespace | `io.github.oliverbajus.liboqs_android` |
+| Compile SDK | 34 (Android 14)                        |
+| Min SDK | 26 (Android 8.0)                       |
+| NDK version | 28.0.13004108                          |
+| Supported ABIs | `arm64-v8a`, `x86_64`                  |
+| Java target | 11                                     |
 
 ## Further reading
 - [liboqs upstream documentation](https://openquantumsafe.org/liboqs/)
