@@ -81,6 +81,10 @@ jobs:
             adb uninstall io.github.oliverbajus.liboqs_android || true
             ./gradlew :liboqs-android:createDebugCoverageReport
 
+      - name: List coverage report files
+        if: always()
+        run: find liboqs-android/build/reports/coverage -type f 2>/dev/null || echo "No coverage directory found"
+
       - name: Generate coverage badge
         if: github.ref == 'refs/heads/main' && success()
         uses: cicirello/jacoco-badge-generator@v2
@@ -89,6 +93,7 @@ jobs:
           badges-directory: .github/badges
           coverage-badge-filename: coverage.svg
           generate-branches-badge: false
+          on-missing-report: quiet
 
       - name: Commit coverage badge
         if: github.ref == 'refs/heads/main' && success()
