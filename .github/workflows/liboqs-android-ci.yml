@@ -76,7 +76,10 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           disable-animations: true
-          script: ./gradlew :liboqs-android:createDebugCoverageReport
+          script: |
+            adb uninstall io.github.oliverbajus.liboqs_android.test || true
+            adb uninstall io.github.oliverbajus.liboqs_android || true
+            ./gradlew :liboqs-android:createDebugCoverageReport
 
       - name: Upload coverage report
         if: always()
