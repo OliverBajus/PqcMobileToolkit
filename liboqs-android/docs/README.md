@@ -1,5 +1,11 @@
 # liboqs-android
 
+[![CI](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml/badge.svg)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![liboqs](https://img.shields.io/badge/liboqs-0.15.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.15.0)
+[![Min SDK](https://img.shields.io/badge/minSdk-26-brightgreen)](https://developer.android.com/about/versions/oreo)
+[![Compile SDK](https://img.shields.io/badge/compileSdk-36-brightgreen)](https://developer.android.com/about/versions/16)
+
 Android library providing Kotlin/Java bindings for the
 [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs) C library.
 It is a substantial rewrite of the official
@@ -172,7 +178,7 @@ val mlKemAvailable: Boolean = KEMs.isEnabled(PqcAlgorithm.Kem.MlKem3)
 | Property | Value                                  |
 |---|----------------------------------------|
 | Namespace | `io.github.oliverbajus.liboqs_android` |
-| Compile SDK | 34 (Android 14)                        |
+| Compile SDK | 36 (Android 16)                        |
 | Min SDK | 26 (Android 8.0)                       |
 | NDK version | 28.0.13004108                          |
 | Supported ABIs | `arm64-v8a`, `x86_64`                  |
