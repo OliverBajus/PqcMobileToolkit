@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    jacoco
 }
 
 android {
     namespace = "io.github.oliverbajus.liboqs_android"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -14,13 +15,15 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         ndk {
-            // Only support 64 bit systems (as liboqs does not build others)
             abiFilters.add("arm64-v8a")
             abiFilters.add("x86_64")
         }
     }
 
     buildTypes {
+        debug {
+            enableAndroidTestCoverage = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
