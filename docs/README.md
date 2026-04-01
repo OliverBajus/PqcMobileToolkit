@@ -48,14 +48,14 @@ PqcMobileToolkit/
 
 ## Module documentation
 
-| Module | Description | Docs |
-|---|---|---|
-| **[libqos-android](../libqos-android/docs/README.md)** | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. Distributed as an AAR. | [libqos-android/docs/README.md](../libqos-android/docs/README.md) |
-| **[app](../app/docs/README.md)** | Jetpack Compose prototype app demonstrating end-to-end PQC integration using both liboqs and Bouncy Castle backends. | [app/docs/README.md](../app/docs/README.md) |
-| **benchmark** | Jetpack Microbenchmark module with performance and TVLA test suites for both libraries. | — |
+| Module                                                           | Description | Docs                                                                        |
+|------------------------------------------------------------------|---|-----------------------------------------------------------------------------|
+| **[libqos-android](../liboqs-android/docs/README.md)**           | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. Distributed as an AAR. | [liboqs-android/docs/README.md](../libqos-android/docs/README.md)           |
+| **[app](../app/docs/README.md)**                                 | Jetpack Compose prototype app demonstrating end-to-end PQC integration using both liboqs and Bouncy Castle backends. | [app/docs/README.md](../app/docs/README.md)                                 |
+| **benchmark**                                                    | Jetpack Microbenchmark module with performance and TVLA test suites for both libraries. | —                                                                           |
 | **[scripts/compilation](../scripts/compilation/docs/README.md)** | Shell scripts for cross-compiling liboqs (with optional OpenSSL) for Android via NDK. | [scripts/compilation/docs/README.md](../scripts/compilation/docs/README.md) |
 | **[scripts/performance](../scripts/performance/docs/README.md)** | Python script generating benchmark visualization charts from PQC performance data. | [scripts/performance/docs/README.md](../scripts/performance/docs/README.md) |
-| **[scripts/tvla](../scripts/tvla/docs/README.md)** | Python script performing Welch's t-test on PQC timing traces to detect timing side-channel leakage. | [scripts/tvla/docs/README.md](../scripts/tvla/docs/README.md) |
+| **[scripts/tvla](../scripts/tvla/docs/README.md)**               | Python script performing Welch's t-test on PQC timing traces to detect timing side-channel leakage. | [scripts/tvla/docs/README.md](../scripts/tvla/docs/README.md)               |
 
 ## License
 
