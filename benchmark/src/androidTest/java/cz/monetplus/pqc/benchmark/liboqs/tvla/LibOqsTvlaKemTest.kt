@@ -1,10 +1,10 @@
 package cz.monetplus.pqc.benchmark.liboqs.tvla
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.libqos_android.Oqs
-import com.example.libqos_android.api.kem.model.KemCiphertext
-import com.example.libqos_android.api.model.PqcAlgorithm
-import com.example.libqos_android.api.model.KemAlgorithm
+import io.github.oliverbajus.liboqs_android.Oqs
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemCiphertext
+import io.github.oliverbajus.liboqs_android.api.model.PqcAlgorithm
+import io.github.oliverbajus.liboqs_android.api.model.KemAlgorithm
 import cz.monetplus.pqc.benchmark.utils.makeInvalidCtByBitFlip
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv

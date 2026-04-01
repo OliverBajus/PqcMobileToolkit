@@ -21,5 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "PqcDemoApp"
 include(":app")
-include(":libqos-android")
+include(":liboqs-android")
 include(":benchmark")

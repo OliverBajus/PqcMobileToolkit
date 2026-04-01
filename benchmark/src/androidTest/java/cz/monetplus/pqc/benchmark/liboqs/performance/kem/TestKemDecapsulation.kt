@@ -3,9 +3,9 @@ package cz.monetplus.pqc.benchmark.liboqs.performance.kem
 import androidx.benchmark.junit4.BenchmarkRule
 import androidx.benchmark.junit4.measureRepeated
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.libqos_android.Oqs
-import com.example.libqos_android.api.kem.KemManager
-import com.example.libqos_android.api.model.PqcAlgorithm
+import io.github.oliverbajus.liboqs_android.Oqs
+import io.github.oliverbajus.liboqs_android.api.kem.KemManager
+import io.github.oliverbajus.liboqs_android.api.model.PqcAlgorithm
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test

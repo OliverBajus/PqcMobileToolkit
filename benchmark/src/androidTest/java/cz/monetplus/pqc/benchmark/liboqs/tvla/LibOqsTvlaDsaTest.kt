@@ -3,9 +3,9 @@ package cz.monetplus.pqc.benchmark.liboqs.tvla
 import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.libqos_android.Oqs
-import com.example.libqos_android.api.model.PqcAlgorithm
-import com.example.libqos_android.api.model.SignatureAlgorithm
+import io.github.oliverbajus.liboqs_android.Oqs
+import io.github.oliverbajus.liboqs_android.api.model.PqcAlgorithm
+import io.github.oliverbajus.liboqs_android.api.model.SignatureAlgorithm
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
 import java.security.SecureRandom
@@ -45,7 +45,6 @@ class LibOqsTvlaDsaTest {
     @Test
     fun test_FALCON_5() {
         sigAlg = PqcAlgorithm.Sig.Falcon5
-        performTVLA_on_message()
         performTVLA_on_key()
     }
 
@@ -142,10 +141,17 @@ class LibOqsTvlaDsaTest {
 
                 repeat(ITERATIONS) { idx ->
                     if (schedule[idx]) {
-                        fixedTimings[fi++] = fixedSigner.timeSignNs(fixedMessage)
+                        val t0 = System.nanoTime()
+                        fixedSigner.timeSignNs(fixedMessage)
+                        val t1 = System.nanoTime()
+                        fixedTimings[fi] = t1 - t0
+                        fi++
                     } else {
-                        randomSigner.generateKeyPair()
-                        randomTimings[ri++] = randomSigner.timeSignNs(fixedMessage)
+                        val t0 = System.nanoTime()
+                        randomSigner.timeSignNs(fixedMessage)
+                        val t1 = System.nanoTime()
+                        randomTimings[ri] = t1 - t0
+                        ri++
                     }
                 }
 
@@ -160,7 +166,7 @@ class LibOqsTvlaDsaTest {
     }
 
     companion object {
-        private const val ITERATIONS = 200_000
+        private const val ITERATIONS = 500_000
         private const val WARMUP = 100
     }
 }

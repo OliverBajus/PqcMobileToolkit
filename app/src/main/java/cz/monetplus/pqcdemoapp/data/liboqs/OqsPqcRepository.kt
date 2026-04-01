@@ -2,14 +2,14 @@ package cz.monetplus.pqcdemoapp.data.liboqs
 
 import com.aheaditec.architecture.domain.error.Failure
 import com.aheaditec.functional.Either
-import com.example.libqos_android.Oqs
-import com.example.libqos_android.api.kem.model.KemEncapsulationResult
-import com.example.libqos_android.api.kem.model.KemKeypair
-import com.example.libqos_android.api.kem.model.KemSharedSecret
-import com.example.libqos_android.api.model.PqcAlgorithm
-import com.example.libqos_android.api.sig.model.SigKeypair
-import com.example.libqos_android.kem.KEMs
-import com.example.libqos_android.sig.Sigs
+import io.github.oliverbajus.liboqs_android.Oqs
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemEncapsulationResult
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemKeypair
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemSharedSecret
+import io.github.oliverbajus.liboqs_android.api.model.PqcAlgorithm
+import io.github.oliverbajus.liboqs_android.api.sig.model.SigKeypair
+import io.github.oliverbajus.liboqs_android.kem.KEMs
+import io.github.oliverbajus.liboqs_android.sig.Sigs
 import cz.monetplus.pqcdemoapp.domain.PqcRepository
 import cz.monetplus.pqcdemoapp.domain.model.AlgChoice
 import cz.monetplus.pqcdemoapp.domain.model.KemResult

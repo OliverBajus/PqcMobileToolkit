@@ -59,7 +59,7 @@ android {
 
 dependencies {
     implementation(libs.bcpkix.jdk18on)
-    implementation(project(":libqos-android"))
+    implementation(project(":liboqs-android"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

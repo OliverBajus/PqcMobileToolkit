@@ -49,8 +49,8 @@ android {
 }
 
 dependencies {
-    api(project(":libqos-android"))
 
+    api(project(":liboqs-android"))
     implementation(libs.bcpkix.jdk18on)
 
     androidTestImplementation(libs.androidx.runner)
