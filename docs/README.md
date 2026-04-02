@@ -5,6 +5,8 @@ produced in the thesis *Analysis of Transition to Post-Quantum Cryptography on
 Mobile Platforms*. It serves as a practical reference for developers and
 researchers undertaking PQC migration on Android.
 
+> **Note:** This toolkit is intended for **research and prototyping purposes only**. It is not recommended for use in production systems.
+
 ## Main Component: `liboqs-android`
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.oliverbajus/liboqs-android)](https://central.sonatype.com/artifact/io.github.oliverbajus/liboqs-android)
@@ -15,7 +17,7 @@ researchers undertaking PQC migration on Android.
 [![Min SDK](https://img.shields.io/badge/minSdk-26-brightgreen)](https://developer.android.com/about/versions/oreo)
 [![Compile SDK](https://img.shields.io/badge/compileSdk-36-brightgreen)](https://developer.android.com/about/versions/16)
 
-The primary artifact of this toolkit is **`liboqs-android`**, a production-ready Android library (AAR) wrapping the [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs) C library. It is a substantial rewrite of the official Java wrapper [liboqs-java](https://github.com/open-quantum-safe/liboqs-java), designed specifically for Android mobile environments.
+The primary artifact of this toolkit is **`liboqs-android`**, an Android library (AAR) wrapping the [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs) C library. It is a substantial rewrite of the official Java wrapper [liboqs-java](https://github.com/open-quantum-safe/liboqs-java), designed specifically for Android mobile environments.
 
 **Library documentation is available at [liboqs-android/docs/README.md](../liboqs-android/docs/README.md).**
 

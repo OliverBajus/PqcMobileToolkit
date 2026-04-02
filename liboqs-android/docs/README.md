@@ -12,7 +12,7 @@ Android library providing Kotlin/Java bindings for the
 [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs) C library.
 It is a substantial rewrite of the official
 [liboqs-java](https://github.com/open-quantum-safe/liboqs-java) wrapper, adapted
-for production mobile use with deterministic resource management, typed APIs,
+for mobile use with deterministic resource management, typed APIs,
 native timing instrumentation, and Android-native packaging as an AAR module.
 
 The library exposes post-quantum **Key Encapsulation Mechanisms (KEMs)** and
