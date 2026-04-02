@@ -18,6 +18,7 @@ android {
         ndk {
             abiFilters.add("arm64-v8a")
             abiFilters.add("x86_64")
+            abiFilters.add("armeabi-v7a")
         }
     }
 
@@ -101,9 +102,6 @@ mavenPublishing {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

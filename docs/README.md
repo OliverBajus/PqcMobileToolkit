@@ -77,4 +77,4 @@ The `liboqs-android` module bundles pre-compiled binaries from [liboqs](https://
 ## Requirements
 - Android NDK 28.0.13004108
 - Min SDK 26 (Android 8.0)
-- Target device: `arm64-v8a` or `x86_64`
+- Target device: `arm64-v8a`, `x86_64`, `armeabi-v7a`

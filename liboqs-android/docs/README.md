@@ -184,7 +184,7 @@ com.example.libqos_android
 | Compile SDK | 36 (Android 16)                        |
 | Min SDK | 26 (Android 8.0)                       |
 | NDK version | 28.0.13004108                          |
-| Supported ABIs | `arm64-v8a`, `x86_64`                  |
+| Supported ABIs | `arm64-v8a`, `x86_64`, `armeabi-v7a`     |
 | Java target | 11                                     |
 
 ## Further reading
