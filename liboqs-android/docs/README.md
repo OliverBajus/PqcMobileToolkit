@@ -19,69 +19,6 @@ The library exposes post-quantum **Key Encapsulation Mechanisms (KEMs)** and
 Any Android project can integrate post-quantum operations by adding a single
 Gradle dependency.
 
-## Architecture
-
-The library follows a layered design:
-
-| Layer | Description |
-|---|---|
-| **Public API** (`api/`) | Interfaces (`KemManager`, `SignatureManager`, …), sealed algorithm types, and data models |
-| **Implementation** (`kem/`, `sig/`) | `KeyEncapsulation` and `Signature` classes that implement the API via JNI |
-| **JNI boundary** | Private `native` methods that delegate to the liboqs C library |
-| **Native code** (`jni/`) | C source compiled via NDK (`Android.mk`) |
-
-### Class diagram
-
-<p align="center">
-  <img src="class-diagram.png" alt="liboqs-android class diagram" width="100%" />
-</p>
-
-<details>
-<summary>Regenerating the diagram</summary>
-
-The PlantUML source is stored in [`class-diagram.puml`](class-diagram.puml).
-After editing it, regenerate the images with:
-
-```bash
-java -jar plantuml.jar -tpng docs/class-diagram.puml
-java -jar plantuml.jar -tsvg docs/class-diagram.puml
-```
-
-</details>
-
-## Package structure
-
-```
-com.example.libqos_android
-├── Oqs                          # SDK entry point (singleton factory)
-├── api/
-│   ├── model/
-│   │   ├── KemAlgorithm         # Sealed interface for KEM algorithms
-│   │   ├── SignatureAlgorithm   # Sealed interface for signature algorithms
-│   │   ├── PqcAlgorithm         # Registry of concrete algorithm data objects
-│   │   └── PqcConstants         # liboqs algorithm ID strings
-│   ├── kem/
-│   │   ├── KemManager           # Core KEM operations interface
-│   │   ├── KemTimingManager     # KEM + native timing interface
-│   │   └── model/               # KemDetails, KemKeypair, KemEncapsulationResult, ...
-│   ├── sig/
-│   │   ├── SignatureManager     # Core signature operations interface
-│   │   ├── SignatureTimingManager # Signature + native timing interface
-│   │   └── model/               # SigDetails, SigKeypair, SigPublicKey, ...
-│   └── exceptions/
-│       ├── MechanismNotEnabledError
-│       └── MechanismNotSupportedError
-├── kem/
-│   ├── KEMs                     # Metadata singleton (supported/enabled KEMs)
-│   └── KeyEncapsulation         # JNI implementation of KemManager
-├── sig/
-│   ├── Sigs                     # Metadata singleton (supported/enabled sigs)
-│   └── Signature                # JNI implementation of SignatureManager
-└── utils/
-    ├── Rand                     # Cryptographic RNG (JNI)
-    └── CommonUtils              # Key wiping, native lib loading
-```
-
 ## Supported algorithms
 
 ### KEM algorithms
@@ -104,6 +41,7 @@ com.example.libqos_android
 | **CROSS** (RSDP) | 192-fast, 256-fast, 192-balanced | 3, 5 |
 | **CROSS** (RSDPG) | 192-fast, 256-fast, 192-balanced, 256-balanced | 3, 5 |
 | **UOV / OV** | OV-III, OV-V, OV-III-pkc, OV-V-pkc, OV-III-pkc-skc, OV-V-pkc-skc | 3, 5 |
+
 
 ## Quick start
 
@@ -172,6 +110,70 @@ val enabledKems: List<KemAlgorithm> = KEMs.enabledAlgorithms()
 
 // Check a specific algorithm
 val mlKemAvailable: Boolean = KEMs.isEnabled(PqcAlgorithm.Kem.MlKem3)
+```
+
+
+## Architecture
+
+The library follows a layered design:
+
+| Layer | Description |
+|---|---|
+| **Public API** (`api/`) | Interfaces (`KemManager`, `SignatureManager`, …), sealed algorithm types, and data models |
+| **Implementation** (`kem/`, `sig/`) | `KeyEncapsulation` and `Signature` classes that implement the API via JNI |
+| **JNI boundary** | Private `native` methods that delegate to the liboqs C library |
+| **Native code** (`jni/`) | C source compiled via NDK (`Android.mk`) |
+
+### Class diagram
+
+<p align="center">
+  <img src="class-diagram.png" alt="liboqs-android class diagram" width="100%" />
+</p>
+
+<details>
+<summary>Regenerating the diagram</summary>
+
+The PlantUML source is stored in [`class-diagram.puml`](class-diagram.puml).
+After editing it, regenerate the images with:
+
+```bash
+java -jar plantuml.jar -tpng docs/class-diagram.puml
+java -jar plantuml.jar -tsvg docs/class-diagram.puml
+```
+
+</details>
+
+## Package structure
+
+```
+com.example.libqos_android
+├── Oqs                          # SDK entry point (singleton factory)
+├── api/
+│   ├── model/
+│   │   ├── KemAlgorithm         # Sealed interface for KEM algorithms
+│   │   ├── SignatureAlgorithm   # Sealed interface for signature algorithms
+│   │   ├── PqcAlgorithm         # Registry of concrete algorithm data objects
+│   │   └── PqcConstants         # liboqs algorithm ID strings
+│   ├── kem/
+│   │   ├── KemManager           # Core KEM operations interface
+│   │   ├── KemTimingManager     # KEM + native timing interface
+│   │   └── model/               # KemDetails, KemKeypair, KemEncapsulationResult, ...
+│   ├── sig/
+│   │   ├── SignatureManager     # Core signature operations interface
+│   │   ├── SignatureTimingManager # Signature + native timing interface
+│   │   └── model/               # SigDetails, SigKeypair, SigPublicKey, ...
+│   └── exceptions/
+│       ├── MechanismNotEnabledError
+│       └── MechanismNotSupportedError
+├── kem/
+│   ├── KEMs                     # Metadata singleton (supported/enabled KEMs)
+│   └── KeyEncapsulation         # JNI implementation of KemManager
+├── sig/
+│   ├── Sigs                     # Metadata singleton (supported/enabled sigs)
+│   └── Signature                # JNI implementation of SignatureManager
+└── utils/
+    ├── Rand                     # Cryptographic RNG (JNI)
+    └── CommonUtils              # Key wiping, native lib loading
 ```
 
 ## Build configuration
