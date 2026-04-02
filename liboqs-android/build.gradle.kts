@@ -96,15 +96,8 @@ mavenPublishing {
         }
     }
 
-    val mavenCentralUser = providers.gradleProperty("mavenCentralUsername").orNull
-    if (!mavenCentralUser.isNullOrBlank()) {
-        publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
-    }
-
-    val signingKeyId = providers.gradleProperty("signing.keyId").orNull
-    if (!signingKeyId.isNullOrBlank()) {
-        signAllPublications()
-    }
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
 }
 
 dependencies {
