@@ -5,11 +5,22 @@ produced in the thesis *Analysis of Transition to Post-Quantum Cryptography on
 Mobile Platforms*. It serves as a practical reference for developers and
 researchers undertaking PQC migration on Android.
 
-The toolkit integrates the following components:
+## Main Component: `liboqs-android`
 
-- **liboqs-android** -- [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs)  wrapper as Android library (AAR) combining the
-  cross-compiled native liboqs binary with a rewritten [liboqs-java](https://github.com/open-quantum-safe/liboqs-java) wrapper,
-  consumable as a single Gradle dependency.
+[![CI](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml/badge.svg?event=pull_request)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
+[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/OliverBajus/8df5727e960d985d6ac8b5351057b923/raw/coverage.json)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![liboqs](https://img.shields.io/badge/liboqs-0.15.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.15.0)
+[![Min SDK](https://img.shields.io/badge/minSdk-26-brightgreen)](https://developer.android.com/about/versions/oreo)
+[![Compile SDK](https://img.shields.io/badge/compileSdk-36-brightgreen)](https://developer.android.com/about/versions/16)
+
+The primary artifact of this toolkit is **`liboqs-android`**, a production-ready Android library (AAR) wrapping the [Open Quantum Safe (liboqs)](https://github.com/open-quantum-safe/liboqs) C library. It is a substantial rewrite of the official Java wrapper [liboqs-java](https://github.com/open-quantum-safe/liboqs-java), designed specifically for Android mobile environments.
+
+**Library documentation is available at [liboqs-android/docs/README.md](../liboqs-android/docs/README.md).**
+
+## Other Components:
+The toolkit also integrates the following components:
+
 - **Build pipeline** -- reproducible Android NDK cross-compilation scripts for
   liboqs and OpenSSL.
 - **Benchmark module** -- Jetpack Microbenchmark harness with pre-configured
@@ -30,7 +41,7 @@ The toolkit integrates the following components:
 PqcMobileToolkit/
 ├── app/                         # Prototype application (MVVM + Clean Architecture)
 │   └── docs/README.md
-├── libqos-android/              # Android library wrapping liboqs via JNI
+├── liboqs-android/              # Android library wrapping liboqs via JNI
 │   └── docs/README.md
 ├── benchmark/                   # Performance & TVLA instrumented test suites
 ├── scripts/
@@ -50,7 +61,7 @@ PqcMobileToolkit/
 
 | Module                                                           | Description | Docs                                                                        |
 |------------------------------------------------------------------|---|-----------------------------------------------------------------------------|
-| **[libqos-android](../liboqs-android/docs/README.md)**           | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. Distributed as an AAR. | [liboqs-android/docs/README.md](../liboqs-android/docs/README.md)           |
+| **[liboqs-android](../liboqs-android/docs/README.md)**           | Kotlin/Java bindings for the Open Quantum Safe (liboqs) C library. Exposes KEM and signature APIs with native timing support. Distributed as an AAR. | [liboqs-android/docs/README.md](../liboqs-android/docs/README.md)           |
 | **[app](../app/docs/README.md)**                                 | Jetpack Compose prototype app demonstrating end-to-end PQC integration using both liboqs and Bouncy Castle backends. | [app/docs/README.md](../app/docs/README.md)                                 |
 | **benchmark**                                                    | Jetpack Microbenchmark module with performance and TVLA test suites for both libraries. | —                                                                           |
 | **[scripts/compilation](../scripts/compilation/docs/README.md)** | Shell scripts for cross-compiling liboqs (with optional OpenSSL) for Android via NDK. | [scripts/compilation/docs/README.md](../scripts/compilation/docs/README.md) |
