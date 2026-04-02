@@ -70,7 +70,7 @@ mavenPublishing {
 
     pom {
         name.set("liboqs-android")
-        description.set("Android (Kotlin/Java) bindings for the Open Quantum Safe liboqs post-quantum cryptography library")
+        description.set("Android (Kotlin/Java) bindings for the Open Quantum Safe liboqs post-quantum cryptography library built on liboqs-java wrapper")
         url.set("https://github.com/OliverBajus/PqcMobileToolkit")
         inceptionYear.set("2025")
 
@@ -96,8 +96,15 @@ mavenPublishing {
         }
     }
 
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
-    signAllPublications()
+    val mavenCentralUser = providers.gradleProperty("mavenCentralUsername").orNull
+    if (!mavenCentralUser.isNullOrBlank()) {
+        publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    }
+
+    val signingKeyId = providers.gradleProperty("signing.keyId").orNull
+    if (!signingKeyId.isNullOrBlank()) {
+        signAllPublications()
+    }
 }
 
 dependencies {

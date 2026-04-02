@@ -2,11 +2,6 @@ name: Publish to Maven Central
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to publish (e.g. 0.1.0)'
-        required: true
-        type: string
 
 jobs:
   publish:
@@ -33,4 +28,4 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_SECRET_KEY }}
-        run: ./gradlew :liboqs-android:publishAllPublicationsToMavenCentralRepository -Pversion=${{ inputs.version }}
+        run: ./gradlew :liboqs-android:publishAllPublicationsToMavenCentralRepository
