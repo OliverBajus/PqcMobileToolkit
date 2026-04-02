@@ -63,13 +63,5 @@ See [liboqs-android docs](../libqos-android/docs/README.md) for the full list.
 | Compile SDK | 35 |
 | Min SDK | 26 |
 | Java target | 21 |
-| Compose | BOM-managed |
 | DI | Hilt (kapt) |
 
-### Key dependencies
-
-- `project(":libqos-android")` -- local liboqs JNI bindings
-- `org.bouncycastle:bcpkix-jdk18on` -- Bouncy Castle PQC
-- Jetpack Compose + Material 3
-- Hilt for dependency injection
-- `ahead.functional` / `ahead.domain` -- `Either` monad and `BaseUseCase`
