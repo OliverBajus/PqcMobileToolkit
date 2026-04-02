@@ -9,6 +9,7 @@ researchers undertaking PQC migration on Android.
 
 [![CI](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml/badge.svg?branch=main)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/OliverBajus/8df5727e960d985d6ac8b5351057b923/raw/coverage.json)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.oliverbajus/liboqs-android)](https://central.sonatype.com/artifact/io.github.oliverbajus/liboqs-android)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![liboqs](https://img.shields.io/badge/liboqs-0.15.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.15.0)
 [![Min SDK](https://img.shields.io/badge/minSdk-26-brightgreen)](https://developer.android.com/about/versions/oreo)
@@ -18,6 +19,17 @@ The primary artifact of this toolkit is **`liboqs-android`**, a production-ready
 
 **Library documentation is available at [liboqs-android/docs/README.md](../liboqs-android/docs/README.md).**
 
+### Installation
+
+**Kotlin DSL** (`build.gradle.kts`):
+```kotlin
+implementation("io.github.oliverbajus:liboqs-android:0.1.0")
+```
+
+**Groovy DSL** (`build.gradle`):
+```groovy
+implementation 'io.github.oliverbajus:liboqs-android:0.1.0'
+```
 ## Other Components:
 The toolkit also integrates the following components:
 
