@@ -1,6 +1,11 @@
 name: liboqs-android CI
 
 on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'liboqs-android/**'
+      - '.github/workflows/liboqs-android-ci.yml'
   pull_request:
     branches: [ main ]
     paths:
@@ -11,8 +16,6 @@ jobs:
   test:
     name: Instrumented Tests + Coverage
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     strategy:
       matrix:
         api-level: [ 31 ]
@@ -78,63 +81,45 @@ jobs:
             adb uninstall io.github.oliverbajus.liboqs_android || true
             ./gradlew :liboqs-android:createDebugCoverageReport
 
-      - name: List coverage report files
-        if: always()
-        run: find liboqs-android/build/reports/coverage -type f 2>/dev/null || echo "No coverage directory found"
-
-      - name: Generate coverage badge
-        if: success()
-        id: badge
+      - name: Parse coverage and update Gist
+        if: github.ref == 'refs/heads/main' && success()
+        env:
+          GIST_SECRET: ${{ secrets.GIST_SECRET }}
+          GIST_ID: ${{ secrets.COVERAGE_GIST_ID }}
         run: |
-          # Parse coverage from JaCoCo XML report
-          REPORT=$(find liboqs-android/build/reports/coverage -name "*.xml" -head -1 2>/dev/null || true)
+          # Find JaCoCo XML report
+          REPORT=$(find liboqs-android/build/reports/coverage -name "*.xml" | head -1)
+
           if [ -z "$REPORT" ]; then
-            # Fallback: try to parse from HTML
-            REPORT_HTML=$(find liboqs-android/build/reports/coverage -name "index.html" -head -1 2>/dev/null || true)
-            echo "No XML report found. HTML: $REPORT_HTML"
-            echo "coverage=unknown" >> "$GITHUB_OUTPUT"
+            echo "No coverage XML report found"
+            PCT=0
           else
-            # Extract instruction coverage from JaCoCo XML
-            MISSED=$(grep -oP 'type="INSTRUCTION" missed="\K[0-9]+' "$REPORT" | tail -1)
-            COVERED=$(grep -oP 'type="INSTRUCTION"[^/]*covered="\K[0-9]+' "$REPORT" | tail -1)
-            if [ -n "$MISSED" ] && [ -n "$COVERED" ]; then
-              TOTAL=$((MISSED + COVERED))
-              if [ "$TOTAL" -gt 0 ]; then
-                PCT=$((COVERED * 100 / TOTAL))
-              else
-                PCT=0
-              fi
-              echo "coverage=$PCT" >> "$GITHUB_OUTPUT"
+            # Sum all INSTRUCTION counters across all packages
+            MISSED=$(grep -oP 'type="INSTRUCTION" missed="\K[0-9]+' "$REPORT" | awk '{s+=$1} END {print s}')
+            COVERED=$(grep -oP 'type="INSTRUCTION"[^>]*covered="\K[0-9]+' "$REPORT" | awk '{s+=$1} END {print s}')
+            TOTAL=$((MISSED + COVERED))
+            if [ "$TOTAL" -gt 0 ]; then
+              PCT=$((COVERED * 100 / TOTAL))
             else
-              echo "coverage=unknown" >> "$GITHUB_OUTPUT"
+              PCT=0
             fi
           fi
 
-      - name: Create and commit coverage badge
-        if: success()
-        run: |
-          PCT="${{ steps.badge.outputs.coverage }}"
-          if [ "$PCT" = "unknown" ]; then
-            COLOR="lightgrey"
-          elif [ "$PCT" -ge 80 ]; then
-            COLOR="brightgreen"
-          elif [ "$PCT" -ge 60 ]; then
-            COLOR="yellow"
-          elif [ "$PCT" -ge 40 ]; then
-            COLOR="orange"
-          else
-            COLOR="red"
+          echo "Coverage: ${PCT}%"
+
+          # Pick colour
+          if   [ "$PCT" -ge 80 ]; then COLOR="brightgreen"
+          elif [ "$PCT" -ge 60 ]; then COLOR="yellow"
+          elif [ "$PCT" -ge 40 ]; then COLOR="orange"
+          else COLOR="red"
           fi
 
-          mkdir -p .github/badges
-          # Download badge SVG from shields.io
-          curl -s "https://img.shields.io/badge/coverage-${PCT}%25-${COLOR}" -o .github/badges/coverage.svg
-
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/badges/coverage.svg
-          git diff --staged --quiet || git commit -m "Update coverage badge [skip ci]"
-          git push origin HEAD:${{ github.head_ref }} || true
+          # Update Gist with new coverage data
+          curl -s -X PATCH \
+            -H "Authorization: token $GIST_SECRET" \
+            -H "Content-Type: application/json" \
+            -d "{\"files\":{\"coverage.json\":{\"content\":\"{\\\"schemaVersion\\\":1,\\\"label\\\":\\\"coverage\\\",\\\"message\\\":\\\"${PCT}%\\\",\\\"color\\\":\\\"${COLOR}\\\"}\"}}}" \
+            "https://api.github.com/gists/$GIST_ID"
 
       - name: Upload coverage report
         if: always()
