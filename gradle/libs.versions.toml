@@ -24,6 +24,7 @@ benchmarkJunit4 = "1.4.1"
 mavenPublish = "0.30.0"
 
 [libraries]
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.9.1" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18on" }

@@ -102,6 +102,7 @@ mavenPublishing {
 }
 
 dependencies {
+    implementation(libs.androidx.annotation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
