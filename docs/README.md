@@ -72,7 +72,7 @@ PqcMobileToolkit/
 
 This project is licensed under the **MIT License** — see [LICENSE](../LICENSE) for details.
 
-The `liboqs-android` module bundles pre-compiled binaries from [liboqs](https://github.com/open-quantum-safe/liboqs), which is primarily MIT-licensed but includes third-party components under various open-source licenses (Apache 2.0, BSD 3-Clause, CC0, and others). See the [liboqs LICENSE](https://github.com/open-quantum-safe/liboqs/blob/main/LICENSE.txt) and [liboqs README](https://github.com/open-quantum-safe/liboqs/blob/main/README.md#license) for full details.
+The `liboqs-android` module bundles pre-compiled binaries from [liboqs](https://github.com/open-quantum-safe/liboqs), which is primarily MIT-licensed but includes third-party components under various open-source licenses (Apache 2.0, BSD 3-Clause, CC0, and others). See the [liboqs LICENSE](https://github.com/open-quantum-safe/liboqs/blob/main/LICENSE.txt), [liboqs README](https://github.com/open-quantum-safe/liboqs/blob/main/README.md#license) and [liboqs-java README](https://github.com/open-quantum-safe/liboqs-java?tab=readme-ov-file#license) for full details.
 
 ## Requirements
 - Android NDK 28.0.13004108
