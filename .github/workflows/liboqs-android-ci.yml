@@ -1,11 +1,6 @@
 name: liboqs-android CI
 
 on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'liboqs-android/**'
-      - '.github/workflows/liboqs-android-ci.yml'
   pull_request:
     branches: [ main ]
     paths:
@@ -82,7 +77,7 @@ jobs:
             ./gradlew :liboqs-android:createDebugCoverageReport
 
       - name: Parse coverage and update Gist
-        if: github.ref == 'refs/heads/main' && success()
+        if: success()
         env:
           GIST_SECRET: ${{ secrets.GIST_SECRET }}
           GIST_ID: ${{ secrets.COVERAGE_GIST_ID }}
