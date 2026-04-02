@@ -7,7 +7,7 @@ researchers undertaking PQC migration on Android.
 
 ## Main Component: `liboqs-android`
 
-[![CI](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml/badge.svg?event=pull_request)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
+[![CI](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml/badge.svg?branch=main)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/OliverBajus/8df5727e960d985d6ac8b5351057b923/raw/coverage.json)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![liboqs](https://img.shields.io/badge/liboqs-0.15.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.15.0)
