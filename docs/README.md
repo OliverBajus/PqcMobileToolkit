@@ -5,7 +5,7 @@ produced in the thesis *Analysis of Transition to Post-Quantum Cryptography on
 Mobile Platforms*. It serves as a practical reference for developers and
 researchers undertaking PQC migration on Android.
 
-> **Note:** This toolkit is intended for **research and prototyping purposes only**. It is not recommended for use in production systems.
+> ⚠️ **Note:** This toolkit is intended for **research and prototyping purposes only**. It is not recommended for use in production systems.
 
 ## Main Component: `liboqs-android`
 
