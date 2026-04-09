@@ -8,6 +8,9 @@ import io.github.oliverbajus.liboqs_android.api.model.PqcAlgorithm
 import io.github.oliverbajus.liboqs_android.api.model.SignatureAlgorithm
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
+import io.github.oliverbajus.liboqs_android.api.sig.model.SigKeypair
+import io.github.oliverbajus.liboqs_android.api.sig.model.SigPrivateKey
+import io.github.oliverbajus.liboqs_android.api.sig.model.SigPublicKey
 import java.security.SecureRandom
 
 @RunWith(AndroidJUnit4::class)
@@ -45,12 +48,14 @@ class LibOqsTvlaDsaTest {
     @Test
     fun test_FALCON_5() {
         sigAlg = PqcAlgorithm.Sig.Falcon5
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
     @Test
     fun test_MAYO_3() {
         sigAlg = PqcAlgorithm.Sig.Mayo3
+        performTVLA_on_message()
         performTVLA_on_key()
     }
 
@@ -77,7 +82,7 @@ class LibOqsTvlaDsaTest {
 
     private fun performTVLA_on_message() {
         Oqs.createSignatureTimingManager(sigAlg).use { signer ->
-            signer.generateKeyPair()
+            val keypair = signer.generateKeyPair()
 
             val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
             val trueCount = schedule.count { it }
@@ -92,16 +97,17 @@ class LibOqsTvlaDsaTest {
 
             // Warm-up
             Thread.sleep(100)
-            repeat(WARMUP) { signer.timeSignNs(fixedMessage) }
+            repeat(WARMUP) { signer.timeSignNs(fixedMessage, keypair.private) }
 
             var fi = 0
             var ri = 0
 
             repeat(ITERATIONS) { idx ->
                 if (schedule[idx]) {
-                    fixedTimings[fi++] = signer.timeSignNs(fixedMessage)
+                    fixedTimings[fi] = signer.timeSignNs(fixedMessage, keypair.private)
+                    fi++
                 } else {
-                    randomTimings[ri] = signer.timeSignNs(randomMessages[ri])
+                    randomTimings[ri] = signer.timeSignNs(randomMessages[ri], keypair.private)
                     ri++
                 }
             }
@@ -116,52 +122,98 @@ class LibOqsTvlaDsaTest {
       }
 
     private fun performTVLA_on_key() {
-        // Fixed-key signer
-        Oqs.createSignatureTimingManager(sigAlg).use { fixedSigner ->
-            fixedSigner.generateKeyPair()
+        Oqs.createSignatureTimingManager(sigAlg).use { signer ->
+            // Generate the fixed key
+            val fixedKp = signer.generateKeyPair()
 
-            Oqs.createSignatureTimingManager(sigAlg).use { randomSigner ->
-                val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
-                val trueCount = schedule.count { it }
-                val falseCount = schedule.size - trueCount
+            val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
 
-                val fixedTimings = LongArray(trueCount)
-                val randomTimings = LongArray(falseCount)
+            val trueCount = schedule.count { it }
+            val falseCount = schedule.size - trueCount
 
-                // Warm-up (do both to stabilize JIT / caches a bit)
-                Thread.sleep(100)
-                repeat(WARMUP) {
-                    fixedSigner.timeSignNs(fixedMessage)
-                    randomSigner.generateKeyPair()
-                    randomSigner.timeSignNs(fixedMessage)
-                }
+            val fixedTimings = LongArray(trueCount)
+            val randomTimings = LongArray(falseCount)
 
-                var fi = 0
-                var ri = 0
-
-                repeat(ITERATIONS) { idx ->
-                    if (schedule[idx]) {
-                        val t0 = System.nanoTime()
-                        fixedSigner.timeSignNs(fixedMessage)
-                        val t1 = System.nanoTime()
-                        fixedTimings[fi] = t1 - t0
-                        fi++
-                    } else {
-                        val t0 = System.nanoTime()
-                        randomSigner.timeSignNs(fixedMessage)
-                        val t1 = System.nanoTime()
-                        randomTimings[ri] = t1 - t0
-                        ri++
-                    }
-                }
-
-                saveTimingsToCsv(
-                    fixedTimings.asList(),
-                    randomTimings.asList(),
-                    sigAlg.id,
-                    "LibOQS_DSA_key_TVLA"
-                )
+            // Warm-up (do both to stabilize JIT / caches a bit)
+            Thread.sleep(100)
+            repeat(WARMUP) {
+                signer.timeSignNs(fixedMessage, fixedKp.private)
+                signer.generateKeyPair()
             }
+
+            var fi = 0
+            var ri = 0
+
+            repeat(ITERATIONS) { idx ->
+                val randomKp = signer.generateKeyPair()
+                val fixedKeyCopy = SigPrivateKey(fixedKp.private.bytes.clone())
+
+                if (schedule[idx]) {
+                    // always the same fixed key, assignment from array just for fairness
+                    fixedTimings[fi] = signer.timeSignNs(fixedMessage, fixedKeyCopy)
+                    fi++
+                } else {
+                    randomTimings[ri] = signer.timeSignNs(fixedMessage, randomKp.private)
+                    ri++
+                }
+            }
+
+            saveTimingsToCsv(
+                fixedTimings.asList(),
+                randomTimings.asList(),
+                sigAlg.id,
+                "LibOQS_DSA_key_TVLA"
+            )
+        }
+    }
+
+    private fun performTVLA_on_key_pregen(pollSize: Int = 1000) {
+        Oqs.createSignatureTimingManager(sigAlg).use { signer ->
+            // Generate the fixed key
+            val fixedKp = signer.generateKeyPair()
+
+            val schedule = BooleanArray(ITERATIONS) { random.nextBoolean() }
+
+            val trueCount = schedule.count { it }
+            val falseCount = schedule.size - trueCount
+
+            val fixedTimings = LongArray(trueCount)
+            val randomTimings = LongArray(falseCount)
+
+            //  unique random keys
+            val randomKeyPool = Array(pollSize) { signer.generateKeyPair() }
+
+            // array of references to that EXACT SAME fixed key for access fairness
+            val fixedKeyPool = Array(pollSize) { SigKeypair(SigPublicKey(fixedKp.public.bytes.clone()),
+                SigPrivateKey(fixedKp.private.bytes.clone()))  }
+
+            // Warm-up
+            Thread.sleep(100)
+            repeat(WARMUP) { idx ->
+                signer.timeSignNs(fixedMessage, fixedKeyPool[idx % fixedKeyPool.size].private)
+                signer.timeSignNs(fixedMessage, randomKeyPool[idx % randomKeyPool.size].private)
+            }
+
+            var fi = 0
+            var ri = 0
+
+            repeat(ITERATIONS) { idx ->
+                if (schedule[idx]) {
+                    // always the same fixed key, assignment from array just for fairness
+                    fixedTimings[fi] = signer.timeSignNs(fixedMessage, fixedKeyPool[fi % fixedKeyPool.size].private)
+                    fi++
+                } else {
+                    randomTimings[ri] = signer.timeSignNs(fixedMessage, randomKeyPool[ri % randomKeyPool.size].private)
+                    ri++
+                }
+            }
+
+            saveTimingsToCsv(
+                fixedTimings.asList(),
+                randomTimings.asList(),
+                sigAlg.id,
+                "LibOQS_DSA_key_TVLA"
+            )
         }
     }
 
