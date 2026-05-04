@@ -35,7 +35,7 @@ class TimingManagerTest {
         Oqs.createKemTimingManager(PqcAlgorithm.Kem.MlKem3).use { mgr ->
             val kp = mgr.generateKeyPair()
             val encaps = mgr.encapsulate(kp.public)
-            val ns = mgr.timeDecapsNs(encaps.kemCiphertext)
+            val ns = mgr.timeDecapsNs(encaps.kemCiphertext, kp.private)
             assertTrue("Expected positive decaps time, got $ns", ns > 0)
         }
     }
@@ -64,8 +64,8 @@ class TimingManagerTest {
     @Test
     fun sigTiming_signReturnsPositiveNanos() {
         Oqs.createSignatureTimingManager(PqcAlgorithm.Sig.MlDsa3).use { mgr ->
-            mgr.generateKeyPair()
-            val ns = mgr.timeSignNs(testMessage)
+            val keypair = mgr.generateKeyPair()
+            val ns = mgr.timeSignNs(testMessage, keypair.private)
             assertTrue("Expected positive sign time, got $ns", ns > 0)
         }
     }
