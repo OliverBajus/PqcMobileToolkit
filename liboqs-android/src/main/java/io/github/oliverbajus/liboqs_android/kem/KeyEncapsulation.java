@@ -160,19 +160,19 @@ class KeyEncapsulation implements KemManager, KemTimingManager {
     }
 
     @Override
-    public long timeDecapsNs(@NotNull KemCiphertext ciphertext) {
+    public long timeDecapsNs(@NotNull KemCiphertext ciphertext, @NotNull KemPrivateKey privateKey) {
         if (alg_details_ == null) alg_details_ = get_KEM_details();
 
         if (ciphertext.getBytes().length != alg_details_.length_ciphertext) {
             throw new RuntimeException("Invalid ciphertext length");
         }
-        if (this.secretKey == null || this.secretKey.length != alg_details_.length_secret_key) {
+        if (privateKey.getBytes().length != alg_details_.length_secret_key) {
             throw new RuntimeException("Invalid secret key length");
         }
 
         byte[] shared_secret = new byte[(int) alg_details_.length_shared_secret];
 
-        long t = decaps_with_timing_native(shared_secret, ciphertext.getBytes(), this.secretKey);
+        long t = decaps_with_timing_native(shared_secret, ciphertext.getBytes(), privateKey.getBytes());
         if (t < 0) throw new RuntimeException("Native decaps timing failed");
         return t;
     }

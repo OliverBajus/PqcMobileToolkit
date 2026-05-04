@@ -8,6 +8,7 @@ import io.github.oliverbajus.liboqs_android.api.model.KemAlgorithm
 import cz.monetplus.pqc.benchmark.utils.makeInvalidCtByBitFlip
 import com.google.common.truth.Truth.assertThat
 import cz.monetplus.pqc.benchmark.utils.saveTimingsToCsv
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemPrivateKey
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.security.SecureRandom
@@ -83,18 +84,20 @@ class LibOqsTvlaKemTest {
 
                 // Warm-up: decaps on the fixed ciphertext
                 Thread.sleep(100)
-                repeat(WARMUP) { client.timeDecapsNs(fixedCt) }
+                repeat(WARMUP) { client.timeDecapsNs(fixedCt, kp.private) }
 
                 var fi = 0
                 var ri = 0
 
                 repeat(ITERATIONS) { idx ->
                     val ct = server.encapsulate(kp.public).kemCiphertext
+                    val privateKey = KemPrivateKey(kp.private.bytes.clone())
+
                     if (schedule[idx]) {
-                        fixedTimings[fi] = client.timeDecapsNs(fixedCt)
+                        fixedTimings[fi] = client.timeDecapsNs(fixedCt, privateKey)
                         fi++
                     } else {
-                        randomTimings[ri] = client.timeDecapsNs(ct)
+                        randomTimings[ri] = client.timeDecapsNs(ct, privateKey)
                         ri++
                     }
                 }
@@ -127,7 +130,7 @@ class LibOqsTvlaKemTest {
 
                 // Warm-up: decaps on the fixed ciphertext
                 Thread.sleep(100)
-                repeat(WARMUP) { client.timeDecapsNs(fixedCt) }
+                repeat(WARMUP) { client.timeDecapsNs(fixedCt, kp.private) }
 
                 var fi = 0
                 var ri = 0
@@ -135,12 +138,13 @@ class LibOqsTvlaKemTest {
                 repeat(ITERATIONS) { idx ->
                     val valid = server.encapsulate(kp.public).kemCiphertext
                     val invalid = KemCiphertext(makeInvalidCtByBitFlip(random, valid.bytes))
+                    val privateKey = KemPrivateKey(kp.private.bytes.clone())
 
                     if (schedule[idx]) {
-                        fixedTimings[fi] = client.timeDecapsNs(valid)
+                        fixedTimings[fi] = client.timeDecapsNs(valid, privateKey)
                         fi++
                     } else {
-                        randomTimings[ri] = client.timeDecapsNs(invalid)
+                        randomTimings[ri] = client.timeDecapsNs(invalid, privateKey)
                         ri++
                     }
                 }

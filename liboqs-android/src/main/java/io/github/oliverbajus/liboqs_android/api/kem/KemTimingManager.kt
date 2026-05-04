@@ -1,6 +1,7 @@
 package io.github.oliverbajus.liboqs_android.api.kem
 
 import io.github.oliverbajus.liboqs_android.api.kem.model.KemCiphertext
+import io.github.oliverbajus.liboqs_android.api.kem.model.KemPrivateKey
 import io.github.oliverbajus.liboqs_android.api.kem.model.KemPublicKey
 
 /**
@@ -24,7 +25,7 @@ interface KemTimingManager : KemManager {
     /**
      * Encapsulates a shared secret and returns the elapsed time in nanoseconds.
      *
-     * @param publicKey the recipient's public key
+     * @param publicKey the recipient's public key !! NOTE: send copy of the key bytes
      * @return elapsed time of encapsulation in nanoseconds
      * @throws RuntimeException if native timing fails or the key length is invalid
      */
@@ -33,11 +34,10 @@ interface KemTimingManager : KemManager {
     /**
      * Decapsulates a ciphertext and returns the elapsed time in nanoseconds.
      *
-     * A key pair must have been generated before calling this method.
-     *
      * @param ciphertext the ciphertext to decapsulate
+     * @param privateKey the privateKey !! NOTE: send copy of the key bytes
      * @return elapsed time of decapsulation in nanoseconds
      * @throws RuntimeException if native timing fails or lengths are invalid
      */
-    fun timeDecapsNs(ciphertext: KemCiphertext): Long
+    fun timeDecapsNs(ciphertext: KemCiphertext, privateKey: KemPrivateKey): Long
 }

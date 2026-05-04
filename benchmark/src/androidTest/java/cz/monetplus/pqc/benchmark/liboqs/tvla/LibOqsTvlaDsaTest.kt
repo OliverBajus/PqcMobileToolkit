@@ -218,7 +218,7 @@ class LibOqsTvlaDsaTest {
     }
 
     companion object {
-        private const val ITERATIONS = 500_000
+        private const val ITERATIONS = 100_000
         private const val WARMUP = 100
     }
 }

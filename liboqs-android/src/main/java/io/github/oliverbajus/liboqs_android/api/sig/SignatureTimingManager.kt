@@ -1,5 +1,6 @@
 package io.github.oliverbajus.liboqs_android.api.sig
 
+import io.github.oliverbajus.liboqs_android.api.sig.model.SigPrivateKey
 import io.github.oliverbajus.liboqs_android.api.sig.model.SigPublicKey
 
 /**
@@ -24,17 +25,18 @@ interface SignatureTimingManager : SignatureManager {
      * Signs a message and returns the elapsed time in nanoseconds.
      *
      * @param message the raw message bytes to sign
+     * @param privateKey the private key to sign with. !! NOTE: send copy of the key bytes
      * @return elapsed time of signing in nanoseconds
-     * @throws RuntimeException if native timing fails or no secret key is available
+     * @throws RuntimeException if native timing fails
      */
-    fun timeSignNs(message: ByteArray): Long
+    fun timeSignNs(message: ByteArray, privateKey: SigPrivateKey): Long
 
     /**
      * Verifies a signature and returns the elapsed time in nanoseconds.
      *
      * @param message   the original message bytes
      * @param signature the signature bytes to verify
-     * @param publicKey the signer's public key
+     * @param publicKey the signer's public key !! NOTE: send copy of the key bytes
      * @return elapsed time of verification in nanoseconds
      * @throws RuntimeException if native timing fails or key lengths are invalid
      */

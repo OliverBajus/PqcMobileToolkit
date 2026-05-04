@@ -29,6 +29,8 @@ class Signature implements SignatureManager, SignatureTimingManager {
     private final byte[] publicKey;
     private final byte[] secretKey;
 
+    private byte[] _signatureBuf;
+
 
     /**
      * Private object that has the signature details.
@@ -148,17 +150,19 @@ class Signature implements SignatureManager, SignatureTimingManager {
     }
 
     @Override
-    public long timeSignNs(@NonNull byte[] message) {
+    public long timeSignNs(@NonNull byte[] message, @NonNull SigPrivateKey sk) {
         if (_algDetails == null) _algDetails = get_sig_details();
 
-        if (this.secretKey == null || this.secretKey.length != _algDetails.length_secret_key) {
-            throw new RuntimeException("Incorrect secret key length, " +
-                    "make sure you specify one in the constructor or run generate_keypair()");
+        if (sk.getBytes().length != _algDetails.length_secret_key) {
+            throw new RuntimeException("Invalid secret key length");
         }
 
-        byte[] signatureBuf = new byte[(int) _algDetails.max_length_signature];
+        // allocate buffer if needed, reuse if it exists
+        if (_signatureBuf == null) {
+            _signatureBuf = new byte[(int) _algDetails.max_length_signature];
+        }
 
-        long t = sign_with_timing_native(signatureBuf, message, this.secretKey);
+        long t = sign_with_timing_native(_signatureBuf, message, sk.getBytes());
         if (t < 0) throw new RuntimeException("Native sign timing failed");
         return t;
     }
