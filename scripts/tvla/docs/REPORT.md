@@ -23,25 +23,70 @@ The following plots show the software-level timing leakage assessment for the na
 
 The KEM decapsulation tests evaluate potential leakage dependent on the input ciphertext (valid vs. invalid, or fixed vs. random).
 
-![liboqs ML-KEM Decapsulation](plots/)
-*Figure S1: Ciphertext-dependent TVLA for ML-KEM-768 decapsulation utilizing `liboqs`.*
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_ML-KEM-768_ciphertext_fixed_vs_random_TVLA_plot.png" /><br><em>Figure S1a: Fixed-vs-random ciphertext TVLA for ML-KEM-768 decapsulation utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_ML-KEM-768_ciphertext_valid_vs_invalid_TVLA_plot.png" /><br><em>Figure S1b: Valid-vs-invalid ciphertext TVLA for ML-KEM-768 decapsulation utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
 
-![liboqs FrodoKEM Decapsulation](plots/)
-*Figure S2: Ciphertext-dependent TVLA for FrodoKEM-976 decapsulation utilizing `liboqs`.*
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_FrodoKEM-976-SHAKE_ciphertext_fixed_vs_random_TVLA_plot.png" /><br><em>Figure S2a: Fixed-vs-random ciphertext TVLA for FrodoKEM-976-SHAKE decapsulation utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_FrodoKEM-976-SHAKE_ciphertext_valid_vs_invalid_TVLA_plot.png" /><br><em>Figure S2b: Valid-vs-invalid ciphertext TVLA for FrodoKEM-976-SHAKE decapsulation utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
 
-*(Add additional KEM plots for liboqs here...)*
+![liboqs HQC-192 Decapsulation](plots/LibOQS_HQC-192_ciphertext_fixed_vs_random_TVLA_plot.png)
+*Figure S3: Fixed-vs-random ciphertext TVLA for HQC-192 decapsulation utilizing `liboqs`.*
+
+---
 
 ### 1.2 Digital Signature Algorithms (DSAs)
 
 The DSA signing tests evaluate potential leakage dependent on the message being signed or the secret key being used.
 
-![liboqs ML-DSA Signing](plots/)
-*Figure S3: Message/Key-dependent TVLA for ML-DSA-65 signing utilizing `liboqs`.*
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_ML-DSA-65_key_TVLA_plot.png" /><br><em>Figure S4a: Key-dependent TVLA for ML-DSA-65 signing utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_ML-DSA-65_message_TVLA_plot.png" /><br><em>Figure S4b: Message-dependent TVLA for ML-DSA-65 signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
 
-![liboqs Falcon Signing](plots/)
-*Figure S4: Key-dependent TVLA for Falcon-1024 signing utilizing `liboqs`. No sustained leakage is detected, though theoretical floating-point leakages may fall below the Android software noise floor.*
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_Falcon-1024_key_TVLA_plot_final.png" /><br><em>Figure S5a: Key-dependent TVLA for Falcon-1024 signing utilizing <code>liboqs</code>. No sustained leakage is detected, though theoretical floating-point leakages may fall below the Android software noise floor.</em></td>
+<td align="center"><img src="plots/LibOQS_Falcon-1024_message_TVLA_plot.png" /><br><em>Figure S5b: Message-dependent TVLA for Falcon-1024 signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
 
-*(Add additional DSA plots for liboqs here, such as CROSS, MAYO, OV-III, SLH-DSA...)*
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_MAYO-3_key_TVLA_plot.png" /><br><em>Figure S6a: Key-dependent TVLA for MAYO-3 signing utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_MAYO-3_message_TVLA_plot.png" /><br><em>Figure S6b: Message-dependent TVLA for MAYO-3 signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_OV-III_key_TVLA_plot_final_50k.png" /><br><em>Figure S7a: Key-dependent TVLA for OV-III signing utilizing <code>liboqs</code> (50k traces).</em></td>
+<td align="center"><img src="plots/LibOQS_OV-III_message_TVLA_plot.png" /><br><em>Figure S7b: Message-dependent TVLA for OV-III signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_SLH-DSA-PURE-SHA2-192F_key_TVLA_plot.png" /><br><em>Figure S8a: Key-dependent TVLA for SLH-DSA-SHA2-192F signing utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_SLH-DSA-PURE-SHA2-192F_message_TVLA_plot.png" /><br><em>Figure S8b: Message-dependent TVLA for SLH-DSA-SHA2-192F signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><img src="plots/LibOQS_cross-rsdpg-192-fast_key_TVLA_plot.png" /><br><em>Figure S9a: Key-dependent TVLA for CROSS-RSDPG-192-fast signing utilizing <code>liboqs</code>.</em></td>
+<td align="center"><img src="plots/LibOQS_cross-rsdpg-192-fast_message_TVLA_plot.png" /><br><em>Figure S9b: Message-dependent TVLA for CROSS-RSDPG-192-fast signing utilizing <code>liboqs</code>.</em></td>
+</tr>
+</table>
 
 ---
 
@@ -51,20 +96,55 @@ The following plots show the software-level timing leakage assessment for the pu
 
 ### 2.1 Key Encapsulation Mechanisms (KEMs)
 
-![Bouncy Castle ML-KEM Decapsulation](plots/BouncyCML)
-*Figure S5: Ciphertext-dependent TVLA for ML-KEM-768 decapsulation utilizing `Bouncy Castle`.*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_ML-KEM-768_ciphertext_fixed_vs_random_TVLA_plot.png" /><br><em>Figure S10a: Fixed-vs-random ciphertext TVLA for ML-KEM-768 decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_ML-KEM-768_ciphertext_valid_vs_invalid_TVLA_plot.png" /><br><em>Figure S10b: Valid-vs-invalid ciphertext TVLA for ML-KEM-768 decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
 
-![Bouncy Castle HQC Decapsulation](path/to/bc_hqc_kem.png)
-*Figure S6: Ciphertext-dependent TVLA for HQC-192 decapsulation utilizing `Bouncy Castle`.*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_frodokem976shake_ciphertext_fixed_vs_random_TVLA_plot.png" /><br><em>Figure S11a: Fixed-vs-random ciphertext TVLA for FrodoKEM-976-SHAKE decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_frodokem976shake_ciphertext_valid_vs_invalid_TVLA_plot.png" /><br><em>Figure S11b: Valid-vs-invalid ciphertext TVLA for FrodoKEM-976-SHAKE decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
 
-*(Add additional KEM plots for Bouncy Castle here...)*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_hqc-192_ciphertext_fixed_vs_random_TVLA_plot.png" /><br><em>Figure S12a: Fixed-vs-random ciphertext TVLA for HQC-192 decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_hqc-192_ciphertext_valid_vs_invalid_TVLA_plot.png" /><br><em>Figure S12b: Valid-vs-invalid ciphertext TVLA for HQC-192 decapsulation utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
+
+---
 
 ### 2.2 Digital Signature Algorithms (DSAs)
 
-![Bouncy Castle ML-DSA Signing](path/to/bc_mldsa_dsa.png)
-*Figure S7: Message/Key-dependent TVLA for ML-DSA-65 signing utilizing `Bouncy Castle`.*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_ml-dsa-65_key_TVLA_plot.png" /><br><em>Figure S13a: Key-dependent TVLA for ML-DSA-65 signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_ml-dsa-65_message_TVLA_plot.png" /><br><em>Figure S13b: Message-dependent TVLA for ML-DSA-65 signing utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
 
-![Bouncy Castle SLH-DSA Signing](path/to/bc_slhdsa_dsa.png)
-*Figure S8: Message-dependent TVLA for SLH-DSA signing utilizing `Bouncy Castle`.*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_falcon-512_key_TVLA_plot.png" /><br><em>Figure S14a: Key-dependent TVLA for Falcon-512 signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_falcon-512_message_TVLA_plot.png" /><br><em>Figure S14b: Message-dependent TVLA for Falcon-512 signing utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
 
-*(Add additional DSA plots for Bouncy Castle here...)*
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_MAYO-3_key_TVLA_plot.png" /><br><em>Figure S15a: Key-dependent TVLA for MAYO-3 signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_MAYO-3_message_TVLA_plot.png" /><br><em>Figure S15b: Message-dependent TVLA for MAYO-3 signing utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td align="center"><img src="plots/BouncyCastle_sha2-192f_key_TVLA_plot.png" /><br><em>Figure S16a: Key-dependent TVLA for SLH-DSA-SHA2-192F signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_sha2-192f_message_TVLA_plot.png" /><br><em>Figure S16b: Message-dependent TVLA for SLH-DSA-SHA2-192F signing utilizing <code>Bouncy Castle</code>.</em></td>
+</tr>
+</table>
