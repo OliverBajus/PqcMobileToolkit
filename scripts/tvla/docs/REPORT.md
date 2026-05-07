@@ -55,7 +55,7 @@ The DSA signing tests evaluate potential leakage dependent on the message being 
 
 <table>
 <tr>
-<td align="center"><img src="plots/LibOQS_Falcon-1024_key_TVLA_plot_final.png" /><br><em>Figure S5a: Key-dependent TVLA for Falcon-1024 signing utilizing <code>liboqs</code>. No sustained leakage is detected, though theoretical floating-point leakages may fall below the Android software noise floor.</em></td>
+<td align="center"><img src="plots/LibOQS_Falcon-1024_key_TVLA_plot_final.png" /><br><em>Figure S5a: Key-dependent TVLA for Falcon-1024 signing utilizing <code>liboqs</code>.</em></td>
 <td align="center"><img src="plots/LibOQS_Falcon-1024_message_TVLA_plot.png" /><br><em>Figure S5b: Message-dependent TVLA for Falcon-1024 signing utilizing <code>liboqs</code>.</em></td>
 </tr>
 </table>
@@ -69,7 +69,7 @@ The DSA signing tests evaluate potential leakage dependent on the message being 
 
 <table>
 <tr>
-<td align="center"><img src="plots/LibOQS_OV-III_key_TVLA_plot_final_50k.png" /><br><em>Figure S7a: Key-dependent TVLA for OV-III signing utilizing <code>liboqs</code> (50k traces).</em></td>
+<td align="center"><img src="plots/LibOQS_OV-III_key_TVLA_plot_final_50k.png" /><br><em>Figure S7a: Key-dependent TVLA for OV-III signing utilizing <code>liboqs</code>.</em></td>
 <td align="center"><img src="plots/LibOQS_OV-III_message_TVLA_plot.png" /><br><em>Figure S7b: Message-dependent TVLA for OV-III signing utilizing <code>liboqs</code>.</em></td>
 </tr>
 </table>
