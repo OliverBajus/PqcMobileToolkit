@@ -143,19 +143,6 @@ The library follows a layered design:
   <img src="class-diagram.png" alt="liboqs-android class diagram" width="100%" />
 </p>
 
-<details>
-<summary>Regenerating the diagram</summary>
-
-The PlantUML source is stored in [`class-diagram.puml`](class-diagram.puml).
-After editing it, regenerate the images with:
-
-```bash
-java -jar plantuml.jar -tpng docs/class-diagram.puml
-java -jar plantuml.jar -tsvg docs/class-diagram.puml
-```
-
-</details>
-
 ## Package structure
 
 ```

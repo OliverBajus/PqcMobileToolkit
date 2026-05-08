@@ -20,7 +20,7 @@ interface KemManager {
 interface KemTimingManager {
   +timeKeygenNs() : Long
   +timeEncapsNs(pk: KemPublicKey) : Long
-  +timeDecapsNs(ct: KemCiphertext) : Long
+  +timeDecapsNs(ct: KemCiphertext, sk: KemPrivateKey) : Long
 }
 
 interface SignatureManager {
@@ -32,7 +32,7 @@ interface SignatureManager {
 
 interface SignatureTimingManager {
   +timeKeygenNs() : Long
-  +timeSignNs(msg: ByteArray) : Long
+  +timeSignNs(msg: ByteArray, sk: SigPrivateKey) : Long
   +timeVerifyNs(msg: ByteArray, sig: ByteArray, pk: SigPublicKey) : Long
 }
 
@@ -89,4 +89,3 @@ Signature --> LiboqsJNI : delegates
 KEMs --> LiboqsJNI : delegates
 Sigs --> LiboqsJNI : delegates
 @enduml
-
