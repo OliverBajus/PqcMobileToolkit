@@ -59,7 +59,9 @@ android {
 
 dependencies {
     implementation(libs.bcpkix.jdk18on)
-    implementation(project(":liboqs-android"))
+
+    // liboqs-android from maven central
+    implementation(libs.liboqs.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
