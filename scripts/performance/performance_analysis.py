@@ -66,7 +66,7 @@ def _ensure_cols(df: pd.DataFrame) -> pd.DataFrame:
 def _detect_mean_col(df: pd.DataFrame) -> Tuple[str, str]:
     unit_candidates = [
         ("ns", ["mean_ns", "meanns", "avg_ns", "avgns", "time_ns", "timens", "meanTimeNs", "meantimens"]),
-        ("us", ["mean_us", "meanus", "avg_us", "avgus", "time_us", "timeus", "meanTimeUs", "meantimeus"]),
+        ("us", ["median_us", "meanus", "avg_us", "avgus", "time_us", "timeus", "meanTimeUs", "meantimeus"]),
         ("ms", ["mean_ms", "meanms", "avg_ms", "avgms", "time_ms", "timems", "meanTimeMs", "meantimems"]),
         ("s",  ["mean_s", "means", "avg_s", "avgs", "time_s", "times", "meanTimeS", "meantimes"]),
     ]
@@ -189,7 +189,7 @@ def save_heatmap(pivot: pd.DataFrame, title: str, outpath: Path):
                 patheffects.withStroke(linewidth=3, foreground="white")
             ])
 
-    plt.colorbar(im, ax=ax, label="Mean time (µs) — log scale", shrink=0.8)
+    plt.colorbar(im, ax=ax, label="Median time (µs) — log scale", shrink=0.8)
     ax.set_title(title, fontsize=12, fontweight="bold")
     ax.set_xlabel("Operation")
     ax.set_ylabel("Algorithm", fontweight="bold")
@@ -219,7 +219,7 @@ def save_speedup_chart(df: pd.DataFrame, platform: str, primitive: str,
 
     # Pivot to get both libraries side by side
     piv = sub.pivot_table(index=["algorithm", "operation"],
-                          columns="library", values="mean_us", aggfunc="mean")
+                          columns="library", values="median_us", aggfunc="median")
     piv = piv.dropna()
     if lib_a not in piv.columns or lib_b not in piv.columns:
         return
@@ -317,21 +317,21 @@ def save_horizontal_log(df: pd.DataFrame, platform: str, library: str,
         axes = [axes]
 
     for ax_idx, op in enumerate(ops_present):
-        subset = sub[sub["operation"] == op].sort_values("mean_us")
+        subset = sub[sub["operation"] == op].sort_values("median_us")
         ax = axes[ax_idx]
-        bars = ax.barh(subset["algorithm"], subset["mean_us"],
+        bars = ax.barh(subset["algorithm"], subset["median_us"],
                        color=OP_COLORS.get(op, "#2196F3"), edgecolor="white")
         ax.set_xscale("log")
         ax.set_title(op.capitalize(), fontsize=12, fontweight="bold")
-        ax.set_xlabel("Mean time (µs) — log scale")
+        ax.set_xlabel("Median time (µs) — log scale")
 
-        for bar, val in zip(bars, subset["mean_us"]):
+        for bar, val in zip(bars, subset["median_us"]):
             ax.text(bar.get_width() * 1.15, bar.get_y() + bar.get_height() / 2,
                     _human_time(val), va="center", fontsize=7)
 
         # Extend x range for labels
-        ax.set_xlim(left=max(1, subset["mean_us"].min() * 0.5),
-                    right=subset["mean_us"].max() * 5)
+        ax.set_xlim(left=max(1, subset["median_us"].min() * 0.5),
+                    right=subset["median_us"].max() * 5)
 
     axes[0].set_ylabel("Algorithm", fontweight="bold")
     fig.suptitle(f"{platform.upper()} — {library} {primitive.upper()} (log scale)",
@@ -377,14 +377,14 @@ def save_normalized_chart(df: pd.DataFrame, platform: str, library: str,
     baseline_name = baseline_algo.split("\n")[0]
 
     for ax_idx, op in enumerate(ops_present):
-        subset = sub[sub["operation"] == op].sort_values("mean_us")
+        subset = sub[sub["operation"] == op].sort_values("median_us")
         ax = axes[ax_idx]
 
         # Get baseline value
         baseline_row = subset[subset["algorithm"] == baseline_algo]
-        baseline_val = baseline_row["mean_us"].values[0] if len(baseline_row) > 0 else 1.0
+        baseline_val = baseline_row["median_us"].values[0] if len(baseline_row) > 0 else 1.0
 
-        normalized = subset["mean_us"].values / baseline_val
+        normalized = subset["median_us"].values / baseline_val
         colors = ["#4CAF50" if v < 5 else "#FF9800" if v < 50 else "#F44336" for v in normalized]
 
         bars = ax.barh(subset["algorithm"], normalized, color=colors, edgecolor="white")
@@ -394,7 +394,7 @@ def save_normalized_chart(df: pd.DataFrame, platform: str, library: str,
         ax.axvline(x=1, color="black", linestyle=":", linewidth=1.5, alpha=0.9)
 
         max_norm = max(normalized)
-        for bar, val, norm in zip(bars, subset["mean_us"], normalized):
+        for bar, val, norm in zip(bars, subset["median_us"], normalized):
             label = f"{_human_time(val)} ({norm:.1f}×)" if norm < 10 else f"{_human_time(val)} ({norm:.0f}×)"
             # Place label inside bar for the longest bars to avoid overflow
             if norm > max_norm * 0.4:
@@ -445,10 +445,10 @@ def save_doublebar_per_algorithm(df, platform, primitive, lib_a, lib_b, outdir):
 
     for alg, g in sub.groupby("algorithm"):
         fig, ax = plt.subplots(figsize=(7, 4))
-        sns.barplot(data=g, x="operation", y="mean_us", hue="library",
+        sns.barplot(data=g, x="operation", y="median_us", hue="library",
                     order=ops_present, hue_order=[lib_a, lib_b], ax=ax)
         ax.set_title(f"{platform.upper()} – {primitive.upper()} – {alg}: {lib_a} vs {lib_b}")
-        ax.set_ylabel("Mean time (µs)")
+        ax.set_ylabel("Median time (µs)")
         ax.set_xlabel("")
         ax.grid(True, axis="y", alpha=0.3)
         sns.despine(ax=ax)
@@ -496,9 +496,9 @@ def main():
         df = _ensure_cols(df)
         mean_col, unit = _detect_mean_col(df)
         df = _clean_strings(df)
-        df["mean_us"] = _to_us(df[mean_col], unit=unit, assume_unit=args.assume_unit)
-        df = df.dropna(subset=["mean_us", "algorithm", "operation", "library", "platform", "primitive"])
-        frames.append(df[["platform", "library", "primitive", "algorithm", "operation", "mean_us"]])
+        df["median_us"] = _to_us(df[mean_col], unit=unit, assume_unit=args.assume_unit)
+        df = df.dropna(subset=["median_us", "algorithm", "operation", "library", "platform", "primitive"])
+        frames.append(df[["platform", "library", "primitive", "algorithm", "operation", "median_us"]])
 
     all_df = pd.concat(frames, ignore_index=True)
 
@@ -511,10 +511,12 @@ def main():
     if args.heatmaps:
         for (platform, library, primitive), g in all_df.groupby(["platform", "library", "primitive"]):
             pivot = g.pivot_table(index="algorithm", columns="operation",
-                                  values="mean_us", aggfunc="mean")
+                                  values="median_us", aggfunc="median")
             # Sort: fastest algorithms first
-            pivot["_sort"] = pivot.mean(axis=1)
+            pivot["_sort"] = pivot.median(axis=1)
             pivot = pivot.sort_values("_sort").drop(columns="_sort")
+            ops_order = KEM_OPS if primitive == "kem" else DSA_OPS
+            pivot = pivot[[c for c in ops_order if c in pivot.columns] + [c for c in pivot.columns if c not in ops_order]]
 
             title = f"{platform.upper()} — {library} — {primitive.upper()}"
             filename = f"heatmap_{platform}_{library}_{primitive}.png"
@@ -531,9 +533,11 @@ def main():
             if chapter_df.empty:
                 continue
             pivot = chapter_df.pivot_table(index="algorithm", columns="operation",
-                                           values="mean_us", aggfunc="mean")
-            pivot["_sort"] = pivot.mean(axis=1)
+                                           values="median_us", aggfunc="median")
+            pivot["_sort"] = pivot.median(axis=1)
             pivot = pivot.sort_values("_sort").drop(columns="_sort")
+            ops_order = KEM_OPS if primitive == "kem" else DSA_OPS
+            pivot = pivot[[c for c in ops_order if c in pivot.columns] + [c for c in pivot.columns if c not in ops_order]]
 
             title = f"{platform.upper()} — {library} — {primitive.upper()} — Selected"
             filename = f"heatmap_{platform}_{library}_{primitive}_selected.png"
@@ -566,7 +570,7 @@ def main():
                         level_df, platform, prim, lib_a, lib_b,
                         outdir / "speedup" / f"speedup_{platform}_{prim}_{lib_a}_vs_{lib_b}_{level_tag}.png",
                         title_suffix=level,
-                    )
+                        )
 
     # ---- Horizontal log-scale overviews ----
     if args.horizontal:
@@ -600,7 +604,7 @@ def main():
                 )
 
     # Save merged data
-    all_df.to_csv(outdir / "merged_normalized_means_us.csv", index=False)
+    all_df.to_csv(outdir / "merged_normalized_medians_us.csv", index=False)
     print(f"\nDone. All plots in: {outdir}")
 
 
