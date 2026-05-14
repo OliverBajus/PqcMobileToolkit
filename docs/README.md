@@ -7,6 +7,9 @@ researchers undertaking PQC migration on Android.
 
 > ⚠️ **Note:** This toolkit is intended for **research and prototyping purposes only**. It is not recommended for use in production systems.
 
+> **Note:** iOS artifacts (Swift wrapper, build scripts, prototype application)
+> are maintained in a separate repository: [OliverBajus/iOSPqcDemoApp](https://github.com/OliverBajus/iOSPqcDemoApp).
+
 ## Main Component: `liboqs-android`
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.oliverbajus/liboqs-android)](https://central.sonatype.com/artifact/io.github.oliverbajus/liboqs-android)
@@ -45,9 +48,6 @@ The toolkit also integrates the following components:
   t-test analysis scripts.
 - **Prototype application** -- Android application (Kotlin/Compose)
   demonstrating end-to-end PQC integration with both liboqs and Bouncy Castle.
-
-> **Note:** iOS artifacts (Swift wrapper, build scripts, prototype application)
-> are maintained in a separate repository.
 
 ## Project structure
 

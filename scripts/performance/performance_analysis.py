@@ -191,7 +191,7 @@ def save_heatmap(pivot: pd.DataFrame, title: str, outpath: Path):
 
     plt.colorbar(im, ax=ax, label="Median time (µs) — log scale", shrink=0.8)
     ax.set_title(title, fontsize=12, fontweight="bold")
-    ax.set_xlabel("Operation")
+    ax.set_xlabel("Operation", fontweight="bold")
     ax.set_ylabel("Algorithm", fontweight="bold")
 
     plt.tight_layout()
