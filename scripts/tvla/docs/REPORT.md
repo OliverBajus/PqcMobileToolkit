@@ -130,8 +130,8 @@ The following plots show the software-level timing leakage assessment for the pu
 
 <table>
 <tr>
-<td align="center"><img src="plots/BouncyCastle_falcon-512_key_TVLA_plot.png" /><br><em>Figure S14a: Key-dependent TVLA for Falcon-512 signing utilizing <code>Bouncy Castle</code>.</em></td>
-<td align="center"><img src="plots/BouncyCastle_falcon-512_message_TVLA_plot.png" /><br><em>Figure S14b: Message-dependent TVLA for Falcon-512 signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_falcon-1024_key_TVLA_plot.png" /><br><em>Figure S14a: Key-dependent TVLA for Falcon-1024 signing utilizing <code>Bouncy Castle</code>.</em></td>
+<td align="center"><img src="plots/BouncyCastle_falcon-1024_message_TVLA_plot.png" /><br><em>Figure S14b: Message-dependent TVLA for Falcon-1024 signing utilizing <code>Bouncy Castle</code>.</em></td>
 </tr>
 </table>
 
