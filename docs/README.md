@@ -62,9 +62,13 @@ PqcMobileToolkit/
 │   ├── compilation/             # liboqs NDK cross-compilation scripts
 │   │   └── docs/README.md
 │   ├── performance/             # Performance analysis Python scripts
-│   │   └── docs/README.md
+│   │   └── docs/
+│   │       ├── README.md
+│   │       └── REPORT.md        # Performance analysis results & findings
 │   └── tvla/                    # TVLA analysis Python scripts
-│       └── docs/README.md
+│       └── docs/
+│           ├── README.md
+│           └── REPORT.md        # TVLA leakage assessment results & findings
 ├── docs/                        # This directory (project-level docs)
 │   └── README.md
 ├── build.gradle.kts

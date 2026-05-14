@@ -89,3 +89,7 @@ outputs/
 - **Horizontal**: Log-scale horizontal bars for single-library overview, one subplot per operation
 - **Normalized**: Performance relative to a baseline algorithm (color-coded: green <5x, orange 5-50x, red >50x)
 - **Per-algorithm**: Side-by-side bar comparison of two libraries for each algorithm
+
+## Analysis Report
+
+Results, findings, and chart commentary from running this script on the thesis benchmark data are documented in [REPORT.md](REPORT.md).

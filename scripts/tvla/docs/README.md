@@ -125,3 +125,7 @@ PASS (9)
 ### Plots
 
 Each plot shows |t|-value over increasing number of traces with threshold line. If the curve crosses the threshold, timing leakage is detected.
+
+## Analysis Report
+
+Results, findings, and leakage assessment commentary from running this script on the thesis TVLA data are documented in [REPORT.md](REPORT.md).
