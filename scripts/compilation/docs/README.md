@@ -22,7 +22,7 @@ Edit the variables at the top of `compile_liboqs_android.sh`:
 |---|-----------------------------------------------|----------------------------------------------------------------|
 | `USE_OPENSSL` | `false`                                       | Set to `true` to compile liboqs with OpenSSL                   |
 | `OPENSSL_VERSION` | `3.5.5`                                       | OpenSSL version to download (ignored when `USE_OPENSSL=false`) |
-| `LIBOQS_VERSION` | `0.15.0`                                      | liboqs git tag to clone from GitHub                            |
+| `LIBOQS_VERSION` | `0.16.0`                                      | liboqs git tag to clone from GitHub                            |
 | `ANDROID_API` | `21`                                          | Minimum Android API level                                      |
 | `ABIS` | `arm64-v8a, x86_64, armeabi-v7a`              | Target architectures to build                                  |
 | `ANDROID_NDK` | `$HOME/Library/Android/sdk/ndk/28.0.13004108` | Path to NDK (override via env variable)                        |

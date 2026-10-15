@@ -6,7 +6,7 @@ set -euo pipefail
 # =========================
 USE_OPENSSL=false            # Set to true to compile with OpenSSL
 OPENSSL_VERSION="3.5.5"
-LIBOQS_VERSION="0.15.0"    # liboqs release tag (e.g. "0.15.0", "main" for latest)
+LIBOQS_VERSION="0.16.0"    # liboqs release tag (e.g. "0.16.0", "main" for latest)
 ANDROID_API=21
 
 # Build for device + emulator

@@ -4,7 +4,7 @@
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/OliverBajus/8df5727e960d985d6ac8b5351057b923/raw/coverage.json)](https://github.com/OliverBajus/PqcDemoApp/actions/workflows/liboqs-android-ci.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.oliverbajus/liboqs-android)](https://central.sonatype.com/artifact/io.github.oliverbajus/liboqs-android)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![liboqs](https://img.shields.io/badge/liboqs-0.15.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.15.0)
+[![liboqs](https://img.shields.io/badge/liboqs-0.16.0-blue)](https://github.com/open-quantum-safe/liboqs/releases/tag/0.16.0)
 [![Min SDK](https://img.shields.io/badge/minSdk-26-brightgreen)](https://developer.android.com/about/versions/oreo)
 [![Compile SDK](https://img.shields.io/badge/compileSdk-36-brightgreen)](https://developer.android.com/about/versions/16)
 
@@ -27,8 +27,8 @@ Gradle dependency.
 | Algorithm | Variants | NIST Level |
 |---|---|---|
 | **ML-KEM** (CRYSTALS-Kyber) | ML-KEM-768, ML-KEM-1024 | 3, 5 |
-| **HQC** | HQC-192, HQC-256 | 3, 5 |
-| **FrodoKEM** | FrodoKEM-976-AES, FrodoKEM-1344-AES, FrodoKEM-976-SHAKE, FrodoKEM-1344-SHAKE | 3, 5 |
+| **HQC** | HQC-3, HQC-5 | 3, 5 |
+| **eFrodoKEM** (ephemeral FrodoKEM) | eFrodoKEM-976-AES, eFrodoKEM-1344-AES, eFrodoKEM-976-SHAKE, eFrodoKEM-1344-SHAKE | 3, 5 |
 
 ### Signature algorithms
 
@@ -48,12 +48,12 @@ Gradle dependency.
 
 **Kotlin DSL** (`build.gradle.kts`):
 ```kotlin
-implementation("io.github.oliverbajus:liboqs-android:0.1.0")
+implementation("io.github.oliverbajus:liboqs-android:0.2.0")
 ```
 
 **Groovy DSL** (`build.gradle`):
 ```groovy
-implementation 'io.github.oliverbajus:liboqs-android:0.1.0'
+implementation 'io.github.oliverbajus:liboqs-android:0.2.0'
 ```
 
 ## Quick start

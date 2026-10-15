@@ -5,14 +5,15 @@ internal object PqcConstants {
         const val ALG_NAME_ML_KEM_3 = "ML-KEM-768"
         const val ALG_NAME_ML_KEM_5 = "ML-KEM-1024"
 
-        const val ALG_NAME_HQC_3 = "HQC-192"
-        const val ALG_NAME_HQC_5 = "HQC-256"
+        const val ALG_NAME_HQC_3 = "HQC-3"
+        const val ALG_NAME_HQC_5 = "HQC-5"
 
-        const val ALG_NAME_FRODO_AES_3 = "FrodoKEM-976-AES"
-        const val ALG_NAME_FRODO_AES_5 = "FrodoKEM-1344-AES"
+        // Ephemeral FrodoKEM (named "FrodoKEM-*" before liboqs 0.16.0)
+        const val ALG_NAME_FRODO_AES_3 = "eFrodoKEM-976-AES"
+        const val ALG_NAME_FRODO_AES_5 = "eFrodoKEM-1344-AES"
 
-        const val ALG_NAME_FRODO_SHAKE_3 = "FrodoKEM-976-SHAKE"
-        const val ALG_NAME_FRODO_SHAKE_5 = "FrodoKEM-1344-SHAKE"
+        const val ALG_NAME_FRODO_SHAKE_3 = "eFrodoKEM-976-SHAKE"
+        const val ALG_NAME_FRODO_SHAKE_5 = "eFrodoKEM-1344-SHAKE"
 
         // !BIG STACK USAGE!
 /*        const val ALG_NAME_MC_ELIECE_3 = "Classic-McEliece-460896"
